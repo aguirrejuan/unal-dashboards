@@ -113,15 +113,14 @@ const ev = $('evidencia');
 function mostrar(f) {
   const frag = FUENTES[f.documento_id + '|' + f.contenedor];
   const cab = `<div class="cabecera-ev">
-      <div><b>${enlaceDoc(f.ruta_archivo, f.documento)}</b><br>
+      <div><b>${enlaceDocId(f.documento_id, f.documento)}</b><br>
         <span class="cita">${esc(f.ubicacion)}</span></div>
       <div class="valor-grande">${fmt(f.valor)}</div>
     </div>`;
   if (!frag) {
     ev.innerHTML = cab + `<p class="nota aviso">Este documento es un escaneo: la evidencia
       es la página misma, que no tiene texto que reproducir aquí.
-      <a href="corpus/${esc(f.ruta_archivo||'').split('/').slice(1).join('/')}"
-         target="_blank" rel="noopener">Abrir el original ↗</a></p>`;
+      ${enlaceArchivo(f.ruta_archivo, 'Abrir el original')}</p>`;
     return;
   }
   ev.innerHTML = cab + `<div style="overflow:auto; max-height:520px">${frag}</div>`;
@@ -153,7 +152,7 @@ function pintar() {
     (!q || [f.medida,f.unidad,f.documento_id,f.ubicacion,f.literal]
             .join(' ').toLowerCase().includes(q)));
   tabla($('cifras'), [
-    {t:'Medida', r:f=>`<span title="${esc(explicaCiclo(f.ciclo_id))}">${esc(f.medida)}</span>`},
+    {t:'Medida', r:f=>conAyuda(explicaCiclo(f.ciclo_id), esc(f.medida))},
     {t:'Sede', k:'unidad'},
 
     {t:'Valor', r:f=>fmt(f.valor), num:true},
@@ -162,7 +161,8 @@ function pintar() {
        `<span class="cita id">${enlaceDocId(f.documento_id, nombreCorto(f.documento_id))}</span>
         ${FUENTES[f.documento_id + '|' + f.contenedor]
           ? '<span class="pill ok">tabla</span>'
-          : '<span class="pill pend" title="escaneo: la evidencia es la página">escaneo</span>'}
+          : '<span class="pill pend" data-ayuda="Este documento es un escaneo: no tiene '
+            +'capa de texto que reproducir, así que la evidencia es la página misma.">escaneo</span>'}
         <br><span class="cita">${esc(f.ubicacion)}</span>`},
   ], filas, {alSeleccionar: mostrar});
   const conTabla = filas.findIndex(f => FUENTES[f.documento_id + '|' + f.contenedor]);
@@ -182,7 +182,7 @@ const etiqueta = {PROCESADO:['ok','procesado'], SIN_CIFRAS:['pend','leído · si
                   PENDIENTE:['pend','pendiente'], PENDIENTE_VISION:['pend','requiere visión'],
                   AUSENTE:['alto','citado, no disponible']};
 tabla($('corpus'), [
-  {t:'Documento', r:d=>`<b>${enlaceDoc(d.ruta_archivo, d.titulo)}</b><br>
+  {t:'Documento', r:d=>`<b>${enlaceDocId(d.documento_id, d.titulo)}</b><br>
       <span class="cita">${esc(d.documento_id)}</span>`},
   {t:'Tipo', k:'tipo'},
   {t:'Emisor', k:'emisor'},

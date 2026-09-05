@@ -73,14 +73,19 @@ function tabla(el, cols, filas, opts = {}) {
 }
 
 
-/** A stored path (`extracted/PIC-Información/…`) becomes a link into the copy
-    of the corpus published beside the site. Documents that are only cited have
-    no file, so they get no link rather than a broken one. */
-function enlaceDoc(ruta, texto) {
+/** A stored path (`extracted/PIC-Información/…`) becomes a URL into the copy of
+    the corpus published beside the site. */
+function rutaCorpus(ruta) {
+  return 'corpus/' + String(ruta).split('/').slice(1).map(encodeURIComponent).join('/');
+}
+
+/** A link straight to the file. Use it only where the reader has asked for the
+    original: a browser downloads .docx, .xlsx and .doc rather than showing
+    them, so a bare link to one of those looks like a broken link. */
+function enlaceArchivo(ruta, texto) {
   if (!ruta) return esc(texto || '');
   const partes = String(ruta).split('/');
-  const destino = 'corpus/' + partes.slice(1).map(encodeURIComponent).join('/');
-  return `<a class="doc-enlace" href="${destino}" target="_blank" rel="noopener"
+  return `<a class="doc-enlace" href="${rutaCorpus(ruta)}" target="_blank" rel="noopener"
              title="${esc(ruta)}">${esc(texto || partes[partes.length - 1])}</a>`;
 }
 
@@ -89,11 +94,14 @@ const DOCS = {};
 if (window.CARGA && CARGA.datos && CARGA.datos.v_corpus) {
   CARGA.datos.v_corpus.forEach(d => { DOCS[d.documento_id] = d; });
 }
+/** Every citation points at the in-site viewer rather than at the file. The
+    viewer embeds a PDF and reproduces the tables of everything else, so a
+    citation always opens something readable instead of starting a download.
+    Documents that are only cited have no file but still have a page. */
 const enlaceDocId = (id, texto) => {
-  const d = DOCS[id];
-  return d && d.ruta_archivo
-    ? enlaceDoc(d.ruta_archivo, texto || id)
-    : `<span title="citado, no disponible">${esc(texto || id)}</span>`;
+  if (!DOCS[id]) return `<span title="citado, no disponible">${esc(texto || id)}</span>`;
+  return `<a class="doc-enlace" href="documento.html?d=${encodeURIComponent(id)}"
+             title="${esc(DOCS[id].titulo || id)}">${esc(texto || id)}</a>`;
 };
 
 /** A readable short name for a document id. Titles run to eighty characters and
@@ -154,9 +162,67 @@ function cifra({v, et, pie, filas = [], ayuda = '', clase = ''}) {
   const titulo = [ayuda, ...ciclos.map(explicaCiclo),
                   docs.length ? 'Documentos: ' + docs.map(nombreCorto).join(', ') : '']
     .filter(Boolean).join('\n\n');
-  return `<div class="kpi ${clase}"${titulo ? ` title="${esc(titulo)}"` : ''}>
-    <b>${v}</b><span class="et">${esc(et)}</span>
+  return `<div class="kpi ${clase}"${titulo
+      ? ` data-ayuda="${esc(titulo)}" tabindex="0"` : ''}>
+    <b>${v}</b><span class="et">${esc(et)}${titulo ? '<i class="signo">?</i>' : ''}</span>
     ${pie ? `<span class="pie">${pie}</span>` : ''}
     ${filas.length ? `<span class="fuente-kpi">${fuentesDe(filas)}</span>` : ''}
   </div>`;
 }
+
+/* ---------------------------------------------------------------- globos */
+/* The native `title` waits a second, renders as a grey OS strip, vanishes on
+   the smallest movement, and gives no sign it exists at all. On a page whose
+   whole argument is «hover anything and it explains itself», that is the same
+   as having no explanation. One floating element, shown at once, styled like
+   the rest of the site. */
+
+const GLOBO = document.createElement('div');
+GLOBO.className = 'globo';
+GLOBO.hidden = true;
+document.body.appendChild(GLOBO);
+
+let anclaGlobo = null;
+
+function colocarGlobo(el) {
+  const texto = el.getAttribute('data-ayuda');
+  if (!texto) return;
+  anclaGlobo = el;
+  GLOBO.innerHTML = texto.split('\n\n')
+    .map(p => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('');
+  GLOBO.hidden = false;
+
+  const r = el.getBoundingClientRect();
+  const g = GLOBO.getBoundingClientRect();
+  const margen = 10;
+  let x = r.left + r.width / 2 - g.width / 2;
+  x = Math.max(margen, Math.min(x, window.innerWidth - g.width - margen));
+  // Above the element when there is room, below when there is not.
+  const arriba = r.top > g.height + margen;
+  GLOBO.style.left = x + 'px';
+  GLOBO.style.top = (arriba ? r.top - g.height - 8 : r.bottom + 8) + 'px';
+  GLOBO.dataset.lado = arriba ? 'arriba' : 'abajo';
+}
+
+function ocultarGlobo() { GLOBO.hidden = true; anclaGlobo = null; }
+
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest('[data-ayuda]');
+  if (el === anclaGlobo) return;
+  if (el) colocarGlobo(el); else if (anclaGlobo) ocultarGlobo();
+});
+document.addEventListener('focusin', e => {
+  const el = e.target.closest('[data-ayuda]');
+  if (el) colocarGlobo(el);
+});
+document.addEventListener('focusout', ocultarGlobo);
+window.addEventListener('scroll', () => { if (anclaGlobo) colocarGlobo(anclaGlobo); },
+                        {passive: true});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') ocultarGlobo(); });
+
+/** Mark up anything that carries an explanation: attribute, cursor and a small
+    sign that there is something to hover over. */
+const conAyuda = (texto, html, etiqueta = '') => texto
+  ? `<span class="ayuda" data-ayuda="${esc(texto)}" tabindex="0">${html}${
+      etiqueta ? '<i class="signo">?</i>' : ''}</span>`
+  : html;

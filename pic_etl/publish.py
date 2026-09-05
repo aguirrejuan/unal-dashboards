@@ -91,7 +91,8 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         "window.FUENTES=" + json.dumps(fuentes, ensure_ascii=False) + ";",
         encoding="utf-8")
 
-    paginas = ("index.html", "proceso.html", "procedencia.html", "esquema.html")
+    paginas = ("index.html", "proceso.html", "procedencia.html", "esquema.html",
+               "documento.html")
     for pagina in paginas:
         (destino / pagina).write_text(_leer_plantilla(pagina), encoding="utf-8")
     (destino / "consulta.html").write_text(

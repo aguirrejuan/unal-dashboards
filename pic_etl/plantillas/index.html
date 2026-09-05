@@ -41,7 +41,7 @@
   lecturas se muestran las dos.</p>
   <div class="kpis" id="kpis"></div>
 
-  <h2>El embudo del PIC 2023</h2>
+  <h2>El embudo del PIC 2023 <i class="signo" data-ayuda="El ciclo PIC-CO 2023 se formuló en 2023 y matricula entre 2024-1 y 2025-1. Las cuatro cifras de este embudo pertenecen a esa ventana, no al año 2023." tabindex="0">?</i></h2>
   <p class="lede">Del compromiso a la matrícula. El último paso tiene dos valores porque los
   documentos cuentan poblaciones distintas: 1&nbsp;161 cubre los ocho proyectos aprobados,
   1&nbsp;043 el consolidado que incluye La&nbsp;Paz.</p>
@@ -49,22 +49,22 @@
 
   <div class="rejilla r2" style="margin-top:14px">
     <div class="panel">
-      <h2 style="margin-top:0">Compromiso de cupos por sede</h2>
+      <h2 style="margin-top:0">Compromiso de cupos por sede <i class="signo" data-ayuda="Cada barra es un ciclo, nombrado por su año de formulación. El PIC 2023 comprometió cupos plurianuales por sede; los ciclos siguientes comprometen incrementos anuales, que es por qué son mucho menores." tabindex="0">?</i></h2>
       <div id="compromiso" class="grafico"></div>
     </div>
     <div class="panel">
-      <h2 style="margin-top:0">Docentes ETC creados</h2>
+      <h2 style="margin-top:0">Docentes ETC creados <i class="signo" data-ayuda="Equivalentes a tiempo completo: media plaza cuenta 0,5. Son cargos creados por Acuerdo, no cargos provistos; el concurso docente tarda entre doce y veinticuatro meses." tabindex="0">?</i></h2>
       <div id="etc" class="grafico"></div>
     </div>
   </div>
 
   <div class="rejilla r2" style="margin-top:14px">
     <div class="panel">
-      <h2 style="margin-top:0">Recursos por vigencia</h2>
+      <h2 style="margin-top:0">Recursos por vigencia <i class="signo" data-ayuda="La vigencia es el año fiscal en que se gira el dinero, no el año del ciclo que financia. La vigencia 2025 paga en buena parte el PIC formulado en 2023." tabindex="0">?</i></h2>
       <div id="dinero" class="grafico"></div>
     </div>
     <div class="panel">
-      <h2 style="margin-top:0">Cobertura territorial por cuartil</h2>
+      <h2 style="margin-top:0">Cobertura territorial por cuartil <i class="signo" data-ayuda="Los municipios se ordenan por un índice de prioridad y se parten en cuatro. El cuartil más alto reúne los municipios de mayor prioridad." tabindex="0">?</i></h2>
       <div id="cuartil" class="grafico"></div>
     </div>
   </div>
@@ -309,11 +309,19 @@ Plotly.newPlot('cuartil', ['PEAMA','REGULAR'].map((via,i)=>({
 /* -------------------------------------------------------------- hallazgos */
 const H = D.v_hallazgos;
 $('kpis-hallazgos').innerHTML = [
-  {v:H.length, et:'entradas en el registro'},
-  {v:H.filter(h=>h.probado).length, et:'demostradas con una consulta'},
-  {v:H.filter(h=>h.clase==='ERROR').length, et:'errores aritméticos o de transcripción'},
-  {v:H.filter(h=>h.impacto==='ALTO').length, et:'de impacto alto'},
-].map(k=>`<div class="kpi"><b>${fmt(k.v)}</b><span class="et">${k.et}</span></div>`).join('');
+  {v:fmt(H.length), et:'entradas en el registro',
+   ayuda:'Cada entrada es una contradicción, un error aritmético o un vacío que '
+        +'aparece al leer los documentos y compararlos entre sí.'},
+  {v:fmt(H.filter(h=>h.probado).length), et:'demostradas con una consulta',
+   ayuda:'Traen una consulta SQL que las demuestra contra los datos cargados. '
+        +'Puede ejecutarlas usted mismo en la página de Consulta.'},
+  {v:fmt(H.filter(h=>h.clase==='ERROR').length), et:'errores aritméticos o de transcripción',
+   ayuda:'Sumas que no cuadran con sus partes, o cifras que un documento copia '
+        +'mal de otro. No son juicios: son restas.'},
+  {v:fmt(H.filter(h=>h.impacto==='ALTO').length), et:'de impacto alto',
+   ayuda:'Cambian una cifra que el Ministerio y la Universidad discuten, o la '
+        +'interpretación de un compromiso.'},
+].map(cifra).join('');
 
 tabla($('hallazgos'), [
   {t:'', r:h=>`<span class="cita id">${esc(h.hallazgo_id)}</span>`},

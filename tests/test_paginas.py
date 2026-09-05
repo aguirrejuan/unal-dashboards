@@ -34,9 +34,18 @@ const nodo = id => ({
   querySelectorAll: () => [], querySelector: () => null,
   insertAdjacentHTML(){}, classList:{add(){},remove(){}},
   addEventListener(){}, value:'', set oninput(f){}, set onclick(f){},
+  appendChild(){}, closest: () => null, scrollIntoView(){},
+  getAttribute: () => null, setAttribute(){}, getBoundingClientRect: () => ({
+    top:0, left:0, right:0, bottom:0, width:0, height:0}),
+  style:{}, dataset:{}, hidden:true,
 });
 global.document = {getElementById: id => (cache[id] ||= nodo(id)),
-                   documentElement:{}, querySelectorAll: () => []};
+                   documentElement:{}, querySelectorAll: () => [],
+                   querySelector: () => null,
+                   createElement: etiqueta => nodo('<' + etiqueta + '>'),
+                   addEventListener(){}, body: nodo('body')};
+global.addEventListener = () => {};
+global.innerWidth = 1440;
 global.getComputedStyle = () => ({getPropertyValue: () => '#000'});
 global.CSS = {escape: s => s};
 
@@ -127,8 +136,8 @@ def test_cada_cifra_del_panorama_declara_sus_documentos():
     assert len(tarjetas) == 7, "seis tarjetas"
     for tarjeta in tarjetas[1:]:
         assert 'class="fuente-kpi"' in tarjeta, "una cifra sin fuente"
-        assert "corpus/" in tarjeta, "el enlace no apunta al corpus publicado"
-        assert "title=" in tarjeta, "una cifra sin explicación"
+        assert "documento.html?d=" in tarjeta, "el enlace no abre el visor"
+        assert "data-ayuda=" in tarjeta, "una cifra sin explicación"
 
 
 def test_el_proceso_atribuye_evidencia_a_las_etapas_documentadas():
@@ -136,4 +145,42 @@ def test_el_proceso_atribuye_evidencia_a_las_etapas_documentadas():
     evidencia» — which contradicted the rest of the site."""
     etapas = _escrito("proceso.html")["etapas"]
     assert etapas.count("sin evidencia") == 2, "sólo revisión y control están vacías"
-    assert etapas.count("corpus/") >= 20, "cada etapa documentada enlaza sus fuentes"
+    assert etapas.count("documento.html?d=") >= 20, \
+        "cada etapa documentada enlaza sus fuentes"
+
+
+def test_el_visor_muestra_los_documentos_que_el_navegador_no_puede_abrir():
+    """A .docx link starts a download; nothing renders it. The viewer must offer
+    what the pipeline pulled out instead — for Anexo 1, its fourteen tables."""
+    if not (SITIO / "datos.js").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+    fuentes = json.loads((SITIO / "fuentes.js").read_text(encoding="utf-8")
+                         .removeprefix("window.FUENTES=").rstrip(";"))
+    ofimatica = {"ANEXO1_PIC": 14, "ANEXO2_PIC": 1,
+                 "INFORME_MEN_2024_2025": 2, "INFORME_CUALITATIVO": 1}
+    for doc, esperadas in ofimatica.items():
+        tablas = [k for k in fuentes if k.startswith(doc + "|")]
+        assert len(tablas) == esperadas, f"{doc}: {len(tablas)} tablas, se esperaban {esperadas}"
+
+
+def test_ninguna_cita_enlaza_directamente_a_un_archivo_de_ofimatica():
+    """Word and Excel files download rather than open, so a bare link to one
+    looks broken. Citations go through the viewer; only the viewer itself and
+    the scan panel offer the raw file."""
+    for pagina in ("index.html", "proceso.html", "procedencia.html"):
+        html = (SITIO / pagina).read_text(encoding="utf-8")
+        assert "enlaceDoc(" not in html, f"{pagina} usa el enlace directo antiguo"
+    comun = (SITIO / "comun.js").read_text(encoding="utf-8")
+    assert "documento.html?d=" in comun, "enlaceDocId debe apuntar al visor"
+
+
+def test_toda_explicacion_usa_el_globo_y_no_el_title_nativo():
+    """The native tooltip waits a second, renders as a grey OS strip and gives
+    no sign it exists. Every explanation on the site goes through `.globo`."""
+    if not (SITIO / "datos.js").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+    for pagina in ("index.html", "proceso.html", "procedencia.html", "documento.html"):
+        html = (SITIO / pagina).read_text(encoding="utf-8")
+        assert 'title="${esc(' not in html, f"{pagina} todavía usa el title nativo"
+    comun = (SITIO / "comun.js").read_text(encoding="utf-8")
+    assert "class = 'globo'" in comun or "className = 'globo'" in comun

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIC · Documento</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .visor{width:100%; height:78vh; min-height:520px; border:1px solid var(--linea);
+         border-radius:var(--radio); background:var(--panel-alt)}
+  .ficha{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px}
+  .ficha div span{display:block; color:var(--tenue); font-size:11.5px; margin-bottom:3px}
+  .ficha div b{font-size:14px; font-weight:600}
+  .tabla-fuente{margin-bottom:22px}
+  .tabla-fuente h3{font-size:13.5px; margin:0 0 8px; font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="barra"><div class="caja">
+  <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
+  <nav class="nav">
+    <a href="index.html">Panorama</a>
+    <a href="proceso.html">Proceso</a>
+    <a href="procedencia.html">Procedencia</a>
+    <a href="esquema.html">Esquema</a>
+    <a href="consulta.html">Consulta</a>
+  </nav>
+</div></div>
+
+<main class="caja">
+  <div class="encabezado">
+    <h1 id="titulo">Documento</h1>
+    <p class="entrada" id="entrada"></p>
+  </div>
+
+  <div class="panel"><div class="ficha" id="ficha"></div></div>
+
+  <div id="cuerpo"></div>
+
+  <h2>Las cifras que aporta</h2>
+  <p class="lede" id="lede-cifras"></p>
+  <div class="panel"><div class="scroll" style="max-height:520px">
+    <table id="cifras"></table>
+  </div></div>
+
+  <footer>
+    <p>Este visor muestra lo que el navegador puede mostrar y reproduce el resto desde
+    la base. <a href="procedencia.html">Ver cualquier cifra junto a su celda de origen →</a></p>
+  </footer>
+</main>
+
+<script src="datos.js"></script>
+<script src="fuentes.js"></script>
+<script src="comun.js"></script>
+<script>
+const D = CARGA.datos;
+const id = new URLSearchParams(location.search).get('d');
+const doc = D.v_corpus.find(x => x.documento_id === id);
+
+if (!doc) {
+  $('titulo').textContent = 'Documento no encontrado';
+  $('entrada').innerHTML = `No hay ningún documento con el identificador
+    <code>${esc(id || '')}</code>. <a href="procedencia.html">Ver el corpus completo →</a>`;
+} else {
+  document.title = 'PIC · ' + nombreCorto(doc.documento_id);
+  $('titulo').textContent = doc.titulo;
+
+  const ext = (doc.ruta_archivo || '').split('.').pop().toLowerCase();
+  const enlace = doc.ruta_archivo ? enlaceArchivo(doc.ruta_archivo, 'Descargar el original')
+                                  : '';
+  $('entrada').innerHTML = doc.estado === 'EN_CORPUS'
+    ? `${esc(nombreCorto(doc.documento_id))} · archivo <code>.${esc(ext)}</code>. ${enlace}`
+    : 'Este documento se cita en el corpus pero no está en él, así que no hay archivo '
+      + 'que mostrar ni cifras que extraer.';
+
+  const avance = {PROCESADO:'procesado', SIN_CIFRAS:'leído, sin cifras propias',
+                  PENDIENTE:'pendiente', PENDIENTE_VISION:'requiere visión',
+                  AUSENTE:'citado, no disponible'};
+  $('ficha').innerHTML = [
+    ['Tipo', esc(doc.tipo.toLowerCase())],
+    ['Emisor', esc(doc.emisor || '—')],
+    ['Fecha', doc.fecha ? esc(doc.fecha) : 'no se fecha a sí mismo'],
+    ['Soporte', esc((doc.soporte || '—').toLowerCase())],
+    ['Estado', esc(avance[doc.avance] || doc.avance)],
+    ['Cifras', fmt(doc.cifras)],
+  ].map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('');
+
+  /* ------------------------------------------------------------------ cuerpo */
+  // A browser renders PDF and nothing else. For .docx, .xlsx and .doc the only
+  // honest offer is what the pipeline already pulled out of them: the tables,
+  // reproduced, with the same cells the citations point at.
+  const tablas = Object.entries(FUENTES)
+    .filter(([k]) => k.startsWith(doc.documento_id + '|'))
+    .sort((a, b) => a[0].localeCompare(b[0], 'es', {numeric: true}));
+
+  const partes = [];
+  if (ext === 'pdf') {
+    partes.push(`<h2>El documento</h2>
+      <p class="lede">El archivo original, tal cual, dentro de esta página.</p>
+      <div class="panel"><object class="visor" type="application/pdf"
+        data="${rutaCorpus(doc.ruta_archivo)}">
+        <p class="nota aviso" style="margin:0">Su navegador no muestra PDF incrustados.
+          ${enlace}</p></object></div>`);
+  } else if (doc.ruta_archivo) {
+    partes.push(`<h2>El documento</h2>
+      <p class="nota aviso">Ningún navegador muestra un archivo
+      <code>.${esc(ext)}</code>: al abrirlo se descarga y hace falta Word o Excel.
+      Abajo están las ${tablas.length} tabla${tablas.length === 1 ? '' : 's'} que el
+      proceso extrajo de él, reproducidas aquí. ${enlace}</p>`);
+  }
+
+  if (tablas.length) {
+    partes.push(`<h2>Las tablas del documento</h2>
+      <p class="lede">Reproducidas desde el archivo original en cada construcción. Son las
+      mismas que la página de Procedencia resalta celda por celda.</p>
+      <div class="panel">` + tablas.map(([clave, html]) =>
+        `<div class="tabla-fuente"><h3>${esc(clave.split('|')[1])}</h3>
+         <div class="scroll">${html}</div></div>`).join('') + `</div>`);
+  }
+  $('cuerpo').innerHTML = partes.join('');
+
+  /* ------------------------------------------------------------------ cifras */
+  const filas = D.v_procedencia.filter(f => f.documento_id === doc.documento_id);
+  $('lede-cifras').innerHTML = filas.length
+    ? `${fmt(filas.length)} cifras salieron de este documento, cada una con la página o
+       celda exacta de la que se leyó.`
+    : 'Este documento no aporta ninguna cifra propia a la base.';
+  tabla($('cifras'), [
+    {t:'Medida', r:f=>conAyuda(explicaCiclo(f.ciclo_id), esc(f.medida))},
+    {t:'Sede', k:'unidad'},
+    {t:'Valor', r:f=>fmt(f.valor), num:true},
+    {t:'Literal', r:f=>`<span class="cita">${esc(f.literal)}</span>`},
+    {t:'Ubicación', r:f=>`<span class="cita">${esc(f.ubicacion)}</span>`},
+  ], filas);
+}
+</script>
+</body>
+</html>
