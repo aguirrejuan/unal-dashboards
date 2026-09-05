@@ -145,29 +145,48 @@ const admin = porCargo('cargos_administrativos');
 const rango = fs => fmt(Math.min(...fs.map(f=>f.valor))) + ' – '
                   + fmt(Math.max(...fs.map(f=>f.valor)));
 
+// Every caption below is derived. The one that used to read «38 creados, 1
+// suprimido» claimed a suppression no loaded row records, which is precisely
+// the kind of thing a typed-in caption gets away with and a derived one cannot.
+const porDoc = (filas, u = '') => {
+  const t = {};
+  filas.forEach(f => { t[f.documento_id] = (t[f.documento_id] || 0) + f.valor; });
+  return Object.values(t).sort((a, b) => b - a).map(v => fmt(v) + u).join(' + ');
+};
+const lecturas = filas => [...new Set(filas.map(f => f.valor))]
+  .sort((a, b) => a - b).map(fmt);
+const sitio = filas => filas.length
+  ? nombreCorto(filas[0].documento_id) + ', ' + filas[0].ubicacion.split(',')[0] : '';
+const docsDe = filas => new Set(filas.map(f => f.documento_id)).size;
+
 $('kpis').innerHTML = [
   {v:rango(compromiso), et:'Compromiso de cupos, PIC 2023',
-   pie:'dos lecturas: 1 818 y 1 836', clase:'dividida', filas:compromiso,
+   pie:`${lecturas(compromiso).length} lecturas: ${lecturas(compromiso).join(' y ')}`,
+   clase:'dividida', filas:compromiso,
    ayuda:'Cupos que la Universidad se comprometió a abrir. Dos documentos '
         +'declaran totales distintos y ninguno corrige al otro.'},
   {v:rango(matric), et:'Matriculados, PIC 2023',
-   pie:'1 161 sin La Paz · 1 043 consolidado', clase:'dividida', filas:matric,
+   pie:`${lecturas(matric).join(' y ')} según qué sedes se cuenten`,
+   clase:'dividida', filas:matric,
    ayuda:'Estudiantes efectivamente matriculados. Las dos cifras cuentan '
         +'poblaciones distintas, no periodos distintos.'},
   {v:fmt(Math.max(...admitidos.map(f=>f.valor))), et:'Admitidos',
-   pie:'informe al MEN, §6', filas:admitidos,
+   pie:sitio(admitidos), filas:admitidos,
    ayuda:'Admitidos en las convocatorias del ciclo. Admitido no es matriculado: '
-        +'entre los dos hay una caída de 648.'},
+        +'entre los dos hay una caída de '
+        + fmt(Math.max(...admitidos.map(f=>f.valor)) - Math.max(...matric.map(f=>f.valor)))
+        + '.'},
   {v:fmt(etc.reduce((s,f)=>s+f.valor,0)), et:'Docentes ETC creados',
-   pie:'152 + 191,5 + 51', filas:etc,
+   pie:porDoc(etc), filas:etc,
    ayuda:'Cargos docentes creados por los Acuerdos del Consejo Superior, en '
         +'equivalentes a tiempo completo. Crear el cargo no lo provee: el '
         +'concurso tarda entre doce y veinticuatro meses.'},
   {v:fmt(admin.reduce((s,f)=>s+f.valor,0)), et:'Cargos administrativos',
-   pie:'38 creados, 1 suprimido', filas:admin,
+   pie:`en ${docsDe(admin)} acuerdos`, filas:admin,
    ayuda:'Cargos administrativos de carrera creados en las Sedes de Presencia '
         +'Nacional.'},
-  {v:cop(dinero), et:'Recursos registrados', pie:'20 documentos', filas:filasDinero,
+  {v:cop(dinero), et:'Recursos registrados',
+   pie:`${docsDe(filasDinero)} documentos`, filas:filasDinero,
    ayuda:'Suma de todo lo asignado, autorizado o ejecutado que el corpus '
         +'registra. Cada monto pertenece a una vigencia fiscal, que no coincide '
         +'con el año del ciclo: la vigencia 2025 financia el PIC 2023.'},
@@ -190,52 +209,46 @@ tabla($('ciclos'), [
 ], CIC);
 
 /* ----------------------------------------------------------------- embudo */
-// PIC 2023 is formulated in 2023 and enrols between 2024-1 and 2025-1. Every
-// step of this funnel sits in that window, and the hover says so, because a bar
-// labelled 2023 next to a number of students invites the wrong reading.
-const ventana = CICLOS.PIC_CO_2023
-  ? `matrícula entre ${CICLOS.PIC_CO_2023.periodo_ejec_desde} y ${CICLOS.PIC_CO_2023.periodo_ejec_hasta}`
+// Every value, label and drop-off below comes from `v_embudo`, which pins each
+// step to the cell that asserts it. Nothing here is typed in.
+const EM = D.v_embudo.slice().sort((a,b)=>a.paso-b.paso);
+const flujo = EM.filter(e=>e.grupo==='FLUJO');
+const finales = EM.filter(e=>e.grupo==='FINAL');
+const ultimoFlujo = flujo[flujo.length-1];
+const rotulo = e => esc(e.etiqueta) +
+  (e.nota ? `<br><span style="font-size:11px">${esc(e.nota)}</span>` : '');
+const ventana = CICLOS[EM[0].ciclo_id]
+  ? `matrícula entre ${CICLOS[EM[0].ciclo_id].periodo_ejec_desde} y `
+    + CICLOS[EM[0].ciclo_id].periodo_ejec_hasta
   : '';
-const pasos = [
-  {n:'Comprometidos', v:1818, d:'Anexo 1 · Tabla 2, fila 9'},
-  {n:'Ofertados',     v:1848, d:'Anexo 1 · Tabla 2, fila 9'},
-  {n:'Admitidos',     v:1809, d:'Informe al MEN · §6'},
-];
-const finales = [
-  {n:'Matriculados<br><span style="font-size:11px">8 proyectos aprobados</span>',
-   v:1161, d:'Anexo 1 · Tabla 2, fila 9'},
-  {n:'Matriculados<br><span style="font-size:11px">consolidado, incl. La Paz</span>',
-   v:1043, d:'Informe al MEN · §6'},
-];
-Plotly.newPlot('embudo', [{
-  type:'bar', orientation:'h', x:pasos.map(p=>p.v), y:pasos.map(p=>p.n),
-  marker:{color:PALETA[0]}, width:.62,
-  text:pasos.map(p=>fmt(p.v)), textposition:'inside', insidetextanchor:'end',
-  textfont:{color:'#fff', size:13}, customdata:pasos.map(p=>p.d),
+const traza = (pasos, color) => ({
+  type:'bar', orientation:'h', x:pasos.map(e=>e.valor), y:pasos.map(rotulo),
+  marker:{color}, width:.62, text:pasos.map(e=>fmt(e.valor)),
+  textposition:'inside', insidetextanchor:'end', textfont:{color:'#fff', size:13},
+  customdata:pasos.map(e=>[nombreCorto(e.documento_id) + ' · ' + e.ubicacion]),
   hovertemplate:'<b>%{y}: %{x:,}</b><br>PIC 2023 · '+ventana+
-                '<br><span style="font-size:11px">%{customdata}</span><extra></extra>',
-},{
-  type:'bar', orientation:'h', x:finales.map(p=>p.v), y:finales.map(p=>p.n),
-  marker:{color:PALETA[4]}, width:.62,
-  text:finales.map(p=>fmt(p.v)), textposition:'inside', insidetextanchor:'end',
-  textfont:{color:'#fff', size:13}, customdata:finales.map(p=>p.d),
-  hovertemplate:'<b>%{x:,}</b><br>PIC 2023 · '+ventana+
-                '<br><span style="font-size:11px">%{customdata}</span><extra></extra>',
-}], layout({
-  showlegend:false, height:300, barmode:'stack',
-  yaxis:{autorange:'reversed', ticksuffix:'  '},
-  xaxis:{range:[0,2000]},
-  annotations:[
-    {x:1848, y:1, xanchor:'left', text:'  +30', showarrow:false,
-     font:{size:12, color:CSSVAR('--ok')}},
-    {x:1809, y:2, xanchor:'left', text:'  −39', showarrow:false,
-     font:{size:12, color:CSSVAR('--tenue')}},
-    {x:1161, y:3, xanchor:'left', text:'  −648', showarrow:false,
-     font:{size:12, color:CSSVAR('--alerta')}},
-    {x:1043, y:4, xanchor:'left', text:'  −766', showarrow:false,
-     font:{size:12, color:CSSVAR('--alerta')}},
-  ],
-}));
+                '<br><span style="font-size:11px">%{customdata[0]}</span><extra></extra>',
+});
+// Each step is compared with the one before it; the two final readings both
+// hang off the last common step, because they are alternatives, not a sequence.
+const anterior = e => e.grupo === 'FINAL' ? ultimoFlujo
+                                          : flujo[flujo.indexOf(e) - 1];
+Plotly.newPlot('embudo', [traza(flujo, PALETA[0]), traza(finales, PALETA[4])],
+  layout({
+    showlegend:false, height:300, barmode:'stack',
+    yaxis:{autorange:'reversed', ticksuffix:'  '},
+    xaxis:{range:[0, Math.max(...EM.map(e=>e.valor)) * 1.1]},
+    annotations:EM.map(e=>{
+      const prev = anterior(e);
+      if (!prev) return null;
+      const delta = e.valor - prev.valor;
+      return {x:e.valor, y:EM.indexOf(e), xanchor:'left',
+              text:'  ' + (delta > 0 ? '+' : '−') + fmt(Math.abs(delta)),
+              showarrow:false,
+              font:{size:12, color:CSSVAR(delta > 0 ? '--ok'
+                    : e.grupo === 'FINAL' ? '--alerta' : '--tenue')}};
+    }).filter(Boolean),
+  }));
 
 /* ------------------------------------------------------ compromiso por sede */
 const comp = D.v_compromiso_ciclo;
@@ -416,9 +429,13 @@ Plotly.newPlot('corpus', [{
             xaxis:{title:{text:'documentos'}, dtick:5}}));
 
 const cifras = D.v_procedencia.length;
+const avanceCuenta = {};
+D.v_corpus.forEach(d=>{ avanceCuenta[d.avance] = (avanceCuenta[d.avance]||0)+1; });
 $('limites').innerHTML =
-  `<b>${fmt(cifras)} cifras</b> proceden de 20 documentos. Tres más se leyeron y no declaran
-   ninguna cifra propia; cuatro se citan en el corpus pero no están en él.
+  `<b>${fmt(D.v_procedencia.length)} cifras</b> proceden de
+   ${fmt(avanceCuenta.PROCESADO||0)} documentos.
+   ${fmt(avanceCuenta.SIN_CIFRAS||0)} más se leyeron y no declaran ninguna cifra propia;
+   ${fmt(avanceCuenta.AUSENTE||0)} se citan en el corpus pero no están en él.
    <code>rubro_mapping</code> sigue vacío a propósito: sin puente entre las dos generaciones
    de rubros, una consulta entre ellas no devuelve nada, que es la respuesta correcta.`;
 </script>

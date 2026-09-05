@@ -203,24 +203,32 @@ _VISTAS = [
         """,
     ),
     (
-        # The funnel, as a view rather than chart configuration — which is what
-        # stops a BI tool computing it some other way.
         "v_embudo",
         """
         CREATE VIEW v_embudo AS
-        SELECT d.ciclo_id,
-               d.medida_id,
-               CASE d.medida_id WHEN 'compromiso' THEN 1
-                                WHEN 'cupos_ofertados' THEN 2
-                                WHEN 'admitidos' THEN 3
-                                WHEN 'matriculados' THEN 4 END AS paso,
-               CAST(d.valor AS INT) AS valor,
+        -- The funnel as data, not as chart configuration. Each step is pinned to
+        -- the exact cell that asserts it, so a citation that moves takes its step
+        -- with it instead of leaving a chart quietly showing a stale number. The
+        -- last two steps are two readings of the same measure, not two moments:
+        -- the Anexo counts the eight approved projects, the report consolidates
+        -- and includes La Paz.
+        WITH paso(paso, grupo, etiqueta, nota, medida_id, documento_id, ubicacion) AS (
+          VALUES
+              (1, 'FLUJO', 'Comprometidos', '', 'compromiso', 'ANEXO1_PIC', 'Tabla 2, fila 9 ''TOTAL'', col ''Compromiso'''),
+              (2, 'FLUJO', 'Ofertados', '', 'cupos_ofertados', 'ANEXO1_PIC', 'Tabla 2, fila 9 ''TOTAL'', col ''Cupos'''),
+              (3, 'FLUJO', 'Admitidos', '', 'admitidos', 'INFORME_MEN_2024_2025', '§6, fila 10 ''Total'', col ''Admitidos'''),
+              (4, 'FINAL', 'Matriculados', '8 proyectos aprobados', 'matriculados', 'ANEXO1_PIC', 'Tabla 2, fila 9 ''TOTAL'', col ''Matriculados entre 2024-1s y 2025-1s'''),
+              (5, 'FINAL', 'Matriculados', 'consolidado, incl. La Paz', 'matriculados', 'INFORME_MEN_2024_2025', '§3, fila 1 ''PIC 2023 (Ejecutado en 2024)'', col ''Matriculados Totales''')
+        )
+        SELECT p.paso, p.grupo, p.etiqueta, p.nota, p.medida_id,
+               d.ciclo_id, CAST(d.valor AS INT) AS valor,
                d.documento_id, d.ubicacion, d.valor_origen
-        FROM   declaracion d
-        WHERE  d.unidad_id = 'UNAL_TOTAL'
-          AND  d.tipo_declaracion = 'AGREGADO'
-          AND  d.medida_id IN ('compromiso','cupos_ofertados','admitidos','matriculados')
-          AND  d.ubicacion LIKE 'Tabla 2%'
+        FROM   paso p
+        JOIN   declaracion d
+               ON  d.medida_id    = p.medida_id
+               AND d.documento_id = p.documento_id
+               AND d.ubicacion    = p.ubicacion
+               AND d.unidad_id    = 'UNAL_TOTAL'
         """,
     ),
     (

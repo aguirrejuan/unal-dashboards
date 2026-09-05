@@ -88,6 +88,12 @@ def _escrito(pagina: str) -> dict[str, str]:
     return _ejecutar(pagina)["escrito"]
 
 
+def _guion(pagina: str) -> str:
+    """Just the page's own script, without the CDN tags or the markup."""
+    html = (SITIO / pagina).read_text(encoding="utf-8")
+    return "\n".join(m.group(1) for m in re.finditer(r"<script>([\s\S]*?)</script>", html))
+
+
 def test_el_panorama_dibuja_todos_sus_graficos():
     graficos = {g["el"]: g for g in _graficos("index.html")}
     assert set(graficos) == {"embudo", "compromiso", "etc", "dinero", "cuartil",
@@ -184,3 +190,44 @@ def test_toda_explicacion_usa_el_globo_y_no_el_title_nativo():
         assert 'title="${esc(' not in html, f"{pagina} todavía usa el title nativo"
     comun = (SITIO / "comun.js").read_text(encoding="utf-8")
     assert "class = 'globo'" in comun or "className = 'globo'" in comun
+
+
+def test_el_embudo_no_trae_ninguna_cifra_escrita_a_mano():
+    """The five funnel figures used to be literals in the template while
+    `v_embudo` sat published and unused. A number typed into a page cannot go
+    stale loudly: it just stops matching the database."""
+    if not (SITIO / "datos.js").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+    carga = json.loads((SITIO / "datos.js").read_text(encoding="utf-8")
+                       .removeprefix("window.CARGA=").rstrip(";"))
+    embudo = carga["datos"]["v_embudo"]
+    assert [e["valor"] for e in sorted(embudo, key=lambda e: e["paso"])] == \
+        [1818, 1848, 1809, 1161, 1043]
+    assert all(e["documento_id"] and e["ubicacion"] for e in embudo), \
+        "cada paso debe conservar su celda de origen"
+
+    guion = _guion("index.html")
+    for cifra in ("1818", "1848", "1809", "1161", "1043"):
+        assert cifra not in guion, f"{cifra} sigue escrito en la plantilla"
+
+
+def test_ninguna_pagina_escribe_a_mano_una_cifra_del_corpus():
+    """Captions are the last place hard-coded numbers hide, and they rot
+    silently: «20 documentos» under the money figure was wrong — fifteen
+    documents carry a monto — and nothing could have caught it.
+
+    The rule is narrow enough to be true: chart geometry never needs a literal
+    of a thousand or more, and no corpus figure worth showing is smaller.
+    """
+    if not (SITIO / "datos.js").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+    for pagina in ("index.html", "proceso.html", "procedencia.html", "documento.html"):
+        guion = _guion(pagina)
+        grandes = [n for n in re.findall(r"(?<![\w.#-])(\d{4,})(?![\w%.])", guion)
+                   if not (1900 <= int(n) <= 2100)]
+        assert not grandes, f"{pagina} trae cifras escritas a mano: {grandes}"
+        # A figure spelled out inside a caption, «1 818» or «52.782.578.188».
+        textos = re.findall(r"'([^'\n]*)'|\"([^\"\n]*)\"", guion)
+        deletreadas = [t for par in textos for t in par
+                       if re.search(r"\d[.\u00a0 ]\d{3}\b", t)]
+        assert not deletreadas, f"{pagina} deletrea una cifra: {deletreadas}"
