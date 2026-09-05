@@ -22,7 +22,7 @@ extractions/*.yaml               versionado y diferenciable ┘ + revisión
         │
         │  pic-etl build         determinista · sin red
         ▼
-build/pic.sqlite                 55 tablas, 16 vistas, 1 630 filas · versionado
+build/pic.sqlite                 56 tablas, 16 vistas, 1 636 filas · versionado
         │
         │  pic-etl publish
         ▼
@@ -115,7 +115,7 @@ cabecera vuelve a resolverse con tipografía.
 | **Panorama** | El embudo, el dinero, la cobertura, la línea de tiempo del corpus y el registro de hallazgos. Cada cifra enlaza los documentos que la afirman y explica, al pasar el cursor, a qué ciclo pertenece y qué años cubre. |
 | **Proceso** | El circuito del dinero y las diez etapas, con la evidencia documental de cada una. |
 | **Procedencia** | Cualquier cifra junto a la tabla original, con la celda resaltada. 32 tablas fuente reproducidas. |
-| **Esquema** | Las 55 tablas, sus columnas y sus relaciones, leídas del mismo `MetaData` con que se construye la base. |
+| **Esquema** | Las 56 tablas, sus columnas y sus relaciones, leídas del mismo `MetaData` con que se construye la base. |
 | **Consulta** | SQL real contra `pic.sqlite`, ejecutado en el navegador con sql.js. |
 
 Un `.docx` no se abre en un navegador: se descarga. Por eso cada cita apunta al
@@ -143,6 +143,22 @@ divergencias, y el tablero lo dice en lugar de dibujar diez cajas seguras.
 `rubro_mapping` sigue vacío a propósito: sin puente entre las dos generaciones
 de rubros, una consulta que las cruce no devuelve nada, que es la respuesta
 correcta.
+
+## Lecturas
+
+Seis conclusiones que no se ven en un gráfico suelto, sólo al restar: dónde se
+fuga la matrícula, qué ciclo pesa más que los otros tres juntos, qué vigencia
+concentra el dinero, qué cuartil de prioridad no aparece en ningún documento,
+qué dos archivos sostienen tres de cada cuatro cifras, y por qué las dos etapas
+sin respaldo documental son justamente las que dirimirían lo demás.
+
+Cada una vive en [`pic_etl/reference/lecturas.yaml`](pic_etl/reference/lecturas.yaml)
+como prosa más la consulta que produce sus números, igual que un hallazgo trae
+la que lo demuestra. `publish` ejecuta la consulta y rellena la frase, así que
+el texto no puede envejecer sin que la consulta cambie con él; `verify` las
+corre todas y una prueba compara cada resultado contra su valor esperado. Si el
+corpus crece y una lectura deja de ser cierta, la construcción falla en lugar de
+publicar una afirmación caduca.
 
 ## Hallazgos
 

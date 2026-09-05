@@ -123,6 +123,9 @@ def cargar_referencia(conn: Connection) -> dict[str, int]:
     cuenta["via_admision"] = insertar(conn, T.via_admision, ciclos["via_admision"])
 
     cuenta["hallazgo"] = insertar(conn, T.hallazgo, _leer("hallazgos.yaml")["hallazgo"])
+    cuenta["lectura"] = insertar(conn, T.lectura, [
+        dict(fila, orden=i) for i, fila in enumerate(_leer("lecturas.yaml")["lectura"], 1)
+    ])
 
     rubros = _leer("rubro.yaml")
     # LINEA before SUBLINEA — self-referential, same reason as unidad_academica.
