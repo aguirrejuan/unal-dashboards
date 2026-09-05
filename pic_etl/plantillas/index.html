@@ -22,10 +22,19 @@
 <main class="caja">
   <div class="encabezado">
     <h1>Panorama del PIC</h1>
-    <p class="entrada">Veintitrés documentos en Word, Excel y PDF escaneado, convertidos en
+    <p class="entrada">Veintitrés archivos en Word, Excel y PDF escaneado, convertidos en
     una base consultable. Cada cifra de esta página conserva el documento y la celda de la
     que salió. <span id="sello"></span></p>
   </div>
+
+  <h2>Cómo leer los años</h2>
+  <p class="lede">Tres años distintos conviven en estas cifras y se confunden con
+  facilidad. Un ciclo lleva el nombre del año en que se formuló, gasta en vigencias
+  fiscales posteriores y produce matrícula uno o dos años más tarde.</p>
+  <div class="panel"><div class="scroll"><table id="ciclos"></table></div></div>
+  <p class="nota" style="margin-top:12px">Pase el cursor por cualquier cifra o barra de
+  esta página: el globo dice a qué ciclo pertenece, qué años cubre y de qué documento
+  salió. Los enlaces bajo cada cifra abren esos documentos.</p>
 
   <h2>Cumplimiento</h2>
   <p class="lede">Las cifras que el Ministerio y la Universidad discuten. Donde hay dos
@@ -61,19 +70,21 @@
   </div>
 
   <h2>El corpus en el tiempo</h2>
-  <p class="lede">Cada documento en su fecha, por tipo. El eje muestra cuándo se expidió, no
-  cuándo se ejecutó: un ciclo se nombra por su año de formulación y no produce matrícula
-  hasta uno o dos años después.</p>
-  <div class="panel"><div id="linea-tiempo" class="grafico" style="min-height:300px"></div></div>
+  <p class="lede">Cada documento en su fecha, por tipo; el tamaño es cuántas cifras aporta.
+  El eje muestra cuándo se expidió, no cuándo se ejecutó: un ciclo se nombra por su año de
+  formulación y no produce matrícula hasta uno o dos años después. Los Acuerdos llevan la
+  fecha del acta del Consejo Superior; las Resoluciones, la del Ministerio.</p>
+  <div class="panel"><div id="linea-tiempo" class="grafico" style="min-height:340px"></div></div>
+  <p class="nota" style="margin-top:10px" id="sin-fecha"></p>
 
   <div class="rejilla r2" style="margin-top:14px">
     <div class="panel">
       <h2 style="margin-top:0">Recursos por fuente</h2>
-      <div id="pie-fuente" class="grafico" style="min-height:330px"></div>
+      <div id="pie-fuente" class="grafico" style="min-height:400px"></div>
     </div>
     <div class="panel">
       <h2 style="margin-top:0">Documentos por tipo</h2>
-      <div id="pie-tipo" class="grafico" style="min-height:330px"></div>
+      <div id="pie-tipo" class="grafico" style="min-height:400px"></div>
     </div>
   </div>
 
@@ -122,47 +133,94 @@ const decl = (medida, ciclo, unidad='UNAL_TOTAL') =>
   D.v_procedencia.filter(f => f.medida===medida && f.unidad_id===unidad &&
                               (!ciclo || f.ciclo_id===ciclo));
 
-const compromiso = decl('compromiso','PIC_CO_2023').map(f=>f.valor);
-const matric     = decl('matriculados','PIC_CO_2023').map(f=>f.valor);
-const admitidos  = decl('admitidos', null).map(f=>f.valor);
+const compromiso = decl('compromiso','PIC_CO_2023');
+const matric     = decl('matriculados','PIC_CO_2023');
+const admitidos  = decl('admitidos', null);
+const filasDinero = D.v_procedencia.filter(f=>f.medida==='monto');
 const dinero     = D.v_dinero_fuente.reduce((s,f)=>s+f.monto,0);
 const porCargo = t => D.v_procedencia.filter(
   f => f.origen === 'cargo_creado' && f.medida === t);
-const etcTotal = porCargo('cargos_creados').reduce((s,f)=>s+f.valor,0);
-const admin    = porCargo('cargos_administrativos').reduce((s,f)=>s+f.valor,0);
+const etc   = porCargo('cargos_creados');
+const admin = porCargo('cargos_administrativos');
+const rango = fs => fmt(Math.min(...fs.map(f=>f.valor))) + ' – '
+                  + fmt(Math.max(...fs.map(f=>f.valor)));
 
 $('kpis').innerHTML = [
-  {v: fmt(Math.min(...compromiso)) + ' – ' + fmt(Math.max(...compromiso)),
-   et:'Compromiso de cupos, PIC 2023', pie:'dos lecturas: 1 818 y 1 836', dividida:true},
-  {v: fmt(Math.min(...matric)) + ' – ' + fmt(Math.max(...matric)),
-   et:'Matriculados, PIC 2023', pie:'1 161 sin La Paz · 1 043 consolidado', dividida:true},
-  {v: fmt(Math.max(...admitidos)), et:'Admitidos', pie:'informe al MEN, §6'},
-  {v: fmt(etcTotal), et:'Docentes ETC creados', pie:'152 + 191,5 + 51'},
-  {v: fmt(admin), et:'Cargos administrativos', pie:'38 creados, 1 suprimido'},
-  {v: cop(dinero), et:'Recursos registrados', pie:'20 documentos'},
-].map(k=>`<div class="kpi${k.dividida?' dividida':''}"><b>${k.v}</b>
-  <span class="et">${k.et}</span><span class="pie">${k.pie}</span></div>`).join('');
+  {v:rango(compromiso), et:'Compromiso de cupos, PIC 2023',
+   pie:'dos lecturas: 1 818 y 1 836', clase:'dividida', filas:compromiso,
+   ayuda:'Cupos que la Universidad se comprometió a abrir. Dos documentos '
+        +'declaran totales distintos y ninguno corrige al otro.'},
+  {v:rango(matric), et:'Matriculados, PIC 2023',
+   pie:'1 161 sin La Paz · 1 043 consolidado', clase:'dividida', filas:matric,
+   ayuda:'Estudiantes efectivamente matriculados. Las dos cifras cuentan '
+        +'poblaciones distintas, no periodos distintos.'},
+  {v:fmt(Math.max(...admitidos.map(f=>f.valor))), et:'Admitidos',
+   pie:'informe al MEN, §6', filas:admitidos,
+   ayuda:'Admitidos en las convocatorias del ciclo. Admitido no es matriculado: '
+        +'entre los dos hay una caída de 648.'},
+  {v:fmt(etc.reduce((s,f)=>s+f.valor,0)), et:'Docentes ETC creados',
+   pie:'152 + 191,5 + 51', filas:etc,
+   ayuda:'Cargos docentes creados por los Acuerdos del Consejo Superior, en '
+        +'equivalentes a tiempo completo. Crear el cargo no lo provee: el '
+        +'concurso tarda entre doce y veinticuatro meses.'},
+  {v:fmt(admin.reduce((s,f)=>s+f.valor,0)), et:'Cargos administrativos',
+   pie:'38 creados, 1 suprimido', filas:admin,
+   ayuda:'Cargos administrativos de carrera creados en las Sedes de Presencia '
+        +'Nacional.'},
+  {v:cop(dinero), et:'Recursos registrados', pie:'20 documentos', filas:filasDinero,
+   ayuda:'Suma de todo lo asignado, autorizado o ejecutado que el corpus '
+        +'registra. Cada monto pertenece a una vigencia fiscal, que no coincide '
+        +'con el año del ciclo: la vigencia 2025 financia el PIC 2023.'},
+].map(cifra).join('');
+
+/* ----------------------------------------------------------------- ciclos */
+const CIC = (D.v_ciclo||[]).slice().sort((a,b)=>
+  a.programa_id.localeCompare(b.programa_id) || a.anio_formulacion-b.anio_formulacion);
+const cifrasPorCiclo = {};
+D.v_procedencia.forEach(f=>{ cifrasPorCiclo[f.ciclo_id] = (cifrasPorCiclo[f.ciclo_id]||0)+1; });
+const estadoPill = {EN_EJECUCION:['ok','en ejecución'], APROBADO:['medio','aprobado'],
+                    FORMULADO:['pend','formulado']};
+tabla($('ciclos'), [
+  {t:'Ciclo', r:c=>`<b>${esc(c.programa_id.replace('_','-'))} ${c.anio_formulacion}</b>`},
+  {t:'Se formuló en', r:c=>c.anio_formulacion, num:true},
+  {t:'Matricula entre', r:c=>`${esc(c.periodo_ejec_desde)} y ${esc(c.periodo_ejec_hasta)}`},
+  {t:'Estado', r:c=>{const [k,n]=estadoPill[c.estado]||['pend',c.estado.toLowerCase()];
+                     return `<span class="pill ${k}">${esc(n)}</span>`;}},
+  {t:'Cifras en el corpus', r:c=>fmt(cifrasPorCiclo[c.ciclo_id]||0), num:true},
+], CIC);
 
 /* ----------------------------------------------------------------- embudo */
+// PIC 2023 is formulated in 2023 and enrols between 2024-1 and 2025-1. Every
+// step of this funnel sits in that window, and the hover says so, because a bar
+// labelled 2023 next to a number of students invites the wrong reading.
+const ventana = CICLOS.PIC_CO_2023
+  ? `matrícula entre ${CICLOS.PIC_CO_2023.periodo_ejec_desde} y ${CICLOS.PIC_CO_2023.periodo_ejec_hasta}`
+  : '';
 const pasos = [
-  {n:'Comprometidos', v:1818, d:'Anexo 1 · Tabla 2'},
-  {n:'Ofertados',     v:1848, d:'Anexo 1 · Tabla 2'},
-  {n:'Admitidos',     v:1809, d:'Informe MEN · §6'},
+  {n:'Comprometidos', v:1818, d:'Anexo 1 · Tabla 2, fila 9'},
+  {n:'Ofertados',     v:1848, d:'Anexo 1 · Tabla 2, fila 9'},
+  {n:'Admitidos',     v:1809, d:'Informe al MEN · §6'},
 ];
 const finales = [
-  {n:'Matriculados<br><span style="font-size:11px">8 proyectos aprobados</span>', v:1161},
-  {n:'Matriculados<br><span style="font-size:11px">consolidado, incl. La Paz</span>', v:1043},
+  {n:'Matriculados<br><span style="font-size:11px">8 proyectos aprobados</span>',
+   v:1161, d:'Anexo 1 · Tabla 2, fila 9'},
+  {n:'Matriculados<br><span style="font-size:11px">consolidado, incl. La Paz</span>',
+   v:1043, d:'Informe al MEN · §6'},
 ];
 Plotly.newPlot('embudo', [{
   type:'bar', orientation:'h', x:pasos.map(p=>p.v), y:pasos.map(p=>p.n),
   marker:{color:PALETA[0]}, width:.62,
   text:pasos.map(p=>fmt(p.v)), textposition:'inside', insidetextanchor:'end',
-  textfont:{color:'#fff', size:13}, hovertemplate:'%{y}: %{x:,}<extra></extra>',
+  textfont:{color:'#fff', size:13}, customdata:pasos.map(p=>p.d),
+  hovertemplate:'<b>%{y}: %{x:,}</b><br>PIC 2023 · '+ventana+
+                '<br><span style="font-size:11px">%{customdata}</span><extra></extra>',
 },{
   type:'bar', orientation:'h', x:finales.map(p=>p.v), y:finales.map(p=>p.n),
   marker:{color:PALETA[4]}, width:.62,
   text:finales.map(p=>fmt(p.v)), textposition:'inside', insidetextanchor:'end',
-  textfont:{color:'#fff', size:13}, hovertemplate:'%{x:,}<extra></extra>',
+  textfont:{color:'#fff', size:13}, customdata:finales.map(p=>p.d),
+  hovertemplate:'<b>%{x:,}</b><br>PIC 2023 · '+ventana+
+                '<br><span style="font-size:11px">%{customdata}</span><extra></extra>',
 }], layout({
   showlegend:false, height:300, barmode:'stack',
   yaxis:{autorange:'reversed', ticksuffix:'  '},
@@ -186,32 +244,55 @@ const ciclos = [...new Set(comp.map(c=>c.ciclo_id))].sort();
 Plotly.newPlot('compromiso', ciclos.map((c,i)=>({
   type:'bar', name:c.replace('PIC_CO_',''),
   x:sedes, y:sedes.map(s=>{const f=comp.find(x=>x.unidad===s&&x.ciclo_id===c); return f?f.cupos:null;}),
-  marker:{color:PALETA[i]}, hovertemplate:'%{x} · %{y:,} cupos<extra>'+c.replace('PIC_CO_','PIC ')+'</extra>',
-})), layout({barmode:'group', height:320, legend:{orientation:'h', y:1.14, x:0},
+  marker:{color:PALETA[i]},
+  customdata:sedes.map(s=>{
+    const f = comp.find(x=>x.unidad===s&&x.ciclo_id===c);
+    const k = CICLOS[c];
+    return [k ? k.periodo_ejec_desde+' a '+k.periodo_ejec_hasta : '',
+            f ? nombreCorto(f.documento_id) : '', f ? f.documentos : 0];
+  }),
+  hovertemplate:'<b>%{x} · %{y:,} cupos</b><br>'+c.replace('PIC_CO_','PIC ')
+               +', matrícula %{customdata[0]}'
+               +'<br><span style="font-size:11px">%{customdata[2]} documentos lo declaran'
+               +' · %{customdata[1]}</span><extra></extra>',
+})), layout({barmode:'group', height:340, legend:{orientation:'h', y:1.14, x:0},
              xaxis:{tickangle:-38}, yaxis:{title:{text:'cupos'}}}));
 
 /* ------------------------------------------------------------ ETC por sede */
-const porSede = {};
-porCargo('cargos_creados').forEach(f=>{
+const porSede = {}, docsSede = {};
+etc.forEach(f=>{
   porSede[f.unidad] = (porSede[f.unidad]||0) + f.valor;
+  (docsSede[f.unidad] ||= new Set()).add(nombreCorto(f.documento_id));
 });
 const etcOrden = Object.entries(porSede).sort((a,b)=>a[1]-b[1]);
 Plotly.newPlot('etc', [{
   type:'bar', orientation:'h', x:etcOrden.map(e=>e[1]), y:etcOrden.map(e=>e[0]),
-  marker:{color:PALETA[1]}, text:etcOrden.map(e=>e[1]), textposition:'auto',
-  hovertemplate:'%{y}: %{x} ETC<extra></extra>',
-}], layout({height:320, xaxis:{title:{text:'equivalentes a tiempo completo'}}}));
+  marker:{color:PALETA[1]}, text:etcOrden.map(e=>fmt(e[1])),
+  textposition:'outside', cliponaxis:false, textfont:{size:11.5},
+  customdata:etcOrden.map(e=>[...docsSede[e[0]]].join(', ')),
+  hovertemplate:'<b>%{y}: %{x} ETC</b><br>cargos creados, no necesariamente provistos'
+               +'<br><span style="font-size:11px">%{customdata}</span><extra></extra>',
+}], layout({height:340, margin:{r:52},
+            xaxis:{title:{text:'equivalentes a tiempo completo'}}}));
 
 /* -------------------------------------------------------- dinero por vigencia */
-const porVig = {};
-D.v_dinero_fuente.forEach(f=>{ porVig[f.vigencia] = (porVig[f.vigencia]||0) + f.monto; });
+const porVig = {}, docsVig = {};
+D.v_dinero_fuente.forEach(f=>{
+  porVig[f.vigencia] = (porVig[f.vigencia]||0) + f.monto;
+  (docsVig[f.vigencia] ||= new Set()).add(nombreCorto(f.documento_id));
+});
 const vigs = Object.keys(porVig).sort();
 Plotly.newPlot('dinero', [{
   type:'bar', x:vigs, y:vigs.map(v=>porVig[v]),
-  marker:{color:PALETA[0]}, text:vigs.map(v=>cop(porVig[v])), textposition:'outside',
-  hovertemplate:'%{x}: %{y:,.0f}<extra></extra>',
-}], layout({height:320, xaxis:{title:{text:'vigencia fiscal'}, type:'category'},
-            yaxis:{title:{text:'pesos'}, tickformat:'.2s'}, margin:{t:30}}));
+  marker:{color:PALETA[0]}, text:vigs.map(v=>cop(porVig[v])),
+  textposition:'outside', cliponaxis:false,
+  customdata:vigs.map(v=>[...docsVig[v]].join(', ')),
+  hovertemplate:'<b>Vigencia %{x}: %{y:,.0f}</b><br>año fiscal del giro, no año del ciclo'
+               +'<br><span style="font-size:11px">%{customdata}</span><extra></extra>',
+}], layout({height:340, xaxis:{title:{text:'vigencia fiscal'}, type:'category'},
+            yaxis:{title:{text:'pesos'}, tickformat:'.2s',
+                   range:[0, Math.max(...vigs.map(v=>porVig[v])) * 1.16]},
+            margin:{t:26}}));
 
 /* ------------------------------------------------------- cobertura cuartil */
 const cob = {};
@@ -235,7 +316,7 @@ $('kpis-hallazgos').innerHTML = [
 ].map(k=>`<div class="kpi"><b>${fmt(k.v)}</b><span class="et">${k.et}</span></div>`).join('');
 
 tabla($('hallazgos'), [
-  {t:'', r:h=>`<span class="cita">${esc(h.hallazgo_id)}</span>`},
+  {t:'', r:h=>`<span class="cita id">${esc(h.hallazgo_id)}</span>`},
   {t:'Clase', r:h=>h.clase.toLowerCase()},
   {t:'Hallazgo', r:h=>`<b>${esc(h.titulo)}</b><br>
       <span style="color:var(--tenue)">${esc((h.detalle||'').slice(0,220))}</span>`},
@@ -243,25 +324,41 @@ tabla($('hallazgos'), [
   {t:'Estado', r:h=>h.probado ? '<span class="pill ok">verificado</span>'
       : `<span class="pill pend">${esc((h.estado||'').replace('PENDIENTE_','fase ').replace('_',' ').toLowerCase())}</span>`},
   {t:'Documento', r:h=>h.documento_id
-      ? `<span class="cita">${enlaceDocId(h.documento_id)}</span>` : ''},
+      ? `<span class="cita id">${enlaceDocId(h.documento_id, nombreCorto(h.documento_id))}</span>`
+      : ''},
 ], H.slice().sort((a,b)=> b.probado-a.probado || a.clase.localeCompare(b.clase)
                         || a.hallazgo_id.localeCompare(b.hallazgo_id)));
 
 /* --------------------------------------------------------- línea de tiempo */
-const conFecha = D.v_corpus.filter(d=>d.fecha);
+const conFecha = D.v_corpus.filter(d=>d.fecha).sort((a,b)=>a.fecha.localeCompare(b.fecha));
+const sinFecha = D.v_corpus.filter(d=>!d.fecha);
+// Stack the types in the order the corpus first uses them, so the eye reads the
+// chart the way the process runs: the Ministry resolves, the CSU agrees, the
+// University reports.
 const tipos = [...new Set(conFecha.map(d=>d.tipo))];
 Plotly.newPlot('linea-tiempo', tipos.map((t,i)=>{
   const ds = conFecha.filter(d=>d.tipo===t);
   return {
     type:'scatter', mode:'markers', name:t.toLowerCase(),
     x:ds.map(d=>d.fecha), y:ds.map(()=>t.toLowerCase()),
-    marker:{size:ds.map(d=>Math.max(11, Math.min(30, 11+Math.sqrt(d.cifras||0)*2.2))),
-            color:PALETA[i%PALETA.length], line:{color:'#fff', width:1.5}, opacity:.88},
-    customdata:ds.map(d=>[d.titulo, d.cifras, d.documento_id]),
-    hovertemplate:'<b>%{customdata[0]}</b><br>%{x}<br>%{customdata[1]} cifras<extra></extra>',
+    marker:{size:ds.map(d=>Math.max(12, Math.min(34, 12+Math.sqrt(d.cifras||0)*2.4))),
+            color:PALETA[i%PALETA.length], line:{color:'#fff', width:1.5}, opacity:.85},
+    customdata:ds.map(d=>[d.titulo, d.cifras]),
+    hovertemplate:'<b>%{customdata[0]}</b><br>%{x|%-d %b %Y}<br>'
+                  +'%{customdata[1]} cifras<extra></extra>',
   };
-}), layout({height:300, showlegend:false, xaxis:{type:'date', title:{text:''}},
-            yaxis:{automargin:true}, margin:{l:6, r:24, t:12, b:36}}));
+}), layout({
+  height:340, showlegend:false,
+  xaxis:{type:'date', title:{text:''}, dtick:'M6', tickformat:'%b %Y',
+         range:['2023-06-01', '2026-09-01'], tickangle:-30},
+  yaxis:{automargin:true, categoryorder:'array',
+         categoryarray:tipos.map(t=>t.toLowerCase()).reverse()},
+  margin:{l:6, r:30, t:14, b:48},
+}));
+$('sin-fecha').textContent = sinFecha.length
+  ? `${sinFecha.length} documentos no aparecen aquí porque no se fechan a sí mismos: `
+    + sinFecha.map(d=>nombreCorto(d.documento_id)).join(', ') + '.'
+  : '';
 
 /* -------------------------------------------------------------------- pies */
 const porFuente = {};
@@ -272,10 +369,11 @@ Plotly.newPlot('pie-fuente', [{
   marker:{colors:PALETA.concat(['#8fa9c4','#c9a227','#6b8f71','#9a7fb0'])},
   textinfo:'percent', textposition:'inside',
   hovertemplate:'%{label}<br>%{value:,.0f} · %{percent}<extra></extra>',
-}], layout({height:330, legend:{orientation:'v', x:1.02, y:.5, font:{size:10.5}},
+}], layout({height:400, showlegend:true,
+            legend:{orientation:'h', y:-.02, x:0, font:{size:10}, itemwidth:30},
             margin:{l:6,r:6,t:6,b:6},
             annotations:[{text:cop(fs.reduce((s,f)=>s+f[1],0)), showarrow:false,
-                          font:{size:15, weight:600}, x:.5, y:.5}]}));
+                          font:{size:15}, x:.5, y:.5, yref:'paper', xref:'paper'}]}));
 
 const porTipo = {};
 D.v_corpus.forEach(d=>{ porTipo[d.tipo] = (porTipo[d.tipo]||0)+1; });
@@ -285,10 +383,12 @@ Plotly.newPlot('pie-tipo', [{
   marker:{colors:PALETA.concat(['#8fa9c4','#c9a227'])},
   textinfo:'value', textposition:'inside',
   hovertemplate:'%{label}: %{value} documentos<extra></extra>',
-}], layout({height:330, legend:{orientation:'v', x:1.02, y:.5, font:{size:10.5}},
+}], layout({height:400, showlegend:true,
+            legend:{orientation:'h', y:-.02, x:0, font:{size:10}, itemwidth:30},
             margin:{l:6,r:6,t:6,b:6},
             annotations:[{text:D.v_corpus.length + '<br><span style="font-size:11px">documentos</span>',
-                          showarrow:false, font:{size:15}, x:.5, y:.5}]}));
+                          showarrow:false, font:{size:15}, x:.5, y:.5,
+                          yref:'paper', xref:'paper'}]}));
 
 /* ----------------------------------------------------------------- corpus */
 const C = D.v_corpus;

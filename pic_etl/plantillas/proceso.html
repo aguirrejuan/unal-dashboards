@@ -23,18 +23,18 @@
   <div class="encabezado">
     <h1>Cómo funciona el PIC</h1>
     <p class="entrada">El dinero entra por una resolución del Ministerio, la Universidad lo
-    reparte entre sedes y líneas de gasto, y devuelve un informe. Diez etapas, de las cuales
-    el corpus documenta unas pocas.</p>
+    reparte entre sedes y líneas de gasto, y devuelve un informe. Diez etapas;
+    <span id="cobertura"></span></p>
   </div>
 
   <h2>El circuito del dinero</h2>
   <p class="lede">De la fuente presupuestal a la sede que lo ejecuta. El grosor es el monto;
   pase el cursor por cualquier banda para verlo.</p>
-  <div class="panel"><div id="sankey" class="grafico" style="min-height:420px"></div></div>
+  <div class="panel"><div id="sankey" class="grafico" style="min-height:560px"></div></div>
 
   <h2>Las diez etapas</h2>
-  <p class="lede">Numeradas según el modelo del proceso. Las etapas en gris no tienen ningún
-  documento que las respalde en este corpus — que es un hallazgo, no una omisión del
+  <p class="lede">Cada etapa con las cifras que el corpus le atribuye y los documentos de
+  donde salen. Las etapas en gris no tienen ninguna: es un hallazgo, no una omisión del
   tablero.</p>
   <div class="panel"><div class="etapas" id="etapas"></div></div>
 
@@ -43,17 +43,16 @@
   proyectos y reparte el dinero entre sublíneas. Hay dos generaciones de líneas y ningún
   puente entre ellas, así que las cifras de una no son comparables con las de la otra.</p>
   <div class="rejilla r2">
-    <div class="panel"><div id="rubros" class="grafico" style="min-height:380px"></div></div>
-    <div class="panel"><div id="rubro-pie" class="grafico" style="min-height:380px"></div></div>
+    <div class="panel"><div id="rubros" class="grafico" style="min-height:420px"></div></div>
+    <div class="panel"><div id="rubro-pie" class="grafico" style="min-height:420px"></div></div>
   </div>
   <p class="nota aviso" style="margin-top:14px" id="puente"></p>
 
-  <h2>Qué documenta cada etapa</h2>
-  <div class="panel"><div class="scroll"><table id="tabla-etapas"></table></div></div>
 
   <footer>
-    <p>Las etapas provienen de <code>v_etapas</code>; el reparto por rubro, de
-    <code>v_presupuesto</code>. <a href="consulta.html">Consultar cualquiera de las dos →</a></p>
+    <p>Las etapas provienen de <code>v_etapas</code> y <code>v_etapa_documento</code>;
+    el reparto por rubro, de <code>v_presupuesto</code>.
+    <a href="consulta.html">Consultar cualquiera de ellas →</a></p>
   </footer>
 </main>
 
@@ -77,7 +76,7 @@ const idx = n => nodos.indexOf(n);
 Plotly.newPlot('sankey', [{
   type:'sankey', orientation:'h',
   node:{
-    label:nodos, pad:16, thickness:16, line:{color:'#d0d4da', width:1},
+    label:nodos, pad:22, thickness:18, line:{color:'#d0d4da', width:1},
     color:nodos.map((n,i)=> i < fuentes.length ? PALETA[0] : PALETA[2]),
   },
   link:{
@@ -86,7 +85,7 @@ Plotly.newPlot('sankey', [{
     customdata:din.map(d=>[cop(d.monto), d.vigencia]),
     hovertemplate:'%{source.label} → %{target.label}<br>%{customdata[0]} · vigencia %{customdata[1]}<extra></extra>',
   },
-}], layout({height:420, font:{size:11.5}, margin:{l:6,r:6,t:10,b:10}}));
+}], layout({height:560, font:{size:11}, margin:{l:6,r:6,t:14,b:14}}));
 
 /* ------------------------------------------------------------------ etapas */
 const E = D.v_etapas.slice().sort((a,b)=>a.orden-b.orden);
@@ -102,18 +101,33 @@ const detalle = {
   E09_REPORTE:'La Universidad informa al Ministerio.',
   E10_CONTROL:'Contraloría y supervisión. La instancia que acaba dirimiendo estas divergencias.',
 };
-$('etapas').innerHTML = E.map(e=>`
-  <div class="etapa${e.eventos ? '' : ' sin'}">
+const porEtapa = {};
+(D.v_etapa_documento||[]).forEach(d=>{ (porEtapa[d.etapa_id] ||= []).push(d); });
+
+$('etapas').innerHTML = E.map(e=>{
+  const docs = (porEtapa[e.etapa_id]||[]).sort((a,b)=>b.cifras-a.cifras);
+  return `
+  <div class="etapa${e.cifras ? '' : ' sin'}">
     <div class="n">${e.orden}</div>
     <div>
       <div class="t">${esc(e.nombre)}</div>
       <div class="a">${esc(e.actor||'')}</div>
       <div class="d">${esc(detalle[e.etapa_id]||'')}</div>
+      <div class="fuentes">${docs.length
+        ? docs.map(d=>`<span class="fuente">${enlaceDocId(d.documento_id, nombreCorto(d.documento_id))}<span class="cuenta">${fmt(d.cifras)}</span></span>`).join('')
+        : '<span class="ninguna">ningún documento del corpus habla de esta etapa</span>'}</div>
     </div>
-    <div class="ev">${e.eventos
-      ? `<span class="pill ok">${e.eventos} evento${e.eventos===1?'':'s'}</span>`
+    <div class="ev">${e.cifras
+      ? `<span class="pill ok">${fmt(e.cifras)} cifras</span>
+         <span class="pill">${e.documentos} doc${e.documentos===1?'':'s'}</span>`
       : '<span class="pill pend">sin evidencia</span>'}</div>
-  </div>`).join('');
+  </div>`;}).join('');
+
+const cubiertas = E.filter(e=>e.cifras);
+const vacias = E.filter(e=>!e.cifras);
+$('cobertura').innerHTML = `el corpus documenta <b>${cubiertas.length}</b>. Las
+  ${vacias.length} que faltan —${vacias.map(e=>esc(e.nombre.toLowerCase())).join(' y ')}—
+  son justamente las que dirimirían estas divergencias.`;
 
 /* ------------------------------------------------------------------ rubros */
 const R = D.v_presupuesto;
@@ -123,16 +137,32 @@ R.forEach(r=>{
   porLinea[k] = (porLinea[k]||0) + r.monto;
 });
 const lineas = Object.entries(porLinea).sort((a,b)=>b[1]-a[1]);
-const corto = t => t.length > 46 ? t.slice(0,44) + '…' : t;
+// Wrap rather than truncate: «Contratación de Docentes para Ampliación de …»
+// tells the reader nothing, and the panel has the width to spare.
+const envolver = (t, n=30) => {
+  const salida = []; let linea = '';
+  for (const p of String(t).split(' ')) {
+    if ((linea + ' ' + p).trim().length > n) { salida.push(linea.trim()); linea = p; }
+    else linea += ' ' + p;
+  }
+  if (linea.trim()) salida.push(linea.trim());
+  return salida.join('<br>');
+};
 Plotly.newPlot('rubros', [{
   type:'bar', orientation:'h',
   x:lineas.map(l=>l[1]),
-  y:lineas.map(l=>corto(l[0].split('|')[1])),
+  // «Línea Estratégica 5: …» spends four words before saying anything; the
+  // number goes in front as a tag and the name gets the room.
+  y:lineas.map(l=>envolver(l[0].split('|')[1]
+      .replace(/^Línea Estratégica (\d+):\s*/, 'LE$1 · '), 26)),
   marker:{color:lineas.map(l=>l[0].startsWith('PRE_2025')?PALETA[0]:PALETA[1])},
-  text:lineas.map(l=>cop(l[1])), textposition:'auto',
-  hovertemplate:'%{y}<br>%{x:,.0f}<extra></extra>',
-}], layout({height:380, xaxis:{title:{text:'pesos'}, tickformat:'.2s'},
-            margin:{l:6, r:24}, title:{text:'Por línea estratégica',
+  text:lineas.map(l=>cop(l[1])), textposition:'outside', cliponaxis:false,
+  customdata:lineas.map(l=>[l[0].split('|')[1],
+                            l[0].startsWith('PRE_2025') ? '2025 en adelante' : 'hasta 2025']),
+  hovertemplate:'<b>%{customdata[0]}</b><br>%{x:,.0f}<extra>%{customdata[1]}</extra>',
+}], layout({height:420, xaxis:{title:{text:'pesos'}, tickformat:'.2s',
+            automargin:true}, yaxis:{automargin:true, tickfont:{size:10.5}},
+            margin:{l:6, r:78, t:40}, title:{text:'Por línea estratégica',
             font:{size:13}, x:0, xanchor:'left', y:.98}}));
 
 const porSublinea = {};
@@ -140,13 +170,13 @@ R.forEach(r=>{ porSublinea[r.rubro] = (porSublinea[r.rubro]||0) + r.monto; });
 const subs = Object.entries(porSublinea).sort((a,b)=>b[1]-a[1]);
 Plotly.newPlot('rubro-pie', [{
   type:'pie', hole:.55,
-  labels:subs.map(s=>corto(s[0])), values:subs.map(s=>s[1]),
+  labels:subs.map(s=>s[0]), values:subs.map(s=>s[1]),
   marker:{colors:PALETA.concat(['#8fa9c4','#c9a227','#6b8f71'])},
   textinfo:'percent', textposition:'inside',
   hovertemplate:'%{label}<br>%{value:,.0f} · %{percent}<extra></extra>',
-}], layout({height:380, showlegend:true,
-            legend:{orientation:'v', x:1.02, y:.5, font:{size:10.5}},
-            margin:{l:6,r:6,t:34,b:6}, title:{text:'Por sublínea',
+}], layout({height:420, showlegend:true,
+            legend:{orientation:'h', y:-.04, x:0, font:{size:10}, itemwidth:30},
+            margin:{l:6,r:6,t:40,b:6}, title:{text:'Por sublínea',
             font:{size:13}, x:0, xanchor:'left', y:.98}}));
 
 const gen = [...new Set(R.map(r=>r.generacion))];
@@ -155,17 +185,6 @@ $('puente').innerHTML = `Las <b>${gen.length} generaciones de líneas</b> del co
   consulta que cruce generaciones no devuelve nada, que es la respuesta correcta. Comparar
   el gasto por rubro entre ciclos anteriores y posteriores a 2025 requiere curar ese puente
   primero.`;
-
-/* ---------------------------------------------------------- tabla de etapas */
-tabla($('tabla-etapas'), [
-  {t:'#', r:e=>e.orden, num:true},
-  {t:'Etapa', r:e=>`<b>${esc(e.nombre)}</b>`},
-  {t:'Actor', k:'actor'},
-  {t:'Qué ocurre', r:e=>`<span style="color:var(--tenue)">${esc(detalle[e.etapa_id]||'')}</span>`},
-  {t:'Evidencia', r:e=>e.eventos
-    ? `<span class="pill ok">${e.eventos}</span>`
-    : '<span class="pill pend">ninguna</span>'},
-], E);
 </script>
 </body>
 </html>

@@ -24,6 +24,7 @@ PLANTILLAS = Path(__file__).resolve().parent / "plantillas"
 VISTAS = (
     "v_corpus", "v_procedencia", "v_hallazgos", "v_embudo",
     "v_compromiso_ciclo", "v_dinero_fuente", "v_presupuesto", "v_etapas",
+    "v_etapa_documento", "v_ciclo",
 )
 
 
@@ -90,13 +91,14 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         "window.FUENTES=" + json.dumps(fuentes, ensure_ascii=False) + ";",
         encoding="utf-8")
 
-    for pagina in ("index.html", "proceso.html", "procedencia.html", "esquema.html"):
+    paginas = ("index.html", "proceso.html", "procedencia.html", "esquema.html")
+    for pagina in paginas:
         (destino / pagina).write_text(_leer_plantilla(pagina), encoding="utf-8")
     (destino / "consulta.html").write_text(
         _consulta(datos["v_hallazgos"]), encoding="utf-8")
 
-    # Shared assets: one stylesheet and one helper module across the three pages,
-    # so they read as one document rather than three.
+    # Shared assets: one stylesheet and one helper module across every page, so
+    # they read as one document rather than five.
     for recurso in ("estilo.css", "comun.js"):
         shutil.copy2(PLANTILLAS / recurso, destino / recurso)
 
@@ -107,7 +109,7 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
     shutil.copytree(corpus, corpus_destino)
 
     return {
-        "paginas": 3,
+        "paginas": len(paginas) + 1,
         "vistas": len(datos),
         "filas": sum(len(v) for v in datos.values()),
         "fuentes": len(instantaneas),

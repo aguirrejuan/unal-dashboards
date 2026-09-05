@@ -227,14 +227,23 @@ _VISTAS = [
         "v_compromiso_ciclo",
         """
         CREATE VIEW v_compromiso_ciclo AS
+        -- One row per sede and cycle. Up to three documents declare the same
+        -- commitment, so the raw declarations triple every sum. `declaraciones`
+        -- keeps that visible, and `cupos_max` would differ from `cupos` if the
+        -- three ever disagreed. Today they never do.
         SELECT d.unidad_id, u.nombre AS unidad, u.grupo,
                d.ciclo_id, c.anio_formulacion,
-               CAST(d.valor AS INT) AS cupos,
-               d.documento_id, d.ubicacion
+               CAST(min(d.valor) AS INT) AS cupos,
+               CAST(max(d.valor) AS INT) AS cupos_max,
+               count(*) AS declaraciones,
+               count(DISTINCT d.documento_id) AS documentos,
+               min(d.documento_id) AS documento_id,
+               min(d.ubicacion) AS ubicacion
         FROM   declaracion d
         JOIN   unidad_academica u ON u.unidad_id = d.unidad_id
         JOIN   ciclo c ON c.ciclo_id = d.ciclo_id
         WHERE  d.medida_id = 'compromiso' AND d.unidad_id <> 'UNAL_TOTAL'
+        GROUP  BY d.unidad_id, u.nombre, u.grupo, d.ciclo_id, c.anio_formulacion
         """,
     ),
     (
@@ -284,17 +293,87 @@ _VISTAS = [
         """,
     ),
     (
-        # The process, stage by stage, with whatever documentary evidence each
-        # one has. Most have none — V6 — and the flow should say so plainly
-        # rather than draw ten confident boxes.
+        # Which stage of the circuit a figure belongs to. The measure decides it
+        # everywhere except money, where the same measure means three different
+        # things depending on who wrote the document: the Ministry distributing,
+        # the Consejo Superior authorising, or Planeación reporting what was
+        # spent. Two stages match nothing, and that is the finding: the corpus
+        # documents no mesa técnica and no act of control.
+        "v_etapa_evidencia",
+        """
+        CREATE VIEW v_etapa_evidencia AS
+        SELECT p.*, d.emisor, d.titulo AS documento,
+               CASE
+                 WHEN p.medida = 'monto' AND d.emisor = 'MEN'
+                      THEN 'E01_ASIGNACION'
+                 WHEN p.medida = 'monto' AND d.emisor = 'UNAL_CSU'
+                      THEN 'E05_AUTORIZACION'
+                 WHEN p.medida = 'monto'
+                      THEN 'E02_EJECUCION_PPTAL'
+                 WHEN p.medida IN ('compromiso', 'compromiso_rezago',
+                                   'compromiso_total', 'cupos_ofertados')
+                      THEN 'E03_FORMULACION'
+                 WHEN p.medida IN ('inscritos', 'admitidos')
+                      THEN 'E06_CONVOCATORIA'
+                 WHEN p.medida IN ('cargos_creados', 'cargos_provistos',
+                                   'cargos_administrativos')
+                      THEN 'E07_VINCULACION'
+                 WHEN p.medida IN ('matriculados', 'primera_matricula',
+                                   'aumento_matriculados', 'estudiantes_cuartil')
+                      THEN 'E08_MATRICULA'
+                 WHEN p.medida IN ('balance_cumplimiento', 'rezago')
+                      THEN 'E09_REPORTE'
+               END AS etapa_id
+        FROM   v_procedencia p
+        JOIN   documento d ON d.documento_id = p.documento_id
+        """,
+    ),
+    (
+        # A cycle is named for the year it was formulated and produces its
+        # enrolment one or two years later. Every figure on the site inherits
+        # that offset, and readers reasonably misread it, so the window travels
+        # with the data instead of living in a caption somewhere.
+        "v_ciclo",
+        """
+        CREATE VIEW v_ciclo AS
+        SELECT c.ciclo_id, c.programa_id, c.anio_formulacion,
+               c.periodo_ejec_desde, c.periodo_ejec_hasta, c.estado,
+               p.nombre AS programa
+        FROM   ciclo c
+        JOIN   programa p ON p.programa_id = c.programa_id
+        WHERE  c.ciclo_id <> 'TODOS'
+        """,
+    ),
+    (
+        # Which documents speak to each stage, and how loudly. Small enough to
+        # inline in the page; `v_etapa_evidencia` holds the figures themselves.
+        "v_etapa_documento",
+        """
+        CREATE VIEW v_etapa_documento AS
+        SELECT ev.etapa_id, e.orden, ev.documento_id, d.titulo, d.tipo,
+               d.emisor, d.ruta_archivo, count(*) AS cifras
+        FROM   v_etapa_evidencia ev
+        JOIN   etapa e ON e.etapa_id = ev.etapa_id
+        JOIN   documento d ON d.documento_id = ev.documento_id
+        GROUP  BY ev.etapa_id, e.orden, ev.documento_id, d.titulo, d.tipo,
+                  d.emisor, d.ruta_archivo
+        """,
+    ),
+    (
+        # The process, stage by stage. `proyecto_etapa` is empty — V6: the
+        # corpus reports aggregates, never a project moving through a stage —
+        # so `eventos` is zero everywhere and says so. `cifras` is the honest
+        # measure of what the corpus does document about each stage.
         "v_etapas",
         """
         CREATE VIEW v_etapas AS
         SELECT e.etapa_id, e.orden, e.nombre, e.actor,
-               COUNT(pe.proyecto_id) AS eventos,
-               COUNT(DISTINCT pe.documento_id) AS documentos
+               count(ev.valor)                  AS cifras,
+               count(DISTINCT ev.documento_id)  AS documentos,
+               (SELECT count(*) FROM proyecto_etapa pe
+                WHERE  pe.etapa_id = e.etapa_id) AS eventos
         FROM   etapa e
-        LEFT   JOIN proyecto_etapa pe ON pe.etapa_id = e.etapa_id
+        LEFT   JOIN v_etapa_evidencia ev ON ev.etapa_id = e.etapa_id
         GROUP  BY e.etapa_id, e.orden, e.nombre, e.actor
         """,
     ),

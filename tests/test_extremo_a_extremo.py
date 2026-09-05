@@ -99,3 +99,48 @@ def test_la_vista_devuelve_una_fila_por_grano_y_vista(construido):
           GROUP BY 1,2,3,4,5 HAVING count(*) > 1)
     """)
     assert duplicados == 0
+
+
+def _fila(engine, sql):
+    with engine.connect() as c:
+        return c.execute(text(sql)).one()
+
+
+def test_el_compromiso_por_ciclo_tiene_una_fila_por_grano(construido):
+    """Three documents declare the same commitment, so the raw declarations
+    tripled every sum. A view named «por ciclo» must return the commitment,
+    not three times it."""
+    filas, granos = _fila(construido, """
+        SELECT count(*), count(DISTINCT unidad_id || '|' || ciclo_id)
+        FROM v_compromiso_ciclo
+    """)
+    assert filas == granos, "v_compromiso_ciclo repite el grano"
+    assert _uno(construido, """
+        SELECT count(*) FROM v_compromiso_ciclo WHERE cupos <> cupos_max
+    """) == 0, "dos documentos declaran compromisos distintos; revisar"
+
+
+def test_toda_cifra_pertenece_a_una_etapa_del_circuito(construido):
+    """A figure the process model cannot place is a gap in the model, not in the
+    data. Two stages match nothing, and that is the finding — but no figure may
+    fall outside all ten."""
+    assert _uno(construido, """
+        SELECT count(*) FROM v_etapa_evidencia WHERE etapa_id IS NULL
+    """) == 0
+    assert _uno(construido, "SELECT count(*) FROM v_etapas WHERE cifras > 0") == 8, \
+        "ocho etapas documentadas; revisión y control, no"
+
+
+def test_las_fechas_vienen_de_los_documentos(construido):
+    """Every date comes from the document itself — the Acuerdos from their acta
+    line, the Resolutions from the Ministry's own file name. One outside the
+    window means a transcription slipped."""
+    with construido.connect() as c:
+        fuera = c.execute(text("""
+            SELECT documento_id, fecha FROM documento
+            WHERE fecha IS NOT NULL AND (fecha < '2023-01-01' OR fecha > '2026-12-31')
+        """)).all()
+    assert not fuera, f"fechas fuera de 2023-2026: {fuera}"
+    assert _uno(construido, """
+        SELECT count(*) FROM documento WHERE estado = 'EN_CORPUS' AND fecha IS NULL
+    """) == 3, "sólo los dos informes y la orden no se fechan a sí mismos"

@@ -81,6 +81,16 @@ h2{
 .kpi .et{color:var(--tenue); font-size:12.5px; margin-top:5px; display:block}
 .kpi .pie{color:var(--suave); font-size:11.5px; margin-top:7px; display:block}
 .kpi.dividida b{color:var(--alerta)}
+.kpi[title]{cursor:help}
+.kpi .fuente-kpi{
+  display:block; margin-top:9px; padding-top:9px; border-top:1px solid var(--linea);
+  font-size:11px; color:var(--suave); line-height:1.9;
+}
+.kpi .fuente-kpi .doc-enlace{border-bottom:0}
+.kpi .fuente-kpi .mas{color:var(--suave)}
+.kpis{align-items:stretch}
+.kpi{display:flex; flex-direction:column}
+.kpi .fuente-kpi{margin-top:auto}
 
 /* -------------------------------------------------------------------- tablas */
 table{border-collapse:collapse; width:100%; font-size:13.5px}
@@ -157,6 +167,12 @@ footer{
 .doc-enlace::after{content:" ↗"; font-size:.85em; opacity:.6}
 
 /* -------------------------------------------------------------------- flujo */
+/* The citation column carries «p.3, UNIDAD 225701, A. FUNCIONAMIENTO»; breaking
+   that mid-word turns evidence into noise. Give it room and break on spaces. */
+table.cifras{min-width:0}
+table.cifras .cita{word-break:normal; overflow-wrap:break-word}
+table.cifras td:last-child{width:1%; white-space:nowrap}
+
 .etapas{display:flex; flex-direction:column; gap:0}
 .etapa{
   display:grid; grid-template-columns:44px 1fr 150px; gap:16px; align-items:start;
@@ -172,7 +188,24 @@ footer{
 .etapa .t{font-weight:600; font-size:15px}
 .etapa .a{color:var(--tenue); font-size:13px; margin-top:2px}
 .etapa .d{color:var(--suave); font-size:12.5px; margin-top:6px; max-width:62ch}
-.etapa .ev{justify-self:end; text-align:right}
+.etapa .ev{justify-self:end; text-align:right; display:flex; flex-direction:column;
+            align-items:flex-end; gap:4px}
+.etapa .fuentes{display:flex; flex-wrap:wrap; gap:6px; margin-top:9px}
+.etapa .fuente{
+  display:inline-flex; align-items:center; gap:6px; padding:2px 4px 2px 8px;
+  border:1px solid var(--linea); border-radius:20px; background:var(--panel-alt);
+  font-size:11.5px; line-height:1.7;
+}
+.etapa .fuente .doc-enlace{border-bottom:0}
+.etapa .fuente .cuenta{
+  background:var(--acento-tenue); color:var(--acento); border-radius:20px;
+  padding:0 7px; font-variant-numeric:tabular-nums; font-size:11px; font-weight:600;
+}
+.etapa.sin .ninguna{color:var(--suave); font-size:12px; font-style:italic}
+
+/* An identifier must never wrap: «E1» split over two lines reads as «E / 1».
+   The location strings keep `word-break`, because they must. */
+.cita.id{white-space:nowrap; word-break:normal}
 
 /* ------------------------------------------------------------------ esquema */
 .tabla-esq{

@@ -95,3 +95,68 @@ const enlaceDocId = (id, texto) => {
     ? enlaceDoc(d.ruta_archivo, texto || id)
     : `<span title="citado, no disponible">${esc(texto || id)}</span>`;
 };
+
+/** A readable short name for a document id. Titles run to eighty characters and
+    ids shout; «Acuerdo 024/2025» is what a reader would say out loud. */
+function nombreCorto(id) {
+  const m = String(id).match(/^(ACU_CSU|RES_MEN)_0*(\d+)_(\d{4})$/);
+  if (m) return (m[1] === 'ACU_CSU' ? 'Acuerdo ' : 'Res. ') + m[2] + '/' + m[3];
+  return {ANEXO1_PIC:'Anexo 1', ANEXO2_PIC:'Anexo 2',
+          INFORME_MEN_2024_2025:'Informe al MEN',
+          INFORME_CUALITATIVO:'Informe cualitativo',
+          OFICIO_PIC_CO_ET:'Oficio remisorio',
+          ORDEN_422447:'Orden 422447'}[id] || id;
+}
+
+/* ------------------------------------------------- ciclos, vigencias, cifras */
+
+/** Cycles by id, so any figure can say which years it actually covers. */
+const CICLOS = {};
+if (window.CARGA && CARGA.datos && CARGA.datos.v_ciclo) {
+  CARGA.datos.v_ciclo.forEach(c => { CICLOS[c.ciclo_id] = c; });
+}
+
+/** The sentence a reader needs when a figure labelled 2023 counts students who
+    enrolled in 2025. A cycle carries three different years and confusing them
+    is the single easiest mistake to make with this data. */
+function explicaCiclo(id) {
+  const c = CICLOS[id];
+  if (!c) return id === 'TODOS' ? 'Sin ciclo: la cifra no se atribuye a ninguno.' : '';
+  return `${c.programa_id.replace('_', '-')} ${c.anio_formulacion}: formulado en `
+       + `${c.anio_formulacion}, se ejecuta entre ${c.periodo_ejec_desde} y `
+       + `${c.periodo_ejec_hasta}. El año del nombre es el de la formulación, `
+       + `no el de la matrícula.`;
+}
+
+/** The documents behind a set of `v_procedencia` rows, as links, most-cited
+    first. A figure without its sources is an assertion; with them it is
+    evidence, so every reported number on the site carries these. */
+function fuentesDe(filas, tope = 4) {
+  const cuenta = {};
+  filas.forEach(f => { cuenta[f.documento_id] = (cuenta[f.documento_id] || 0) + 1; });
+  const ids = Object.entries(cuenta).sort((a, b) => b[1] - a[1]).map(([id]) => id);
+  const visibles = ids.slice(0, tope)
+    .map(id => enlaceDocId(id, nombreCorto(id))).join(' · ');
+  // Fourteen links turn a card into a directory. The rest are in the tooltip.
+  return ids.length > tope
+    ? `${visibles} <span class="mas">y ${ids.length - tope} más</span>`
+    : visibles;
+}
+
+/** Where each figure sits, spelled out: «Anexo 1 · Tabla 2, fila 9 'TOTAL'». */
+const citaDe = f => `${nombreCorto(f.documento_id)} · ${f.ubicacion}`;
+
+/** A KPI card. `filas` are the `v_procedencia` rows the number came from; they
+    become the hover explanation and the visible links under it. */
+function cifra({v, et, pie, filas = [], ayuda = '', clase = ''}) {
+  const ciclos = [...new Set(filas.map(f => f.ciclo_id).filter(c => c && c !== 'TODOS'))];
+  const docs = [...new Set(filas.map(f => f.documento_id))];
+  const titulo = [ayuda, ...ciclos.map(explicaCiclo),
+                  docs.length ? 'Documentos: ' + docs.map(nombreCorto).join(', ') : '']
+    .filter(Boolean).join('\n\n');
+  return `<div class="kpi ${clase}"${titulo ? ` title="${esc(titulo)}"` : ''}>
+    <b>${v}</b><span class="et">${esc(et)}</span>
+    ${pie ? `<span class="pie">${pie}</span>` : ''}
+    ${filas.length ? `<span class="fuente-kpi">${fuentesDe(filas)}</span>` : ''}
+  </div>`;
+}

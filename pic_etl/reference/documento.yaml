@@ -23,6 +23,7 @@ documento:
   emisor: MEN
   numero: '016202'
   titulo: 016202 06 SEP 2023
+  fecha: 2023-09-06   # 06 SEP 2023, del nombre oficial del archivo; confirmada por el Acuerdo 005 de 2024
   estado: EN_CORPUS
   soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/016202 06 SEP 2023.pdf
@@ -32,6 +33,7 @@ documento:
   emisor: MEN
   numero: 016468
   titulo: 016468 01 AGO 2025
+  fecha: 2025-08-01   # 01 AGO 2025; confirmada por el Acuerdo 052 de 2025
   estado: EN_CORPUS
   soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/016468 01 AGO 2025.pdf
@@ -41,6 +43,7 @@ documento:
   emisor: MEN
   numero: 018433
   titulo: 018433 18 OCT 2024
+  fecha: 2024-10-18   # 18 OCT 2024, del nombre oficial del archivo
   estado: EN_CORPUS
   soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/018433 18 OCT 2024.pdf
@@ -50,6 +53,7 @@ documento:
   emisor: MEN
   numero: 018970
   titulo: 018970 17 SEP 2025
+  fecha: 2025-09-17   # 17 SEP 2025, del nombre oficial del archivo
   estado: EN_CORPUS
   soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/018970 17 SEP 2025.pdf
@@ -59,6 +63,7 @@ documento:
   emisor: MEN
   numero: 019862
   titulo: 019862 02 OCT 2025
+  fecha: 2025-10-02   # 02 OCT 2025, del nombre oficial del archivo
   estado: EN_CORPUS
   soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/019862 02 OCT 2025.pdf
@@ -68,6 +73,7 @@ documento:
   emisor: UNAL_CSU
   numero: '004'
   titulo: Acuerdo 004 de 2025
+  fecha: 2025-03-12   # Acta 02 del 12 de marzo
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 004 de 2025.pdf
@@ -77,6 +83,7 @@ documento:
   emisor: UNAL_CSU
   numero: '005'
   titulo: Acuerdo 005 de 2024
+  fecha: 2024-02-16   # Acta 02 del 13 y 16 de febrero; se toma el día de cierre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 005 de 2024.pdf
@@ -86,6 +93,7 @@ documento:
   emisor: UNAL_CSU
   numero: '006'
   titulo: Acuerdo 006 de 2024
+  fecha: 2024-02-16   # Acta 02 del 13 y 16 de febrero; se toma el día de cierre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 006 de 2024.pdf
@@ -95,6 +103,7 @@ documento:
   emisor: UNAL_CSU
   numero: '013'
   titulo: Acuerdo 013 de 2024
+  fecha: 2024-07-30   # Acta 17 del 30 de julio
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 013 de 2024.pdf
@@ -104,6 +113,7 @@ documento:
   emisor: UNAL_CSU
   numero: '016'
   titulo: Acuerdo 016 de 2023
+  fecha: 2023-11-01   # Acta 11 del 1 de noviembre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 016 de 2023.pdf
@@ -113,6 +123,7 @@ documento:
   emisor: UNAL_CSU
   numero: '017'
   titulo: Acuerdo 017 de 2023
+  fecha: 2023-11-01   # Acta 11 del 1 de noviembre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 017 de 2023.pdf
@@ -122,6 +133,7 @@ documento:
   emisor: UNAL_CSU
   numero: '017'
   titulo: Acuerdo 017 de 2024
+  fecha: 2024-07-30   # Acta 17 del 30 de julio
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 017 de 2024.pdf
@@ -131,6 +143,7 @@ documento:
   emisor: UNAL_CSU
   numero: 018
   titulo: Acuerdo 018 de 2023
+  fecha: 2023-11-01   # Acta 11 del 1 de noviembre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 018 de 2023.pdf
@@ -140,6 +153,7 @@ documento:
   emisor: UNAL_CSU
   numero: 019
   titulo: Acuerdo 019 de 2023
+  fecha: 2023-11-01   # Acta 11 del 1 de noviembre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 019 de 2023.pdf
@@ -150,6 +164,7 @@ documento:
   emisor: UNAL_CSU
   numero: '024'
   titulo: Acuerdo 024 de 2025
+  fecha: 2025-07-24   # Acta 13 del 24 de julio
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 024 de 2025.pdf
@@ -159,6 +174,7 @@ documento:
   emisor: UNAL_CSU
   numero: '034'
   titulo: Acuerdo 034 de 2025
+  fecha: 2025-09-02   # Acta 16 del 02 de septiembre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 034 de 2025.pdf
@@ -168,6 +184,7 @@ documento:
   emisor: UNAL_CSU
   numero: '052'
   titulo: Acuerdo 052 de 2025
+  fecha: 2025-12-09   # Acta 24 del 09 de diciembre
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 052 de 2025.pdf
@@ -187,6 +204,7 @@ documento:
   emisor: UNAL_PLANEACION
   numero: '1'
   titulo: Anexo 1. Documento Planes Integrales de Cobertura
+  fecha: 2026-05-19   # el documento se fecha «Mayo, 2026»; se toma el día en que el Oficio lo remite
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/Pic_Info-2/Anexo 1. Documento Planes Integrales de Cobertura.docx
@@ -196,6 +214,7 @@ documento:
   emisor: UNAL_PLANEACION
   numero: '2'
   titulo: Anexo 2 Informe presupuestal correspondiente a la ejecución del PIC-CO durante las vigencias 2023 y 2024
+  fecha: 2026-05-19   # anexo del mismo oficio remisorio
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/Pic_Info-2/Anexo 2 Informe presupuestal correspondiente a la ejecución del PIC-CO durante las vigencias 2023 y 2024.xlsx
@@ -243,6 +262,7 @@ documento:
   emisor: MEN
   numero: '8596'
   titulo: Resolución 8596 del 27 de mayo de 2024 (citada como «08596 de 2023»)
+  fecha: 2024-05-27   # «Resolución No. 8596 del 27 de mayo de 2024», citada por el Acuerdo 024 de 2025
   estado: CITADO
   soporte: null
   ruta_archivo: null

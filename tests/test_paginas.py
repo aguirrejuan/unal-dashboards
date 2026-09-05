@@ -26,10 +26,11 @@ require(SITIO + '/datos.js');
 require(SITIO + '/fuentes.js');
 
 const cache = {};
+const escrito = {};
 const nodo = id => ({
   id,
-  set innerHTML(v){}, get innerHTML(){ return ''; },
-  set textContent(v){}, get textContent(){ return ''; },
+  set innerHTML(v){ escrito[id] = String(v); }, get innerHTML(){ return escrito[id] || ''; },
+  set textContent(v){ escrito[id] = String(v); }, get textContent(){ return escrito[id] || ''; },
   querySelectorAll: () => [], querySelector: () => null,
   insertAdjacentHTML(){}, classList:{add(){},remove(){}},
   addEventListener(){}, value:'', set oninput(f){}, set onclick(f){},
@@ -52,7 +53,7 @@ const html = fs.readFileSync(SITIO + '/' + PAGINA, 'utf8');
 const guion = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]).join('\n');
 
 new Function(comun + '\n' + guion)();
-console.log(JSON.stringify(graficos));
+console.log(JSON.stringify({graficos, escrito}));
 """
 
 
@@ -70,15 +71,23 @@ def _ejecutar(pagina: str) -> list[dict]:
     return json.loads(salida.stdout.strip().splitlines()[-1])
 
 
+def _graficos(pagina: str) -> list[dict]:
+    return _ejecutar(pagina)["graficos"]
+
+
+def _escrito(pagina: str) -> dict[str, str]:
+    return _ejecutar(pagina)["escrito"]
+
+
 def test_el_panorama_dibuja_todos_sus_graficos():
-    graficos = {g["el"]: g for g in _ejecutar("index.html")}
+    graficos = {g["el"]: g for g in _graficos("index.html")}
     assert set(graficos) == {"embudo", "compromiso", "etc", "dinero", "cuartil",
                              "linea-tiempo", "pie-fuente", "pie-tipo", "corpus"}
     assert all(g["puntos"] > 0 for g in graficos.values()), "algún gráfico quedó vacío"
 
 
 def test_el_proceso_dibuja_el_circuito_y_los_rubros():
-    graficos = {g["el"]: g for g in _ejecutar("proceso.html")}
+    graficos = {g["el"]: g for g in _graficos("proceso.html")}
     assert set(graficos) == {"sankey", "rubros", "rubro-pie"}
     assert all(g["puntos"] > 0 for g in graficos.values())
 
@@ -99,3 +108,32 @@ def test_el_grafico_de_etc_no_cuenta_dos_veces():
              if f["origen"] == "cargo_creado" and f["medida"] == "cargos_creados"]
     assert len({f["unidad_id"] for f in filas}) == 10, "debería haber diez sedes"
     assert sum(f["valor"] for f in filas) == 394.5, "152 + 191,5 + 51"
+
+
+def test_la_linea_de_tiempo_no_se_reduce_a_un_punto():
+    """`documento.fecha` was populated for one document out of twenty-seven, so
+    the timeline drew a single dot on an axis spanning one millisecond. It read
+    as a broken chart, because it was one."""
+    linea = next(g for g in _graficos("index.html") if g["el"] == "linea-tiempo")
+    assert linea["puntos"] >= 20, "casi todos los documentos deben tener fecha"
+    assert linea["series"] >= 4, "deben aparecer varios tipos de documento"
+
+
+def test_cada_cifra_del_panorama_declara_sus_documentos():
+    """Every reported number links to what asserts it. A KPI without a source is
+    an assertion; the point of the site is that none of them are."""
+    kpis = _escrito("index.html")["kpis"]
+    tarjetas = kpis.split('<div class="kpi')
+    assert len(tarjetas) == 7, "seis tarjetas"
+    for tarjeta in tarjetas[1:]:
+        assert 'class="fuente-kpi"' in tarjeta, "una cifra sin fuente"
+        assert "corpus/" in tarjeta, "el enlace no apunta al corpus publicado"
+        assert "title=" in tarjeta, "una cifra sin explicación"
+
+
+def test_el_proceso_atribuye_evidencia_a_las_etapas_documentadas():
+    """`proyecto_etapa` is empty, so counting it marked all ten stages «sin
+    evidencia» — which contradicted the rest of the site."""
+    etapas = _escrito("proceso.html")["etapas"]
+    assert etapas.count("sin evidencia") == 2, "sólo revisión y control están vacías"
+    assert etapas.count("corpus/") >= 20, "cada etapa documentada enlaza sus fuentes"

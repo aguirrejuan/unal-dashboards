@@ -107,7 +107,7 @@ const VISTAS = [
   ['v_compromiso_ciclo','cupos por sede y ciclo'],
   ['v_dinero_fuente','asignaciones por sede, vigencia y fuente'],
   ['v_presupuesto','presupuesto por rubro dentro de un ciclo'],
-  ['v_corpus','los 23 documentos y su estado'],
+  ['v_corpus','los 23 archivos más los 4 citados, con su estado'],
 ];
 $('esquema').innerHTML = VISTAS.map(([v,d]) =>
   `<div><code data-v="${v}">${v}</code> — ${esc(d)}</div>`).join('');

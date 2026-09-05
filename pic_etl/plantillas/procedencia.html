@@ -6,7 +6,7 @@
 <title>PIC · Procedencia</title>
 <link rel="stylesheet" href="estilo.css">
 <style>
-  .doble{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:16px;
+  .doble{display:grid; grid-template-columns:minmax(0,1.45fr) minmax(0,1fr); gap:16px;
          align-items:start}
   @media(max-width:1040px){.doble{grid-template-columns:1fr}}
   .filtro{display:flex; gap:9px; margin-bottom:11px; flex-wrap:wrap}
@@ -60,13 +60,14 @@
         <select id="doc"><option value="">Todos los documentos</option></select>
         <select id="medida"><option value="">Todas las medidas</option></select>
       </div>
-      <div class="scroll" style="max-height:560px"><table id="cifras"></table></div>
+      <div class="scroll" style="max-height:620px"><table id="cifras" class="cifras"></table></div>
     </div>
     <div class="panel evidencia" id="evidencia" style="position:sticky; top:76px"></div>
   </div>
 
   <h2>El corpus</h2>
-  <p class="lede">Veintitrés documentos. Qué es cada uno, cómo se leyó y cuántas cifras
+  <p class="lede">Los veintitrés archivos del corpus y los cuatro que sólo se citan. Qué
+  es cada uno, cómo se leyó y cuántas cifras
   aportó.</p>
   <div class="panel"><div class="scroll" style="max-height:420px">
     <table id="corpus"></table>
@@ -90,13 +91,22 @@ const P = D.v_procedencia;
 const docsConCifras = new Set(P.map(f=>f.documento_id)).size;
 const transcritas = P.filter(f=>f.soporte==='TRANSCRITO').length;
 $('kpis').innerHTML = [
-  {v:fmt(P.length), et:'cifras rastreables', pie:'cada una con documento y celda'},
-  {v:fmt(docsConCifras), et:'documentos que las aportan', pie:'de 23 en el corpus'},
-  {v:fmt(Object.keys(FUENTES).length), et:'tablas fuente reproducidas', pie:'con la celda resaltable'},
+  {v:fmt(P.length), et:'cifras rastreables', pie:'cada una con documento y celda',
+   ayuda:'Cada fila de esta página es una cifra que un documento afirma, con la '
+        +'página o celda exacta de donde se leyó.'},
+  {v:fmt(docsConCifras), et:'documentos que las aportan', pie:'de 23 archivos del corpus',
+   ayuda:'Tres archivos más se leyeron y no declaran ninguna cifra propia; cuatro '
+        +'documentos se citan en el corpus pero no están en él.'},
+  {v:fmt(Object.keys(FUENTES).length), et:'tablas fuente reproducidas',
+   pie:'con la celda resaltable',
+   ayuda:'La tabla original, reproducida aquí con la celda citada marcada. Los '
+        +'escaneos no tienen tabla que reproducir: su evidencia es la página.'},
   {v:fmt(P.length - transcritas), et:'comprobadas automáticamente',
-   pie:`${transcritas} descansan en un escaneo`},
-].map(k=>`<div class="kpi"><b>${k.v}</b><span class="et">${k.et}</span>
-  <span class="pie">${k.pie}</span></div>`).join('');
+   pie:`${transcritas} descansan en un escaneo`,
+   ayuda:'En cada construcción se vuelve a abrir el archivo original y se compara '
+        +'el literal guardado contra su celda. Los escaneos no tienen capa de '
+        +'texto: su garantía es el hash del archivo más la lectura de una persona.'},
+].map(cifra).join('');
 
 /* -------------------------------------------------------------- evidencia */
 const ev = $('evidencia');
@@ -143,13 +153,25 @@ function pintar() {
     (!q || [f.medida,f.unidad,f.documento_id,f.ubicacion,f.literal]
             .join(' ').toLowerCase().includes(q)));
   tabla($('cifras'), [
-    {t:'Medida', k:'medida'},
+    {t:'Medida', r:f=>`<span title="${esc(explicaCiclo(f.ciclo_id))}">${esc(f.medida)}</span>`},
     {t:'Sede', k:'unidad'},
+
     {t:'Valor', r:f=>fmt(f.valor), num:true},
     {t:'Literal', r:f=>`<span class="cita">${esc(f.literal)}</span>`},
-    {t:'Ubicación', r:f=>`<span class="cita">${esc(f.ubicacion)}</span>`},
+    {t:'Procedencia', r:f=>
+       `<span class="cita id">${enlaceDocId(f.documento_id, nombreCorto(f.documento_id))}</span>
+        ${FUENTES[f.documento_id + '|' + f.contenedor]
+          ? '<span class="pill ok">tabla</span>'
+          : '<span class="pill pend" title="escaneo: la evidencia es la página">escaneo</span>'}
+        <br><span class="cita">${esc(f.ubicacion)}</span>`},
   ], filas, {alSeleccionar: mostrar});
-  if (filas.length) mostrar(filas[0]);
+  const conTabla = filas.findIndex(f => FUENTES[f.documento_id + '|' + f.contenedor]);
+  if (filas.length) {
+    const i = conTabla >= 0 ? conTabla : 0;
+    mostrar(filas[i]);
+    const fila = $('cifras').querySelector(`tbody tr[data-i="${i}"]`);
+    if (fila) { fila.classList.add('sel'); fila.scrollIntoView({block:'nearest'}); }
+  }
   else ev.innerHTML = '<p class="lede">Ninguna cifra coincide con el filtro.</p>';
 }
 ['buscar','doc','medida'].forEach(id => $(id).oninput = pintar);
