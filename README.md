@@ -97,12 +97,18 @@ píxel, composición asimétrica—; el conjunto oficial vive en
 sobre la retícula en lugar de copiarse, y la guía pide enviarlos a Unimedios
 para su aprobación.
 
-No lleva escudo ni logosímbolo. Son marcas registradas ante la SIC, reservadas a
-las dependencias de la Universidad y con aval previo de Unimedios. La cabecera
-tiene el hueco listo: si esa autorización existe, basta poner el archivo en
-`pic_etl/plantillas/marca/escudo.svg` y `publish` lo lleva al sitio. Mientras no
-esté, la cabecera se resuelve con tipografía y no se pide el archivo, para no
-dejar un 404 en la consola de cada visitante.
+La cabecera lleva la firma institucional —escudo y marca nominativa— sobre
+Pantone 7743 C, que es el fondo de color que su versión blanca necesita. Es el
+archivo que la propia Universidad sirve en la cabecera de su sitio de identidad,
+copiado byte a byte, no una reconstrucción: una prueba compara su sha256 y falla
+si alguien lo sustituye o lo altera, y otra comprueba que se declare con sus
+propias proporciones para que ninguna hoja de estilo lo deforme.
+
+La marca está registrada ante la SIC y su uso institucional requiere aval previo
+de la Oficina de Medios Digitales — Unimedios; véase
+[`pic_etl/plantillas/marca/LEEME.md`](pic_etl/plantillas/marca/LEEME.md). Para
+retirarla basta borrar el archivo: `publish` deja de emitirla, no la pide, y la
+cabecera vuelve a resolverse con tipografía.
 
 | | |
 |---|---|

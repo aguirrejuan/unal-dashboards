@@ -53,26 +53,35 @@ body{
 }
 
 /* ---------------------------------------------------------------- navegación */
+/* The firma exists in one colour, white, so it needs a ground. 7743 C carries
+   it at 7:1 against white; the institutional 376 C would not, which is why the
+   University itself sets it on the dark green. The rule underneath is 376 C,
+   where a bright accent belongs. */
 .barra{
-  position:sticky; top:0; z-index:50; background:var(--panel);
-  border-bottom:1px solid var(--linea); backdrop-filter:saturate(180%) blur(8px);
-  border-top:3px solid var(--un-verde);
+  position:sticky; top:0; z-index:50; background:var(--un-verde-oscuro);
+  border-bottom:3px solid var(--un-verde);
 }
 .barra .caja{
   max-width:1220px; margin:0 auto; padding:0 24px;
-  display:flex; align-items:center; gap:28px; height:56px;
+  display:flex; align-items:center; gap:22px; height:64px;
 }
 .marca-sitio{
   font-family:var(--tipo-titulo); font-weight:600; letter-spacing:-.005em;
-  font-size:15.5px; white-space:nowrap; color:inherit; text-decoration:none;
-  display:inline-flex; align-items:center; gap:11px;
+  font-size:15.5px; white-space:nowrap; color:#fff; text-decoration:none;
+  display:inline-flex; align-items:center; gap:16px;
 }
-.marca-sitio .escudo{height:30px; width:auto; display:block}
+.marca-sitio span{color:rgba(255,255,255,.72); font-weight:400}
+/* Área de protección: la firma no se arrima a nada. */
+.marca-sitio .firma{
+  height:34px; width:auto; display:block;
+  padding-right:16px; margin-right:0;
+  border-right:1px solid rgba(255,255,255,.28);
+}
 .marca-sitio span{color:var(--tenue); font-weight:450}
 .nav{display:flex; gap:2px; margin-left:auto}
 .nav a{
-  color:var(--tenue); text-decoration:none; font-size:14px; font-weight:520;
-  padding:7px 13px; border-radius:7px; white-space:nowrap;
+  color:rgba(255,255,255,.82); text-decoration:none; font-size:14px;
+  font-weight:520; padding:7px 13px; border-radius:7px; white-space:nowrap;
   display:inline-flex; align-items:center; gap:7px;
 }
 
@@ -84,8 +93,8 @@ body{
 .ico-tipo{width:15px; height:15px; margin-right:7px; vertical-align:-3px;
           color:var(--tenue)}
 .ficha .ico-tipo{color:var(--acento)}
-.nav a:hover{background:var(--panel-alt); color:var(--tinta)}
-.nav a[aria-current]{background:var(--acento-tenue); color:var(--acento); font-weight:600}
+.nav a:hover{background:rgba(255,255,255,.14); color:#fff}
+.nav a[aria-current]{background:var(--un-verde); color:#fff; font-weight:600}
 
 .caja{max-width:1220px; margin:0 auto; padding:0 24px}
 main{padding-bottom:88px}

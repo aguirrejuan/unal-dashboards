@@ -92,17 +92,64 @@ def test_cada_tipo_de_documento_del_corpus_tiene_icono():
     assert tipos <= mapeados, f"tipos sin ícono: {tipos - mapeados}"
 
 
-def test_no_se_publica_una_marca_que_no_se_tiene():
-    """The escudo is a registered mark whose use needs Unimedios' approval. The
-    page must never ship a placeholder for it, nor request a file that is not
-    there — a 404 in every visitor's console for a mark we were not given."""
+FIRMA = PLANTILLAS / "marca" / "firma-unal.png"
+
+# El archivo que sirve la propia Universidad en la cabecera de su sitio de
+# identidad. Si el hash cambia, alguien sustituyó la marca por otra cosa.
+FIRMA_SHA = "fcccf86c380a961554663a04d92e50c30d8de99750591c9b029a58496b432f01"
+
+
+def test_la_firma_se_publica_tal_cual_o_no_se_publica():
+    """A mark is the one thing on this page that may not be approximated. Either
+    the file the University serves travels byte for byte, or the masthead falls
+    back to type — never a redrawing, never a rescaled copy."""
     if not (SITIO / "index.html").exists():
         pytest.skip("site/ vacío; ejecute `pic-etl publish`")
-    escudo = PLANTILLAS / "marca" / "escudo.svg"
+    publicada = SITIO / "marca" / "firma-unal.png"
     for pagina in _paginas():
         html = pagina.read_text(encoding="utf-8")
-        if escudo.exists():
-            assert 'src="marca/escudo.svg"' in html
+        if FIRMA.exists():
+            assert 'src="marca/firma-unal.png"' in html, \
+                f"{pagina.name} no muestra la firma que sí está en el repositorio"
         else:
-            assert "marca/escudo" not in html, \
-                f"{pagina.name} pide un escudo que no está en el repositorio"
+            assert "marca/" not in html, \
+                f"{pagina.name} pide una marca que no está en el repositorio"
+    if FIRMA.exists():
+        import hashlib
+
+        assert publicada.exists(), "la firma no llegó a site/"
+        assert publicada.read_bytes() == FIRMA.read_bytes(), "la firma se alteró"
+        assert hashlib.sha256(FIRMA.read_bytes()).hexdigest() == FIRMA_SHA, \
+            "el archivo ya no es el que sirve la Universidad"
+
+
+def test_la_firma_no_se_deforma():
+    """Its own proportions, declared in the markup: a mark stretched by a
+    stylesheet is a mark misused, and `width`/`height` make the ratio checkable
+    instead of a matter of trust."""
+    if not FIRMA.exists():
+        pytest.skip("sin marca instalada")
+    import struct
+
+    ancho, alto = struct.unpack(">II", FIRMA.read_bytes()[16:24])
+    if not (SITIO / "index.html").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+    html = (SITIO / "index.html").read_text(encoding="utf-8")
+    m = re.search(r'class="firma"[^>]*width="(\d+)" height="(\d+)"', html)
+    assert m, "la firma no declara sus dimensiones"
+    assert (int(m[1]), int(m[2])) == (ancho, alto), \
+        f"declara {m[1]}×{m[2]} y el archivo es {ancho}×{alto}"
+    css = (SITIO / "estilo.css").read_text(encoding="utf-8")
+    assert re.search(r"\.marca-sitio \.firma\{[^}]*width:auto", css), \
+        "la altura fija sin `width:auto` deforma la marca"
+
+
+def test_la_marca_blanca_va_sobre_fondo_de_color():
+    """The firma exists in one colour. On white it is invisible; the masthead
+    must be the coloured ground the University itself gives it."""
+    if not FIRMA.exists():
+        pytest.skip("sin marca instalada")
+    css = (SITIO / "estilo.css").read_text(encoding="utf-8")
+    barra = re.search(r"\.barra\{([^}]*)\}", css)
+    assert barra and "var(--un-verde-oscuro)" in barra[1], \
+        "la cabecera dejó de ser el fondo de color que la firma blanca necesita"

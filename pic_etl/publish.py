@@ -140,11 +140,15 @@ def _leer_plantilla(nombre: str) -> str:
     # The escudo is emitted only when the file is present. An `onerror` handler
     # would hide it just as well, but it would also put a 404 in every visitor's
     # console for a mark the site was never given.
-    escudo = PLANTILLAS / "marca" / "escudo.svg"
-    return html.replace(
-        "<!--ESCUDO-->",
-        '<img class="escudo" src="marca/escudo.svg" alt="Universidad Nacional '
-        'de Colombia">' if escudo.exists() else "")
+    firma = PLANTILLAS / "marca" / "firma-unal.png"
+    if not firma.exists():
+        return html.replace("<!--ESCUDO-->", "")
+    # With the firma present, «· UNAL» beside it says the same thing twice.
+    return (html
+            .replace("<!--ESCUDO-->",
+                     '<img class="firma" src="marca/firma-unal.png" width="165"'
+                     ' height="70" alt="Universidad Nacional de Colombia">')
+            .replace(" <span>· UNAL</span>", ""))
 
 
 # The layers of docs/pic-data-model-v2.md, so the schema page groups tables the
