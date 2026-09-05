@@ -37,7 +37,7 @@ jobs:
           enable-cache: true
 
       - name: Instalar dependencias
-        run: uv sync --extra dev
+        run: uv sync --extra dev --extra llm
 
       # Never `extract` here. Extractions are reviewed by a person and committed;
       # regenerating them in CI would silently discard that review. Snapshots are

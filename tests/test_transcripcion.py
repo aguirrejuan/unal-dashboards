@@ -13,6 +13,11 @@ from pathlib import Path
 import pytest
 import yaml
 
+# The graph imports langgraph lazily, so the module loads without the extra;
+# these tests do not. Skipping beats failing for anyone who installed only
+# `dev` — nothing else in the pipeline needs it.
+pytest.importorskip("langgraph", reason="instale el extra `llm`")
+
 from pic_etl.extract.vision import grafo, prompt, revision
 from pic_etl.models import Extraction
 
