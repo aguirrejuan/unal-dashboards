@@ -81,6 +81,8 @@ def test_la_pagina_de_procedencia_carga():
 def test_el_grafico_de_etc_no_cuenta_dos_veces():
     """The per-sede posts and the AGREGADO totals share a measure name, so a
     filter on the measure alone doubles every figure and invents an extra bar."""
+    if not (SITIO / "datos.js").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
     carga = json.loads((SITIO / "datos.js").read_text(encoding="utf-8")
                        .removeprefix("window.CARGA=").rstrip(";"))
     filas = [f for f in carga["datos"]["v_procedencia"]

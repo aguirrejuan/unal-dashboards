@@ -51,11 +51,13 @@ jobs:
       - name: Verificar invariantes y re-transcripción
         run: uv run pic-etl verify
 
-      - name: Pruebas
-        run: uv run pytest -q
-
       - name: Generar el sitio
         run: uv run pic-etl publish
+
+      # After publishing, so the tests that execute each page's script against
+      # the real payload actually run here instead of skipping for want of site/.
+      - name: Pruebas
+        run: uv run pytest -q
 
       - uses: actions/upload-pages-artifact@v3
         with:
