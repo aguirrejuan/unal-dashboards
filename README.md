@@ -144,6 +144,24 @@ divergencias, y el tablero lo dice en lugar de dibujar diez cajas seguras.
 de rubros, una consulta que las cruce no devuelve nada, que es la respuesta
 correcta.
 
+## Confirmación
+
+Cada cifra lleva junto al número cuán confirmada está. No es un juicio sobre el
+documento: es un hecho sobre cómo llegó hasta aquí.
+
+| | | |
+|---|---|---|
+| **corroborada** | 65 | varios documentos declaran el mismo valor para el mismo grano |
+| **comprobada** | 344 | uno lo declara, y cada construcción reabre el archivo y compara el literal contra su celda |
+| **sin comprobar** | 6 | el original es un escaneo sin capa de texto: no hay contra qué comparar |
+| **en conflicto** | 13 | dos documentos declaran valores distintos del mismo grano y ninguno corrige al otro |
+
+El sello sale de `v_procedencia`, que decide lo mismo que `materializar_grano`
+decide en Python al cargar. Una prueba los ata: si alguna vez discreparan, el
+tablero marcaría como resuelta una cifra que la base se negó a resolver. Otra
+comprueba que un escaneo nunca se marque comprobado, que es la única mentira
+que este tablero existe para no contar.
+
 ## Hallazgos
 
 42 entradas en el registro, 39 con una consulta que las demuestra: sumas que no

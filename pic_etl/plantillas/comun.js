@@ -255,3 +255,36 @@ const TIPO_ICONO = {ACUERDO:'acuerdo', RESOLUCION:'resolucion', ANEXO:'anexo',
                     INFORME:'informe', OFICIO:'oficio', SENTENCIA:'sentencia',
                     ORDEN:'orden'};
 const icoTipo = tipo => TIPO_ICONO[tipo] ? ico(TIPO_ICONO[tipo], 'ico ico-tipo') : '';
+
+/* ------------------------------------------------------------ confirmación */
+/* Cuán confirmada está una cifra. No es un juicio sobre el documento: es un
+   hecho sobre cómo llegó hasta aquí, y el lector merece verlo junto al número
+   en lugar de tener que preguntarlo. */
+const CONFIRMACION = {
+  CORROBORADA: {
+    pill:'ok', texto:'corroborada',
+    ayuda:'Varios documentos declaran este mismo valor para el mismo grano. Es '
+         +'la cifra mejor sostenida que ofrece el corpus.'},
+  COMPROBADA: {
+    pill:'pend', texto:'comprobada',
+    ayuda:'Un documento la declara. En cada construcción se reabre el archivo '
+         +'original y se compara el literal guardado contra su celda; si no '
+         +'coincidiera, la publicación se detendría.'},
+  SIN_COMPROBAR: {
+    pill:'tenue', texto:'sin comprobar',
+    ayuda:'El original es un escaneo sin capa de texto: no hay contra qué '
+         +'comparar. La garantía es el hash del archivo más la lectura de una '
+         +'persona, que es más débil, y por eso se dice.'},
+  EN_CONFLICTO: {
+    pill:'alto', texto:'en conflicto',
+    ayuda:'Dos o más documentos declaran valores distintos para este mismo '
+         +'grano y ninguno corrige al otro. El grano no se resuelve: la base '
+         +'guarda las dos lecturas en lugar de elegir una.'},
+};
+
+/** The badge for a figure's confirmation state. */
+const sello = estado => {
+  const c = CONFIRMACION[estado];
+  return c ? `<span class="pill ${c.pill}" data-ayuda="${esc(c.ayuda)}"
+                    tabindex="0">${c.texto}</span>` : '';
+};

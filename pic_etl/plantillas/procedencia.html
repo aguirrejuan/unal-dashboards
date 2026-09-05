@@ -93,7 +93,8 @@ const P = D.v_procedencia;
 
 /* ------------------------------------------------------------------- KPIs */
 const docsConCifras = new Set(P.map(f=>f.documento_id)).size;
-const transcritas = P.filter(f=>f.soporte==='TRANSCRITO').length;
+const cuenta = {};
+P.forEach(f=>{ cuenta[f.confirmacion] = (cuenta[f.confirmacion]||0)+1; });
 $('kpis').innerHTML = [
   {v:fmt(P.length), et:'cifras rastreables', pie:'cada una con documento y celda',
    ayuda:'Cada fila de esta página es una cifra que un documento afirma, con la '
@@ -105,11 +106,18 @@ $('kpis').innerHTML = [
    pie:'con la celda resaltable',
    ayuda:'La tabla original, reproducida aquí con la celda citada marcada. Los '
         +'escaneos no tienen tabla que reproducir: su evidencia es la página.'},
-  {v:fmt(P.length - transcritas), et:'comprobadas automáticamente',
-   pie:`${transcritas} descansan en un escaneo`,
+  {v:fmt((cuenta.COMPROBADA||0) + (cuenta.CORROBORADA||0)),
+   et:'confirmadas contra su fuente',
+   pie:`${fmt(cuenta.CORROBORADA||0)} las dice más de un documento`,
    ayuda:'En cada construcción se vuelve a abrir el archivo original y se compara '
-        +'el literal guardado contra su celda. Los escaneos no tienen capa de '
-        +'texto: su garantía es el hash del archivo más la lectura de una persona.'},
+        +'el literal guardado contra su celda. Las corroboradas, además, las '
+        +'declara más de un documento con el mismo valor.'},
+  {v:fmt((cuenta.EN_CONFLICTO||0) + (cuenta.SIN_COMPROBAR||0)),
+   et:'sin confirmar',
+   pie:`${fmt(cuenta.EN_CONFLICTO||0)} en conflicto · ${fmt(cuenta.SIN_COMPROBAR||0)} en escaneo`,
+   ayuda:'Una cifra en conflicto tiene dos documentos que la declaran distinta y '
+        +'ninguno corrige al otro. Una sin comprobar viene de un escaneo sin capa '
+        +'de texto contra la cual verificarla.'},
 ].map(cifra).join('');
 
 /* -------------------------------------------------------------- evidencia */
@@ -117,7 +125,7 @@ const ev = $('evidencia');
 function mostrar(f) {
   const frag = FUENTES[f.documento_id + '|' + f.contenedor];
   const cab = `<div class="cabecera-ev">
-      <div><b>${enlaceDocId(f.documento_id, f.documento)}</b><br>
+      <div><b>${enlaceDocId(f.documento_id, f.documento)}</b> ${sello(f.confirmacion)}<br>
         <span class="cita">${esc(f.ubicacion)}</span></div>
       <div class="valor-grande">${fmt(f.valor)}</div>
     </div>`;
@@ -171,10 +179,7 @@ function pintar() {
     {t:'Procedencia', r:f=>
        `<div class="procedencia">
           <span class="cita id">${enlaceDocId(f.documento_id, nombreCorto(f.documento_id))}</span>
-          ${FUENTES[f.documento_id + '|' + f.contenedor] ? ''
-            : '<span class="pill pend" data-ayuda="Este documento es un escaneo: no '
-              +'tiene capa de texto que reproducir, así que la evidencia es la página '
-              +'misma.">escaneo</span>'}
+          ${sello(f.confirmacion)}
           <span class="cita">${esc(f.ubicacion)}</span>
         </div>`},
   ], filas, {alSeleccionar: mostrar});

@@ -136,6 +136,7 @@ if (!doc) {
     {t:'Valor', r:f=>fmt(f.valor), num:true},
     {t:'Literal', r:f=>`<span class="cita">${esc(f.literal)}</span>`},
     {t:'Ubicación', r:f=>`<span class="cita">${esc(f.ubicacion)}</span>`},
+    {t:'', r:f=>sello(f.confirmacion)},
   ], filas);
 }
 </script>

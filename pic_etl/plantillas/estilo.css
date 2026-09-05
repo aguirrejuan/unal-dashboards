@@ -211,6 +211,10 @@ code{
 .pill.pend{color:var(--tenue); background:var(--panel-alt); border-color:var(--linea)}
 .pill.alto{color:var(--alerta); background:var(--alerta-tenue)}
 .pill.medio{color:var(--ambar); background:var(--ambar-tenue)}
+/* Una cifra sin comprobar no está mal: está callada. El gris lo dice, y deja el
+   rojo para el conflicto, que sí es una contradicción entre documentos. */
+.pill.tenue{color:#fff; background:var(--un-gris)}
+.pill[data-ayuda]{cursor:help}
 a{color:var(--acento)}
 .nota{
   border-left:3px solid var(--acento); background:var(--acento-tenue);

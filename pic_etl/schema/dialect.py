@@ -163,7 +163,19 @@ _VISTAS = [
         "v_procedencia",
         """
         CREATE VIEW v_procedencia AS
-        WITH hechos AS (
+        WITH grano AS (
+            -- A grain is one measure, cycle, unit and period. Several
+            -- declarations landing on it is corroboration when they agree and a
+            -- conflict when they do not; the loader adjudicates it the same way,
+            -- and `test_la_confirmacion_coincide_con_lo_que_adjudica_el_cargador`
+            -- keeps the two from drifting apart.
+            SELECT medida_id, ciclo_id, unidad_id, periodo_id,
+                   count(*)              AS declaraciones,
+                   count(DISTINCT valor) AS valores
+            FROM   declaracion
+            GROUP  BY medida_id, ciclo_id, unidad_id, periodo_id
+        ),
+        hechos AS (
             SELECT 'declaracion' AS origen, medida_id AS medida, ciclo_id, unidad_id,
                    CAST(valor AS REAL) AS valor, valor_origen AS literal,
                    documento_id, ubicacion
@@ -207,10 +219,33 @@ _VISTAS = [
                       OR h.ubicacion LIKE '§%,%'
                       OR h.ubicacion LIKE 'Tabla de fuentes,%'
                     THEN substr(h.ubicacion, 1, instr(h.ubicacion, ',') - 1)
-                    ELSE h.documento_id END AS contenedor
+                    ELSE h.documento_id END AS contenedor,
+               -- Cómo de confirmada está la cifra. No es un juicio: es un hecho
+               -- sobre cómo llegó hasta aquí.
+               --   CORROBORADA    varios documentos dicen lo mismo
+               --   COMPROBADA     uno lo dice, y `verify` reabre el archivo en
+               --                  cada construcción y compara el literal
+               --   SIN_COMPROBAR  el original es un escaneo sin capa de texto:
+               --                  no hay contra qué comparar
+               --   EN_CONFLICTO   dos documentos dicen cosas distintas del mismo
+               --                  grano y ninguna disposición lo adjudica
+               CASE
+                 WHEN g.valores > 1        THEN 'EN_CONFLICTO'
+                 WHEN d.soporte <> 'TEXTO' THEN 'SIN_COMPROBAR'
+                 WHEN g.declaraciones > 1  THEN 'CORROBORADA'
+                 ELSE 'COMPROBADA'
+               END AS confirmacion,
+               COALESCE(g.declaraciones, 1) AS declaraciones
         FROM   hechos h
         JOIN   documento d ON d.documento_id = h.documento_id
         JOIN   unidad_academica u ON u.unidad_id = h.unidad_id
+        LEFT   JOIN declaracion dc ON dc.documento_id = h.documento_id
+                                  AND dc.ubicacion    = h.ubicacion
+                                  AND dc.medida_id    = h.medida
+        LEFT   JOIN grano g ON g.medida_id  = dc.medida_id
+                           AND g.ciclo_id   = dc.ciclo_id
+                           AND g.unidad_id  = dc.unidad_id
+                           AND g.periodo_id = dc.periodo_id
         """,
     ),
     (

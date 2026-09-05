@@ -144,3 +144,66 @@ def test_las_fechas_vienen_de_los_documentos(construido):
     assert _uno(construido, """
         SELECT count(*) FROM documento WHERE estado = 'EN_CORPUS' AND fecha IS NULL
     """) == 3, "sólo los dos informes y la orden no se fechan a sí mismos"
+
+
+def test_toda_cifra_declara_cuan_confirmada_esta(construido):
+    """A figure quoted without how well it is confirmed is a figure quoted
+    misleadingly. There is no fifth state and no blank."""
+    with construido.connect() as c:
+        estados = dict(c.execute(text(
+            "SELECT confirmacion, count(*) FROM v_procedencia GROUP BY 1")).all())
+        total = c.execute(text("SELECT count(*) FROM v_procedencia")).scalar_one()
+    assert set(estados) == {"CORROBORADA", "COMPROBADA", "SIN_COMPROBAR",
+                            "EN_CONFLICTO"}
+    assert sum(estados.values()) == total
+
+
+def test_la_confirmacion_coincide_con_lo_que_adjudica_el_cargador(construido):
+    """The view and `materializar_grano` decide the same thing twice, in SQL and
+    in Python. If they ever disagree the dashboard would label a figure settled
+    that the database refused to resolve — so this pins them together."""
+    granos_conflicto = _uno(construido, """
+        SELECT count(*) FROM (
+          SELECT 1 FROM declaracion
+          GROUP BY medida_id, ciclo_id, unidad_id, periodo_id
+          HAVING count(DISTINCT valor) > 1)
+    """)
+    assert granos_conflicto == 4, "cambió el número de granos en conflicto"
+
+    # Toda cifra marcada EN_CONFLICTO debe pertenecer a uno de esos granos, y
+    # ninguno de esos granos debe tener una fila marcada de otra forma.
+    descuadre = _uno(construido, """
+        SELECT count(*) FROM v_procedencia p
+        JOIN declaracion d ON d.documento_id = p.documento_id
+                          AND d.ubicacion    = p.ubicacion
+                          AND d.medida_id    = p.medida
+        WHERE (p.confirmacion = 'EN_CONFLICTO') <> (
+              (SELECT count(DISTINCT valor) FROM declaracion x
+               WHERE x.medida_id = d.medida_id AND x.ciclo_id = d.ciclo_id
+                 AND x.unidad_id = d.unidad_id AND x.periodo_id = d.periodo_id) > 1)
+    """)
+    assert descuadre == 0, f"{descuadre} cifras con el sello equivocado"
+
+
+def test_un_escaneo_nunca_se_marca_comprobado(construido):
+    """The re-transcription check cannot reach a scan: there is no text layer to
+    compare against. Claiming otherwise would be the one lie this dashboard is
+    built to avoid."""
+    mentiras = _uno(construido, """
+        SELECT count(*) FROM v_procedencia
+        WHERE soporte <> 'TEXTO' AND confirmacion IN ('COMPROBADA', 'CORROBORADA')
+    """)
+    assert mentiras == 0, f"{mentiras} cifras de escaneo marcadas como comprobadas"
+
+
+def test_una_cifra_corroborada_la_dicen_varios_documentos(construido):
+    """«Corroborada» means more than one declaration lands on the grain and they
+    agree — not merely that the figure appears twice in one table."""
+    malas = _uno(construido, """
+        SELECT count(*) FROM v_procedencia WHERE confirmacion = 'CORROBORADA'
+          AND declaraciones < 2
+    """)
+    assert malas == 0
+    assert _uno(construido, """
+        SELECT count(*) FROM v_procedencia WHERE confirmacion = 'CORROBORADA'
+    """) > 0, "la corroboración dejó de ocurrir; revisar antes de relajar esto"
