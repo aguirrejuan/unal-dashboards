@@ -39,8 +39,19 @@ def crear_engine(destino: str | Path, *, recrear: bool = False) -> Engine:
 
 
 def crear_esquema(engine: Engine) -> None:
-    """Create every table, then the views."""
-    metadata.create_all(engine)
+    """Create every table, then its indexes in name order, then the views.
+
+    `Table.indexes` is a set, so `create_all` emits index DDL in whatever order
+    the set happens to iterate. The data is unaffected, but the file is not: two
+    builds of the same corpus produced databases differing in the order of two
+    `CREATE INDEX` statements. That is enough to make every rebuild a fresh blob
+    in git, and enough to weaken a claim of determinism that is otherwise true.
+    """
+    metadata.create_all(engine, checkfirst=True)
+    with engine.begin() as conn:
+        for tabla in metadata.sorted_tables:
+            for indice in sorted(tabla.indexes, key=lambda i: i.name or ""):
+                indice.create(conn, checkfirst=True)
     _crear_vistas(engine)
 
 
