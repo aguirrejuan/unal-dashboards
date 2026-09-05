@@ -169,7 +169,10 @@ _VISTAS = [
             -- Posts created are facts with provenance like any other. Leaving
             -- them out made five documents read as unprocessed when their only
             -- figures had loaded correctly.
-            SELECT 'cargo_creado', 'cargos_creados', 'TODOS', unidad_id,
+            SELECT 'cargo_creado',
+                   CASE WHEN tipo = 'ADMINISTRATIVO' THEN 'cargos_administrativos'
+                        ELSE 'cargos_creados' END,
+                   'TODOS', unidad_id,
                    CAST(cantidad AS REAL), cantidad_origen, documento_id, ubicacion
             FROM   cargo_creado
             UNION ALL

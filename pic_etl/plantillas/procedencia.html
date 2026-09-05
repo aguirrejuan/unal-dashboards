@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIC · Procedencia</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .doble{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:16px;
+         align-items:start}
+  @media(max-width:1040px){.doble{grid-template-columns:1fr}}
+  .filtro{display:flex; gap:9px; margin-bottom:11px; flex-wrap:wrap}
+  .filtro input,.filtro select{
+    padding:9px 12px; border:1px solid var(--linea); border-radius:8px;
+    background:var(--panel); color:var(--tinta); font:inherit; font-size:14px;
+  }
+  .filtro input{flex:1; min-width:180px}
+  .cabecera-ev{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+    padding-bottom:12px; margin-bottom:12px; border-bottom:1px solid var(--linea);
+  }
+  .cabecera-ev b{font-size:15px}
+  .valor-grande{
+    font-size:26px; font-weight:660; letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums; white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="barra"><div class="caja">
+  <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
+  <nav class="nav">
+    <a href="index.html">Panorama</a>
+    <a href="procedencia.html" aria-current="page">Procedencia</a>
+    <a href="consulta.html">Consulta</a>
+  </nav>
+</div></div>
+
+<main class="caja">
+  <div class="encabezado">
+    <h1>Procedencia</h1>
+    <p class="entrada">Elija cualquier cifra y a la derecha aparecerá la tabla original con
+    la celda citada resaltada. No un enlace al archivo: la fila que produjo el número.</p>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Cada cifra y su origen</h2>
+  <p class="lede">Filtre por medida, sede, documento o ubicación. La comprobación de
+  re-transcripción vuelve a abrir cada fuente en cada construcción y compara el literal
+  guardado contra su celda.</p>
+
+  <div class="doble">
+    <div>
+      <div class="filtro">
+        <input type="search" id="buscar" placeholder="Filtrar…">
+        <select id="doc"><option value="">Todos los documentos</option></select>
+        <select id="medida"><option value="">Todas las medidas</option></select>
+      </div>
+      <div class="scroll" style="max-height:560px"><table id="cifras"></table></div>
+    </div>
+    <div class="panel evidencia" id="evidencia" style="position:sticky; top:76px"></div>
+  </div>
+
+  <h2>El corpus</h2>
+  <p class="lede">Veintitrés documentos. Qué es cada uno, cómo se leyó y cuántas cifras
+  aportó.</p>
+  <div class="panel"><div class="scroll" style="max-height:420px">
+    <table id="corpus"></table>
+  </div></div>
+
+  <footer>
+    <p>La comprobación automática no alcanza a los escaneos: no tienen capa de texto contra
+    la cual comparar. Su garantía es el hash del archivo más la lectura de una persona, y se
+    declara en cada ejecución. <a href="consulta.html">Consultar la base →</a></p>
+  </footer>
+</main>
+
+<script src="datos.js"></script>
+<script src="fuentes.js"></script>
+<script src="comun.js"></script>
+<script>
+const D = CARGA.datos;
+const P = D.v_procedencia;
+
+/* ------------------------------------------------------------------- KPIs */
+const docsConCifras = new Set(P.map(f=>f.documento_id)).size;
+const transcritas = P.filter(f=>f.soporte==='TRANSCRITO').length;
+$('kpis').innerHTML = [
+  {v:fmt(P.length), et:'cifras rastreables', pie:'cada una con documento y celda'},
+  {v:fmt(docsConCifras), et:'documentos que las aportan', pie:'de 23 en el corpus'},
+  {v:fmt(Object.keys(FUENTES).length), et:'tablas fuente reproducidas', pie:'con la celda resaltable'},
+  {v:fmt(P.length - transcritas), et:'comprobadas automáticamente',
+   pie:`${transcritas} descansan en un escaneo`},
+].map(k=>`<div class="kpi"><b>${k.v}</b><span class="et">${k.et}</span>
+  <span class="pie">${k.pie}</span></div>`).join('');
+
+/* -------------------------------------------------------------- evidencia */
+const ev = $('evidencia');
+function mostrar(f) {
+  const frag = FUENTES[f.documento_id + '|' + f.contenedor];
+  const cab = `<div class="cabecera-ev">
+      <div><b>${esc(f.documento)}</b><br>
+        <span class="cita">${esc(f.ubicacion)}</span></div>
+      <div class="valor-grande">${fmt(f.valor)}</div>
+    </div>`;
+  if (!frag) {
+    ev.innerHTML = cab + `<p class="nota aviso">Este documento es un escaneo: la evidencia
+      es la página misma, que no tiene texto que reproducir aquí.
+      <a href="corpus/${esc(f.ruta_archivo||'').split('/').slice(1).join('/')}"
+         target="_blank" rel="noopener">Abrir el original ↗</a></p>`;
+    return;
+  }
+  ev.innerHTML = cab + `<div style="overflow:auto; max-height:520px">${frag}</div>`;
+  let celda = ev.querySelector(`[data-ubicacion="${CSS.escape(f.ubicacion)}"]`);
+  if (!celda) {
+    const m = /^p\.\d+, «(.+)»$/.exec(f.ubicacion);
+    if (m) celda = [...ev.querySelectorAll('[data-ubicacion]')]
+      .find(el => el.textContent.replace(/\s+/g,' ').includes(m[1]));
+  }
+  if (celda) {
+    celda.setAttribute('data-marcada','');
+    celda.scrollIntoView({block:'center', inline:'center'});
+  }
+}
+
+/* ---------------------------------------------------------------- filtros */
+const opciones = (sel, valores) => {
+  valores.sort().forEach(v => sel.insertAdjacentHTML('beforeend',
+    `<option value="${esc(v)}">${esc(v)}</option>`));
+};
+opciones($('doc'), [...new Set(P.map(f=>f.documento_id))]);
+opciones($('medida'), [...new Set(P.map(f=>f.medida))]);
+
+function pintar() {
+  const q = $('buscar').value.toLowerCase();
+  const doc = $('doc').value, med = $('medida').value;
+  const filas = P.filter(f =>
+    (!doc || f.documento_id===doc) && (!med || f.medida===med) &&
+    (!q || [f.medida,f.unidad,f.documento_id,f.ubicacion,f.literal]
+            .join(' ').toLowerCase().includes(q)));
+  tabla($('cifras'), [
+    {t:'Medida', k:'medida'},
+    {t:'Sede', k:'unidad'},
+    {t:'Valor', r:f=>fmt(f.valor), num:true},
+    {t:'Literal', r:f=>`<span class="cita">${esc(f.literal)}</span>`},
+    {t:'Ubicación', r:f=>`<span class="cita">${esc(f.ubicacion)}</span>`},
+  ], filas, {alSeleccionar: mostrar});
+  if (filas.length) mostrar(filas[0]);
+  else ev.innerHTML = '<p class="lede">Ninguna cifra coincide con el filtro.</p>';
+}
+['buscar','doc','medida'].forEach(id => $(id).oninput = pintar);
+pintar();
+
+/* ----------------------------------------------------------------- corpus */
+const etiqueta = {PROCESADO:['ok','procesado'], SIN_CIFRAS:['pend','leído · sin cifras'],
+                  PENDIENTE:['pend','pendiente'], PENDIENTE_VISION:['pend','requiere visión'],
+                  AUSENTE:['alto','citado, no disponible']};
+tabla($('corpus'), [
+  {t:'Documento', r:d=>`<b>${esc(d.titulo)}</b><br>
+      <span class="cita">${esc(d.documento_id)}</span>`},
+  {t:'Tipo', k:'tipo'},
+  {t:'Emisor', k:'emisor'},
+  {t:'Soporte', r:d=>d.soporte
+      ? `<span class="pill ${d.soporte==='TRANSCRITO'?'medio':'pend'}">${esc(d.soporte.toLowerCase())}</span>`
+      : '<span class="pill pend">sin archivo</span>'},
+  {t:'Estado', r:d=>{const [c,t]=etiqueta[d.avance]||['pend',d.avance];
+      return `<span class="pill ${c}">${t}</span>`;}},
+  {t:'Cifras', k:'cifras', num:true},
+], D.v_corpus.slice().sort((a,b)=>b.cifras-a.cifras));
+</script>
+</body>
+</html>

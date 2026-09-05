@@ -70,13 +70,31 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         "generado": date.today().isoformat(),
         "datos": datos,
         "fuentes": instantaneas,
+        # Pre-shaped for the coverage chart: pivoting in SQL keeps the page from
+        # having to know how the two admission routes relate.
+        "cuartiles": _cuartiles(engine),
     }
-    (destino / "index.html").write_text(
-        _pagina(carga), encoding="utf-8"
-    )
+    # Split, rather than inlined into each page: the payload is the same for
+    # both and a browser should fetch it once. The rendered source tables are
+    # the bulk of it and only the provenance page needs them, so they ship
+    # separately and the panorama stays light.
+    fuentes = carga.pop("fuentes")
+    (destino / "datos.js").write_text(
+        "window.CARGA=" + json.dumps(carga, ensure_ascii=False, default=str) + ";",
+        encoding="utf-8")
+    (destino / "fuentes.js").write_text(
+        "window.FUENTES=" + json.dumps(fuentes, ensure_ascii=False) + ";",
+        encoding="utf-8")
+
+    for pagina in ("index.html", "procedencia.html"):
+        (destino / pagina).write_text(_leer_plantilla(pagina), encoding="utf-8")
     (destino / "consulta.html").write_text(
-        _consulta(datos["v_hallazgos"]), encoding="utf-8"
-    )
+        _consulta(datos["v_hallazgos"]), encoding="utf-8")
+
+    # Shared assets: one stylesheet and one helper module across the three pages,
+    # so they read as one document rather than three.
+    for recurso in ("estilo.css", "comun.js"):
+        shutil.copy2(PLANTILLAS / recurso, destino / recurso)
 
     shutil.copy2(db, destino / "pic.sqlite")
     corpus_destino = destino / "corpus"
@@ -85,6 +103,7 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
     shutil.copytree(corpus, corpus_destino)
 
     return {
+        "paginas": 3,
         "vistas": len(datos),
         "filas": sum(len(v) for v in datos.values()),
         "fuentes": len(instantaneas),
@@ -95,10 +114,23 @@ def _leer_plantilla(nombre: str) -> str:
     return (PLANTILLAS / nombre).read_text(encoding="utf-8")
 
 
-def _pagina(carga: dict) -> str:
-    return _leer_plantilla("index.html").replace(
-        "/*__DATOS__*/", json.dumps(carga, ensure_ascii=False, default=str)
-    )
+def _cuartiles(engine: Engine) -> list[dict]:
+    """Coverage by priority quartile and admission route.
+
+    Every band is returned, including the one with no facts: a dimension member
+    that never appears is not a measured zero, and a chart that silently omits
+    it says the wrong thing.
+    """
+    with engine.connect() as c:
+        return [dict(r) for r in c.execute(text("""
+            SELECT q.cuartil_id, q.notacion, q.observado,
+                   COALESCE(SUM(CASE WHEN ct.via_id='PEAMA'   THEN ct.estudiantes END), 0) AS peama,
+                   COALESCE(SUM(CASE WHEN ct.via_id='REGULAR' THEN ct.estudiantes END), 0) AS regular
+            FROM   cuartil_prioridad q
+            LEFT   JOIN cobertura_territorial ct ON ct.cuartil_id = q.cuartil_id
+            GROUP  BY q.cuartil_id, q.notacion, q.observado
+            ORDER  BY q.cuartil_id
+        """)).mappings()]
 
 
 def _consulta(hallazgos: list[dict]) -> str:

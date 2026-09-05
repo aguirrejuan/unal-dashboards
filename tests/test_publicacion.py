@@ -56,14 +56,35 @@ def test_toda_cifra_resuelve_a_su_tabla_fuente(construido):
     assert not faltan, f"contenedores citados sin instantánea: {faltan}"
 
 
-def test_el_sitio_generado_lleva_los_datos_dentro():
-    sitio = RAIZ / "site" / "index.html"
+def _carga() -> dict:
+    """The payload the pages share, now a separate script so a browser fetches
+    it once instead of parsing an identical copy inlined in each page."""
+    datos = RAIZ / "site" / "datos.js"
+    if not datos.exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+    carga = json.loads(datos.read_text(encoding="utf-8")
+                       .removeprefix("window.CARGA=").rstrip(";"))
+    fuentes = json.loads((RAIZ / "site" / "fuentes.js").read_text(encoding="utf-8")
+                         .removeprefix("window.FUENTES=").rstrip(";"))
+    return {**carga, "fuentes": fuentes}
+
+
+def test_las_tres_paginas_existen_y_comparten_los_recursos():
+    sitio = RAIZ / "site"
     if not sitio.exists():
         pytest.skip("site/ vacío; ejecute `pic-etl publish`")
-    html = sitio.read_text(encoding="utf-8")
-    carga = json.loads(
-        re.search(r'id="carga" type="application/json">(.*?)</script>', html, re.S)[1]
-    )
+    for archivo in ("index.html", "procedencia.html", "consulta.html",
+                    "estilo.css", "comun.js", "datos.js", "fuentes.js", "pic.sqlite"):
+        assert (sitio / archivo).exists(), f"falta {archivo}"
+    # Every page must reach the other two, or the nav is decoration.
+    for pagina in ("index.html", "procedencia.html", "consulta.html"):
+        html = (sitio / pagina).read_text(encoding="utf-8")
+        for destino in ("index.html", "procedencia.html", "consulta.html"):
+            assert f'href="{destino}"' in html, f"{pagina} no enlaza a {destino}"
+
+
+def test_el_sitio_generado_lleva_los_datos_dentro():
+    carga = _carga()
     assert carga["datos"]["v_procedencia"], "sin cifras rastreables"
     assert carga["fuentes"], "sin tablas fuente"
     # Every citation in the payload must find its snapshot in the same payload —
@@ -81,7 +102,7 @@ def test_las_consultas_precargadas_son_las_pruebas_del_registro():
     if not consulta.exists():
         pytest.skip("site/ vacío; ejecute `pic-etl publish`")
     presets = json.loads(
-        re.search(r'id="presets-json" type="application/json">(.*?)</script>',
+        re.search(r'id="carga" type="application/json">(.*?)</script>',
                   consulta.read_text(encoding="utf-8"), re.S)[1]
     )
     assert len(presets) >= 19

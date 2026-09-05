@@ -1,0 +1,161 @@
+/* Shared design system for the three pages.
+   Restrained on purpose: this is a document people will argue over, so the
+   chrome stays quiet and the figures carry the page. */
+
+:root{
+  --tinta:#14161a; --tenue:#626973; --suave:#8b929c;
+  --linea:#e4e6ea; --linea-fuerte:#d0d4da;
+  --fondo:#f6f7f9; --panel:#fff; --panel-alt:#fafbfc;
+  --acento:#1c4e80; --acento-claro:#2d7dd2; --acento-tenue:#eaf1f9;
+  --alerta:#b4432f; --alerta-tenue:#fbeeeb;
+  --ok:#1d7a4f; --ok-tenue:#eaf5ef;
+  --ambar:#8a6410; --ambar-tenue:#fdf4e0;
+  --marca:#fff2bf; --marca-borde:#c9a227;
+  --sombra:0 1px 2px rgba(20,22,26,.05), 0 4px 12px rgba(20,22,26,.04);
+  --radio:10px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --tinta:#e9eaee; --tenue:#9aa1ac; --suave:#767d88;
+    --linea:#282b31; --linea-fuerte:#363a42;
+    --fondo:#101215; --panel:#181b1f; --panel-alt:#1d2126;
+    --acento:#7fb0e8; --acento-claro:#5d9ae0; --acento-tenue:#17293c;
+    --alerta:#e28d7f; --alerta-tenue:#331f1b;
+    --ok:#6ec89b; --ok-tenue:#16291f;
+    --ambar:#d6ab52; --ambar-tenue:#2e2612;
+    --marca:#4a3d10; --marca-borde:#a88b1e;
+    --sombra:0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--fondo); color:var(--tinta);
+  font:15px/1.55 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+       "Helvetica Neue",Arial,sans-serif;
+  font-feature-settings:"tnum" 0;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------------------------------------------------------------- navegación */
+.barra{
+  position:sticky; top:0; z-index:50; background:var(--panel);
+  border-bottom:1px solid var(--linea); backdrop-filter:saturate(180%) blur(8px);
+}
+.barra .caja{
+  max-width:1220px; margin:0 auto; padding:0 24px;
+  display:flex; align-items:center; gap:28px; height:56px;
+}
+.marca-sitio{font-weight:660; letter-spacing:-.015em; font-size:15px; white-space:nowrap}
+.marca-sitio span{color:var(--tenue); font-weight:450}
+.nav{display:flex; gap:2px; margin-left:auto}
+.nav a{
+  color:var(--tenue); text-decoration:none; font-size:14px; font-weight:520;
+  padding:7px 13px; border-radius:7px; white-space:nowrap;
+}
+.nav a:hover{background:var(--panel-alt); color:var(--tinta)}
+.nav a[aria-current]{background:var(--acento-tenue); color:var(--acento); font-weight:600}
+
+.caja{max-width:1220px; margin:0 auto; padding:0 24px}
+main{padding-bottom:88px}
+
+/* ------------------------------------------------------------------ cabecera */
+.encabezado{padding:44px 0 8px}
+h1{font-size:31px; line-height:1.2; margin:0 0 10px; letter-spacing:-.025em; font-weight:660}
+.entrada{color:var(--tenue); max-width:70ch; margin:0; font-size:15.5px}
+
+/* -------------------------------------------------------------------- bloques */
+h2{
+  font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--suave);
+  margin:44px 0 3px; font-weight:680;
+}
+.lede{margin:0 0 18px; max-width:74ch; color:var(--tenue); font-size:14px}
+.panel{
+  background:var(--panel); border:1px solid var(--linea); border-radius:var(--radio);
+  box-shadow:var(--sombra); padding:20px;
+}
+.panel + .panel{margin-top:14px}
+.rejilla{display:grid; gap:14px}
+.r2{grid-template-columns:1fr 1fr}
+.r3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:960px){.r2,.r3{grid-template-columns:1fr}}
+
+/* ---------------------------------------------------------------------- kpis */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:12px}
+.kpi{
+  background:var(--panel); border:1px solid var(--linea); border-radius:var(--radio);
+  padding:16px 18px; box-shadow:var(--sombra);
+}
+.kpi b{
+  display:block; font-size:30px; font-weight:660; letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums; line-height:1.1;
+}
+.kpi .et{color:var(--tenue); font-size:12.5px; margin-top:5px; display:block}
+.kpi .pie{color:var(--suave); font-size:11.5px; margin-top:7px; display:block}
+.kpi.dividida b{color:var(--alerta)}
+
+/* -------------------------------------------------------------------- tablas */
+table{border-collapse:collapse; width:100%; font-size:13.5px}
+th,td{text-align:left; padding:8px 11px; border-bottom:1px solid var(--linea); vertical-align:top}
+th{
+  color:var(--suave); font-weight:640; font-size:11px; text-transform:uppercase;
+  letter-spacing:.06em; position:sticky; top:0; background:var(--panel); z-index:1;
+}
+td.num,th.num{text-align:right; font-variant-numeric:tabular-nums}
+tbody tr:last-child td{border-bottom:0}
+.scroll{
+  overflow:auto; max-height:440px; border:1px solid var(--linea);
+  border-radius:var(--radio); background:var(--panel); box-shadow:var(--sombra);
+}
+.clic tbody tr{cursor:pointer}
+.clic tbody tr:hover{background:var(--panel-alt)}
+.clic tr.sel{background:var(--acento-tenue)}
+.clic tr.sel td{border-bottom-color:var(--linea-fuerte)}
+
+/* --------------------------------------------------------------- tipografía */
+.cita{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:11.5px;
+  color:var(--tenue); word-break:break-word;
+}
+code{
+  font-family:ui-monospace,Menlo,monospace; font-size:12.5px;
+  background:var(--panel-alt); border:1px solid var(--linea);
+  padding:1px 5px; border-radius:5px;
+}
+.pill{
+  display:inline-block; padding:2px 9px; border-radius:99px; font-size:11px;
+  font-weight:620; border:1px solid transparent; white-space:nowrap;
+}
+.pill.ok{color:var(--ok); background:var(--ok-tenue)}
+.pill.pend{color:var(--tenue); background:var(--panel-alt); border-color:var(--linea)}
+.pill.alto{color:var(--alerta); background:var(--alerta-tenue)}
+.pill.medio{color:var(--ambar); background:var(--ambar-tenue)}
+a{color:var(--acento)}
+.nota{
+  border-left:3px solid var(--acento); background:var(--acento-tenue);
+  padding:13px 16px; border-radius:0 8px 8px 0; font-size:14px; margin:0;
+}
+.nota.aviso{border-left-color:var(--alerta); background:var(--alerta-tenue)}
+
+/* ------------------------------------------------------------------ evidencia */
+.evidencia table{font-size:11.5px; table-layout:auto}
+.evidencia td,.evidencia th{
+  white-space:nowrap; max-width:230px; overflow:hidden; text-overflow:ellipsis;
+  border:1px solid var(--linea); padding:4px 7px; position:static;
+}
+.evidencia [data-marcada]{
+  background:var(--marca); outline:2px solid var(--marca-borde); font-weight:700;
+  color:#14161a;
+}
+.evidencia pre.pagina{
+  font-family:ui-monospace,Menlo,monospace; font-size:10.5px; line-height:1.45;
+  white-space:pre-wrap; margin:0;
+}
+.evidencia pre.pagina [data-marcada]{display:inline-block; padding:0 3px}
+
+/* --------------------------------------------------------------------- pie */
+footer{
+  border-top:1px solid var(--linea); margin-top:64px; padding:26px 0 0;
+  color:var(--suave); font-size:12.5px;
+}
+.grafico{width:100%; min-height:300px}
