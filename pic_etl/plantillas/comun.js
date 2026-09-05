@@ -71,3 +71,27 @@ function tabla(el, cols, filas, opts = {}) {
     });
   }
 }
+
+
+/** A stored path (`extracted/PIC-Información/…`) becomes a link into the copy
+    of the corpus published beside the site. Documents that are only cited have
+    no file, so they get no link rather than a broken one. */
+function enlaceDoc(ruta, texto) {
+  if (!ruta) return esc(texto || '');
+  const partes = String(ruta).split('/');
+  const destino = 'corpus/' + partes.slice(1).map(encodeURIComponent).join('/');
+  return `<a class="doc-enlace" href="${destino}" target="_blank" rel="noopener"
+             title="${esc(ruta)}">${esc(texto || partes[partes.length - 1])}</a>`;
+}
+
+/** Documents indexed by id, so any page can link a citation to its source. */
+const DOCS = {};
+if (window.CARGA && CARGA.datos && CARGA.datos.v_corpus) {
+  CARGA.datos.v_corpus.forEach(d => { DOCS[d.documento_id] = d; });
+}
+const enlaceDocId = (id, texto) => {
+  const d = DOCS[id];
+  return d && d.ruta_archivo
+    ? enlaceDoc(d.ruta_archivo, texto || id)
+    : `<span title="citado, no disponible">${esc(texto || id)}</span>`;
+};

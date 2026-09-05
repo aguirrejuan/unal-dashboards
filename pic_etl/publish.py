@@ -23,7 +23,7 @@ PLANTILLAS = Path(__file__).resolve().parent / "plantillas"
 
 VISTAS = (
     "v_corpus", "v_procedencia", "v_hallazgos", "v_embudo",
-    "v_compromiso_ciclo", "v_dinero_fuente", "v_presupuesto",
+    "v_compromiso_ciclo", "v_dinero_fuente", "v_presupuesto", "v_etapas",
 )
 
 
@@ -73,6 +73,10 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         # Pre-shaped for the coverage chart: pivoting in SQL keeps the page from
         # having to know how the two admission routes relate.
         "cuartiles": _cuartiles(engine),
+        "esquema": esquema(engine),
+        # The corpus is published under site/corpus/, so a stored path becomes a
+        # link by dropping the directory it was read from.
+        "raiz_corpus": corpus.name,
     }
     # Split, rather than inlined into each page: the payload is the same for
     # both and a browser should fetch it once. The rendered source tables are
@@ -86,7 +90,7 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         "window.FUENTES=" + json.dumps(fuentes, ensure_ascii=False) + ";",
         encoding="utf-8")
 
-    for pagina in ("index.html", "procedencia.html"):
+    for pagina in ("index.html", "proceso.html", "procedencia.html", "esquema.html"):
         (destino / pagina).write_text(_leer_plantilla(pagina), encoding="utf-8")
     (destino / "consulta.html").write_text(
         _consulta(datos["v_hallazgos"]), encoding="utf-8")
@@ -112,6 +116,78 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
 
 def _leer_plantilla(nombre: str) -> str:
     return (PLANTILLAS / nombre).read_text(encoding="utf-8")
+
+
+# The layers of docs/pic-data-model-v2.md, so the schema page groups tables the
+# way the specification talks about them rather than alphabetically.
+_CAPAS = {
+    "declaracion": "Declaraciones", "es_agregado_de": "Declaraciones",
+    "declaracion_alcance": "Declaraciones", "declaracion_disposicion": "Declaraciones",
+    "disposicion_grano": "Declaraciones", "criterio_cumplimiento": "Declaraciones",
+    "proyecto": "Estructura", "proyecto_etapa": "Estructura", "compromiso": "Estructura",
+    "cargo_creado": "Estructura", "cargo_provisto": "Estructura",
+    "cobertura_territorial": "Estructura", "arrastre": "Estructura",
+    "asignacion": "Estructura", "presupuesto_rubro": "Estructura",
+    "documento": "Documentos", "documento_cita": "Documentos",
+    "documento_ciclo": "Documentos", "radicado": "Documentos",
+    "radicado_documento": "Documentos",
+    "hallazgo": "Registro",
+    "unidad_academica": "Dimensiones", "unidad_rollup": "Dimensiones",
+    "unidad_alias": "Dimensiones",
+}
+
+
+def esquema(engine: Engine) -> dict:
+    """The schema, as data: tables, columns, keys and how they connect.
+
+    Read from the same MetaData the database is built from, so the page cannot
+    drift from what was actually created.
+    """
+    from pic_etl.schema.tables import metadata
+
+    with engine.connect() as c:
+        filas = {
+            t: c.execute(text(f"SELECT count(*) FROM {t}")).scalar()
+            for t in metadata.tables
+        }
+
+    entrantes: dict[str, set[str]] = {t: set() for t in metadata.tables}
+    for tabla in metadata.tables.values():
+        for fk in tabla.foreign_keys:
+            destino = fk.column.table.name
+            if destino != tabla.name:
+                entrantes.setdefault(destino, set()).add(tabla.name)
+
+    tablas = []
+    for nombre, tabla in sorted(metadata.tables.items()):
+        columnas = []
+        for col in tabla.columns:
+            fk = next(iter(col.foreign_keys), None)
+            columnas.append({
+                "nombre": col.name,
+                "tipo": str(col.type).replace("VARCHAR", "TEXT"),
+                "nulo": bool(col.nullable),
+                "pk": bool(col.primary_key),
+                "fk": fk.target_fullname if fk else None,
+            })
+        salientes = sorted({
+            fk.column.table.name for fk in tabla.foreign_keys
+            if fk.column.table.name != nombre
+        })
+        tablas.append({
+            "nombre": nombre,
+            "capa": _CAPAS.get(nombre, "Dimensiones"),
+            "filas": filas.get(nombre, 0),
+            "columnas": columnas,
+            "referencia_a": salientes,
+            "referida_por": sorted(entrantes.get(nombre, set())),
+            "auto": any(fk.column.table.name == nombre for fk in tabla.foreign_keys),
+        })
+    return {
+        "tablas": tablas,
+        "total_columnas": sum(len(t["columnas"]) for t in tablas),
+        "total_fks": sum(len(t["referencia_a"]) for t in tablas),
+    }
 
 
 def _cuartiles(engine: Engine) -> list[dict]:

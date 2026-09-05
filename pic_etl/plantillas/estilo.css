@@ -3,9 +3,10 @@
    chrome stays quiet and the figures carry the page. */
 
 :root{
-  --tinta:#14161a; --tenue:#626973; --suave:#8b929c;
+  color-scheme: light;   /* committed to one look, so the palette below is it */
+  --tinta:#14161a; --tenue:#5a616b; --suave:#8b929c;
   --linea:#e4e6ea; --linea-fuerte:#d0d4da;
-  --fondo:#f6f7f9; --panel:#fff; --panel-alt:#fafbfc;
+  --fondo:#f4f6f8; --panel:#fff; --panel-alt:#f8fafb;
   --acento:#1c4e80; --acento-claro:#2d7dd2; --acento-tenue:#eaf1f9;
   --alerta:#b4432f; --alerta-tenue:#fbeeeb;
   --ok:#1d7a4f; --ok-tenue:#eaf5ef;
@@ -13,19 +14,6 @@
   --marca:#fff2bf; --marca-borde:#c9a227;
   --sombra:0 1px 2px rgba(20,22,26,.05), 0 4px 12px rgba(20,22,26,.04);
   --radio:10px;
-}
-@media (prefers-color-scheme:dark){
-  :root{
-    --tinta:#e9eaee; --tenue:#9aa1ac; --suave:#767d88;
-    --linea:#282b31; --linea-fuerte:#363a42;
-    --fondo:#101215; --panel:#181b1f; --panel-alt:#1d2126;
-    --acento:#7fb0e8; --acento-claro:#5d9ae0; --acento-tenue:#17293c;
-    --alerta:#e28d7f; --alerta-tenue:#331f1b;
-    --ok:#6ec89b; --ok-tenue:#16291f;
-    --ambar:#d6ab52; --ambar-tenue:#2e2612;
-    --marca:#4a3d10; --marca-borde:#a88b1e;
-    --sombra:0 1px 2px rgba(0,0,0,.3), 0 4px 12px rgba(0,0,0,.2);
-  }
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -159,3 +147,58 @@ footer{
   color:var(--suave); font-size:12.5px;
 }
 .grafico{width:100%; min-height:300px}
+
+/* ------------------------------------------------------------------- enlaces */
+.doc-enlace{
+  color:var(--acento); text-decoration:none; border-bottom:1px solid transparent;
+  white-space:nowrap;
+}
+.doc-enlace:hover{border-bottom-color:currentColor}
+.doc-enlace::after{content:" ↗"; font-size:.85em; opacity:.6}
+
+/* -------------------------------------------------------------------- flujo */
+.etapas{display:flex; flex-direction:column; gap:0}
+.etapa{
+  display:grid; grid-template-columns:44px 1fr 150px; gap:16px; align-items:start;
+  padding:15px 0; border-bottom:1px solid var(--linea); position:relative;
+}
+.etapa:last-child{border-bottom:0}
+.etapa .n{
+  width:32px; height:32px; border-radius:50%; display:grid; place-items:center;
+  font-size:12.5px; font-weight:680; background:var(--acento-tenue); color:var(--acento);
+  border:1px solid var(--acento); flex:none;
+}
+.etapa.sin .n{background:var(--panel-alt); color:var(--suave); border-color:var(--linea-fuerte)}
+.etapa .t{font-weight:600; font-size:15px}
+.etapa .a{color:var(--tenue); font-size:13px; margin-top:2px}
+.etapa .d{color:var(--suave); font-size:12.5px; margin-top:6px; max-width:62ch}
+.etapa .ev{justify-self:end; text-align:right}
+
+/* ------------------------------------------------------------------ esquema */
+.tabla-esq{
+  border:1px solid var(--linea); border-radius:9px; overflow:hidden;
+  margin-bottom:10px; background:var(--panel);
+}
+.tabla-esq > summary{
+  padding:11px 15px; cursor:pointer; display:flex; align-items:center; gap:11px;
+  font-weight:600; font-size:14px; list-style:none;
+}
+.tabla-esq > summary::-webkit-details-marker{display:none}
+.tabla-esq > summary:hover{background:var(--panel-alt)}
+.tabla-esq[open] > summary{border-bottom:1px solid var(--linea); background:var(--panel-alt)}
+.tabla-esq .cta{margin-left:auto; color:var(--suave); font-size:12px; font-weight:450}
+.capa{
+  font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; font-weight:700;
+  padding:2px 8px; border-radius:4px; background:var(--acento-tenue); color:var(--acento);
+}
+.capa.Estructura{background:#eef5f0; color:var(--ok)}
+.capa.Declaraciones{background:#fdf4e0; color:var(--ambar)}
+.capa.Documentos{background:#f0eefa; color:#4b3fa6}
+.capa.Registro{background:var(--alerta-tenue); color:var(--alerta)}
+.cols{width:100%; font-size:12.5px}
+.cols td{padding:5px 15px; border-bottom:1px solid var(--linea)}
+.cols tr:last-child td{border-bottom:0}
+.llave{font-size:10px; font-weight:700; letter-spacing:.05em; color:var(--acento)}
+.diagrama{background:var(--panel); border:1px solid var(--linea); border-radius:9px;
+          padding:18px; overflow:auto}
+.diagrama svg{max-width:100%; height:auto}

@@ -284,12 +284,27 @@ _VISTAS = [
         """,
     ),
     (
+        # The process, stage by stage, with whatever documentary evidence each
+        # one has. Most have none — V6 — and the flow should say so plainly
+        # rather than draw ten confident boxes.
+        "v_etapas",
+        """
+        CREATE VIEW v_etapas AS
+        SELECT e.etapa_id, e.orden, e.nombre, e.actor,
+               COUNT(pe.proyecto_id) AS eventos,
+               COUNT(DISTINCT pe.documento_id) AS documentos
+        FROM   etapa e
+        LEFT   JOIN proyecto_etapa pe ON pe.etapa_id = e.etapa_id
+        GROUP  BY e.etapa_id, e.orden, e.nombre, e.actor
+        """,
+    ),
+    (
         # The scope panel: what the corpus holds, what has been parsed, and what
         # is still waiting. Volunteered, not extracted under questioning.
         "v_corpus",
         """
         CREATE VIEW v_corpus AS
-        SELECT d.documento_id, d.tipo, d.emisor, d.titulo,
+        SELECT d.documento_id, d.tipo, d.emisor, d.titulo, d.numero, d.fecha,
                d.estado, d.soporte, d.ruta_archivo,
                COALESCE(f.cifras, 0) AS cifras,
                CASE WHEN COALESCE(f.cifras, 0) > 0    THEN 'PROCESADO'

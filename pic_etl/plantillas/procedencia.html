@@ -32,7 +32,9 @@
   <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
   <nav class="nav">
     <a href="index.html">Panorama</a>
+    <a href="proceso.html">Proceso</a>
     <a href="procedencia.html" aria-current="page">Procedencia</a>
+    <a href="esquema.html">Esquema</a>
     <a href="consulta.html">Consulta</a>
   </nav>
 </div></div>
@@ -101,7 +103,7 @@ const ev = $('evidencia');
 function mostrar(f) {
   const frag = FUENTES[f.documento_id + '|' + f.contenedor];
   const cab = `<div class="cabecera-ev">
-      <div><b>${esc(f.documento)}</b><br>
+      <div><b>${enlaceDoc(f.ruta_archivo, f.documento)}</b><br>
         <span class="cita">${esc(f.ubicacion)}</span></div>
       <div class="valor-grande">${fmt(f.valor)}</div>
     </div>`;
@@ -158,7 +160,7 @@ const etiqueta = {PROCESADO:['ok','procesado'], SIN_CIFRAS:['pend','leído · si
                   PENDIENTE:['pend','pendiente'], PENDIENTE_VISION:['pend','requiere visión'],
                   AUSENTE:['alto','citado, no disponible']};
 tabla($('corpus'), [
-  {t:'Documento', r:d=>`<b>${esc(d.titulo)}</b><br>
+  {t:'Documento', r:d=>`<b>${enlaceDoc(d.ruta_archivo, d.titulo)}</b><br>
       <span class="cita">${esc(d.documento_id)}</span>`},
   {t:'Tipo', k:'tipo'},
   {t:'Emisor', k:'emisor'},

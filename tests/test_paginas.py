@@ -42,8 +42,10 @@ global.CSS = {escape: s => s};
 const graficos = [];
 global.Plotly = {newPlot: (el, data) => graficos.push({
   el, series: data.length,
-  puntos: data.reduce((s, t) => s + (t.x ? t.x.length : 0), 0),
+  puntos: data.reduce((s, t) => s + (t.x ? t.x.length
+    : t.labels ? t.labels.length : t.link ? t.link.value.length : 0), 0),
 })};
+global.mermaid = {initialize(){}, render: async () => ({svg: '<svg/>'})};
 
 const comun = fs.readFileSync(SITIO + '/comun.js', 'utf8');
 const html = fs.readFileSync(SITIO + '/' + PAGINA, 'utf8');
@@ -70,12 +72,20 @@ def _ejecutar(pagina: str) -> list[dict]:
 
 def test_el_panorama_dibuja_todos_sus_graficos():
     graficos = {g["el"]: g for g in _ejecutar("index.html")}
-    assert set(graficos) == {"embudo", "compromiso", "etc", "dinero", "cuartil", "corpus"}
+    assert set(graficos) == {"embudo", "compromiso", "etc", "dinero", "cuartil",
+                             "linea-tiempo", "pie-fuente", "pie-tipo", "corpus"}
     assert all(g["puntos"] > 0 for g in graficos.values()), "algún gráfico quedó vacío"
 
 
-def test_la_pagina_de_procedencia_carga():
-    _ejecutar("procedencia.html")
+def test_el_proceso_dibuja_el_circuito_y_los_rubros():
+    graficos = {g["el"]: g for g in _ejecutar("proceso.html")}
+    assert set(graficos) == {"sankey", "rubros", "rubro-pie"}
+    assert all(g["puntos"] > 0 for g in graficos.values())
+
+
+@pytest.mark.parametrize("pagina", ["procedencia.html", "esquema.html"])
+def test_las_paginas_sin_graficos_cargan(pagina: str):
+    _ejecutar(pagina)
 
 
 def test_el_grafico_de_etc_no_cuenta_dos_veces():

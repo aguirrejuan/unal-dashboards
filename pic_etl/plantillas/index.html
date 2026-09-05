@@ -12,7 +12,9 @@
   <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
   <nav class="nav">
     <a href="index.html" aria-current="page">Panorama</a>
+    <a href="proceso.html">Proceso</a>
     <a href="procedencia.html">Procedencia</a>
+    <a href="esquema.html">Esquema</a>
     <a href="consulta.html">Consulta</a>
   </nav>
 </div></div>
@@ -55,6 +57,23 @@
     <div class="panel">
       <h2 style="margin-top:0">Cobertura territorial por cuartil</h2>
       <div id="cuartil" class="grafico"></div>
+    </div>
+  </div>
+
+  <h2>El corpus en el tiempo</h2>
+  <p class="lede">Cada documento en su fecha, por tipo. El eje muestra cuándo se expidió, no
+  cuándo se ejecutó: un ciclo se nombra por su año de formulación y no produce matrícula
+  hasta uno o dos años después.</p>
+  <div class="panel"><div id="linea-tiempo" class="grafico" style="min-height:300px"></div></div>
+
+  <div class="rejilla r2" style="margin-top:14px">
+    <div class="panel">
+      <h2 style="margin-top:0">Recursos por fuente</h2>
+      <div id="pie-fuente" class="grafico" style="min-height:330px"></div>
+    </div>
+    <div class="panel">
+      <h2 style="margin-top:0">Documentos por tipo</h2>
+      <div id="pie-tipo" class="grafico" style="min-height:330px"></div>
     </div>
   </div>
 
@@ -223,9 +242,53 @@ tabla($('hallazgos'), [
   {t:'Impacto', r:h=>`<span class="pill ${h.impacto==='ALTO'?'alto':h.impacto==='MEDIO'?'medio':'pend'}">${h.impacto.toLowerCase()}</span>`},
   {t:'Estado', r:h=>h.probado ? '<span class="pill ok">verificado</span>'
       : `<span class="pill pend">${esc((h.estado||'').replace('PENDIENTE_','fase ').replace('_',' ').toLowerCase())}</span>`},
-  {t:'Documento', r:h=>`<span class="cita">${esc(h.documento_id||'')}</span>`},
+  {t:'Documento', r:h=>h.documento_id
+      ? `<span class="cita">${enlaceDocId(h.documento_id)}</span>` : ''},
 ], H.slice().sort((a,b)=> b.probado-a.probado || a.clase.localeCompare(b.clase)
                         || a.hallazgo_id.localeCompare(b.hallazgo_id)));
+
+/* --------------------------------------------------------- línea de tiempo */
+const conFecha = D.v_corpus.filter(d=>d.fecha);
+const tipos = [...new Set(conFecha.map(d=>d.tipo))];
+Plotly.newPlot('linea-tiempo', tipos.map((t,i)=>{
+  const ds = conFecha.filter(d=>d.tipo===t);
+  return {
+    type:'scatter', mode:'markers', name:t.toLowerCase(),
+    x:ds.map(d=>d.fecha), y:ds.map(()=>t.toLowerCase()),
+    marker:{size:ds.map(d=>Math.max(11, Math.min(30, 11+Math.sqrt(d.cifras||0)*2.2))),
+            color:PALETA[i%PALETA.length], line:{color:'#fff', width:1.5}, opacity:.88},
+    customdata:ds.map(d=>[d.titulo, d.cifras, d.documento_id]),
+    hovertemplate:'<b>%{customdata[0]}</b><br>%{x}<br>%{customdata[1]} cifras<extra></extra>',
+  };
+}), layout({height:300, showlegend:false, xaxis:{type:'date', title:{text:''}},
+            yaxis:{automargin:true}, margin:{l:6, r:24, t:12, b:36}}));
+
+/* -------------------------------------------------------------------- pies */
+const porFuente = {};
+D.v_dinero_fuente.forEach(f=>{ porFuente[f.fuente] = (porFuente[f.fuente]||0)+f.monto; });
+const fs = Object.entries(porFuente).sort((a,b)=>b[1]-a[1]);
+Plotly.newPlot('pie-fuente', [{
+  type:'pie', hole:.58, labels:fs.map(f=>f[0]), values:fs.map(f=>f[1]),
+  marker:{colors:PALETA.concat(['#8fa9c4','#c9a227','#6b8f71','#9a7fb0'])},
+  textinfo:'percent', textposition:'inside',
+  hovertemplate:'%{label}<br>%{value:,.0f} · %{percent}<extra></extra>',
+}], layout({height:330, legend:{orientation:'v', x:1.02, y:.5, font:{size:10.5}},
+            margin:{l:6,r:6,t:6,b:6},
+            annotations:[{text:cop(fs.reduce((s,f)=>s+f[1],0)), showarrow:false,
+                          font:{size:15, weight:600}, x:.5, y:.5}]}));
+
+const porTipo = {};
+D.v_corpus.forEach(d=>{ porTipo[d.tipo] = (porTipo[d.tipo]||0)+1; });
+const ts = Object.entries(porTipo).sort((a,b)=>b[1]-a[1]);
+Plotly.newPlot('pie-tipo', [{
+  type:'pie', hole:.58, labels:ts.map(t=>t[0].toLowerCase()), values:ts.map(t=>t[1]),
+  marker:{colors:PALETA.concat(['#8fa9c4','#c9a227'])},
+  textinfo:'value', textposition:'inside',
+  hovertemplate:'%{label}: %{value} documentos<extra></extra>',
+}], layout({height:330, legend:{orientation:'v', x:1.02, y:.5, font:{size:10.5}},
+            margin:{l:6,r:6,t:6,b:6},
+            annotations:[{text:D.v_corpus.length + '<br><span style="font-size:11px">documentos</span>',
+                          showarrow:false, font:{size:15}, x:.5, y:.5}]}));
 
 /* ----------------------------------------------------------------- corpus */
 const C = D.v_corpus;

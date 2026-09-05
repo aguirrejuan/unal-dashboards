@@ -69,17 +69,19 @@ def _carga() -> dict:
     return {**carga, "fuentes": fuentes}
 
 
-def test_las_tres_paginas_existen_y_comparten_los_recursos():
+def test_las_cinco_paginas_existen_y_comparten_los_recursos():
     sitio = RAIZ / "site"
     if not sitio.exists():
         pytest.skip("site/ vacío; ejecute `pic-etl publish`")
-    for archivo in ("index.html", "procedencia.html", "consulta.html",
-                    "estilo.css", "comun.js", "datos.js", "fuentes.js", "pic.sqlite"):
+    paginas = ("index.html", "proceso.html", "procedencia.html",
+               "esquema.html", "consulta.html")
+    for archivo in (*paginas, "estilo.css", "comun.js", "datos.js",
+                    "fuentes.js", "pic.sqlite"):
         assert (sitio / archivo).exists(), f"falta {archivo}"
-    # Every page must reach the other two, or the nav is decoration.
-    for pagina in ("index.html", "procedencia.html", "consulta.html"):
+    # Every page must reach every other, or the nav is decoration.
+    for pagina in paginas:
         html = (sitio / pagina).read_text(encoding="utf-8")
-        for destino in ("index.html", "procedencia.html", "consulta.html"):
+        for destino in paginas:
             assert f'href="{destino}"' in html, f"{pagina} no enlaza a {destino}"
 
 
@@ -107,3 +109,30 @@ def test_las_consultas_precargadas_son_las_pruebas_del_registro():
     )
     assert len(presets) >= 19
     assert all(p["sql"] and p["id"] for p in presets)
+
+
+def test_el_esquema_publicado_coincide_con_el_real():
+    """The schema page reads the same MetaData the database is built from, so it
+    cannot drift — this asserts that, rather than trusting it."""
+    from pic_etl.schema.tables import metadata
+
+    esq = _carga()["esquema"]
+    assert {t["nombre"] for t in esq["tablas"]} == set(metadata.tables)
+    assert esq["total_columnas"] == sum(len(t.columns) for t in metadata.tables.values())
+
+    decl = next(t for t in esq["tablas"] if t["nombre"] == "declaracion")
+    grano = {c["nombre"]: c for c in decl["columnas"]}
+    # P5: no nullable grain column, which is what makes uniqueness enforceable.
+    for columna in ("ciclo_id", "unidad_id", "periodo_id", "poblacion_id", "medida_id"):
+        assert grano[columna]["nulo"] is False, f"{columna} admite nulos"
+        assert grano[columna]["fk"], f"{columna} debería ser clave foránea"
+
+
+def test_los_documentos_del_corpus_se_pueden_enlazar():
+    """A citation is only evidence if the reader can reach the document."""
+    carga = _carga()
+    con_archivo = [d for d in carga["datos"]["v_corpus"] if d["ruta_archivo"]]
+    assert len(con_archivo) == 23, "los 23 documentos del corpus deben tener ruta"
+    for d in con_archivo:
+        destino = RAIZ / "site" / "corpus" / "/".join(d["ruta_archivo"].split("/")[1:])
+        assert destino.exists(), f"el enlace de {d['documento_id']} no resuelve"

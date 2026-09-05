@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIC · Esquema</title>
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .doble{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:16px;
+         align-items:start}
+  @media(max-width:1080px){.doble{grid-template-columns:1fr}}
+  .filtro{display:flex; gap:9px; margin-bottom:12px; flex-wrap:wrap}
+  .filtro input,.filtro select{
+    padding:9px 12px; border:1px solid var(--linea); border-radius:8px;
+    background:var(--panel); color:var(--tinta); font:inherit; font-size:14px;
+  }
+  .filtro input{flex:1; min-width:170px}
+</style>
+</head>
+<body>
+
+<div class="barra"><div class="caja">
+  <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
+  <nav class="nav">
+    <a href="index.html">Panorama</a>
+    <a href="proceso.html">Proceso</a>
+    <a href="procedencia.html">Procedencia</a>
+    <a href="esquema.html" aria-current="page">Esquema</a>
+    <a href="consulta.html">Consulta</a>
+  </nav>
+</div></div>
+
+<main class="caja">
+  <div class="encabezado">
+    <h1>El esquema</h1>
+    <p class="entrada">Las tablas que sostienen todo lo demás, con sus columnas, sus claves y
+    cómo se relacionan. Se lee del mismo <code>MetaData</code> con el que se construye la
+    base, así que no puede desviarse de lo que existe.</p>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Diagrama de relaciones</h2>
+  <p class="lede">Elija una tabla y verá su vecindario: lo que referencia y lo que la
+  referencia. Las cincuenta y cinco a la vez serían ilegibles.</p>
+  <div class="filtro">
+    <select id="foco"></select>
+    <select id="capa"><option value="">Todas las capas</option></select>
+    <input type="search" id="buscar" placeholder="Buscar tabla o columna…">
+  </div>
+  <div class="diagrama"><pre class="mermaid" id="diagrama"></pre></div>
+
+  <h2>Tablas y columnas</h2>
+  <p class="lede">Las claves primarias van marcadas <span class="llave">PK</span>, las
+  foráneas <span class="llave">FK</span> con su destino. Ninguna columna de grano admite
+  nulos: donde una dimensión no aplica hay un miembro centinela, no un vacío.</p>
+  <div id="tablas"></div>
+
+  <footer>
+    <p>El diseño completo está en
+    <a href="https://github.com/aguirrejuan/unal-dashboards/blob/main/docs/pic-data-model-v2.md">
+    pic-data-model-v2.md</a> y el del proceso de carga en
+    <a href="https://github.com/aguirrejuan/unal-dashboards/blob/main/docs/pic-etl-design.md">
+    pic-etl-design.md</a>.</p>
+  </footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.3.0/mermaid.min.js"></script>
+<script src="datos.js"></script>
+<script src="comun.js"></script>
+<script>
+const ESQ = CARGA.esquema;
+const T = ESQ.tablas;
+const porNombre = Object.fromEntries(T.map(t => [t.nombre, t]));
+
+$('kpis').innerHTML = [
+  {v:T.length, et:'tablas'},
+  {v:ESQ.total_columnas, et:'columnas'},
+  {v:ESQ.total_fks, et:'claves foráneas'},
+  {v:T.filter(t=>t.filas>0).length, et:'tablas con datos'},
+].map(k=>`<div class="kpi"><b>${fmt(k.v)}</b><span class="et">${k.et}</span></div>`).join('');
+
+/* -------------------------------------------------------------- selectores */
+const capas = [...new Set(T.map(t=>t.capa))].sort();
+capas.forEach(c => $('capa').insertAdjacentHTML('beforeend',
+  `<option value="${esc(c)}">${esc(c)}</option>`));
+T.slice().sort((a,b)=>b.filas-a.filas || a.nombre.localeCompare(b.nombre))
+ .forEach(t => $('foco').insertAdjacentHTML('beforeend',
+   `<option value="${esc(t.nombre)}">${esc(t.nombre)} · ${fmt(t.filas)} filas</option>`));
+
+/* --------------------------------------------------------------- diagrama */
+let inicializado = false;
+async function diagrama(foco) {
+  const centro = porNombre[foco];
+  if (!centro || !window.mermaid) return;
+  const vecinas = [...new Set([...centro.referencia_a, ...centro.referida_por])];
+  const incluidas = [foco, ...vecinas];
+
+  const campos = t => (porNombre[t]?.columnas || [])
+    .filter(c => c.pk || c.fk || t === foco)
+    .slice(0, t === foco ? 12 : 4)
+    .map(c => `    ${c.tipo.split('(')[0].toLowerCase()} ${c.nombre}${
+      c.pk ? ' PK' : c.fk ? ' FK' : ''}`).join('\n');
+
+  const relaciones = [];
+  incluidas.forEach(t => (porNombre[t]?.referencia_a || []).forEach(d => {
+    if (incluidas.includes(d)) relaciones.push(`  ${d} ||--o{ ${t} : "referencia"`);
+  }));
+
+  const fuente = 'erDiagram\n' +
+    incluidas.map(t => `  ${t} {\n${campos(t)}\n  }`).join('\n') + '\n' +
+    [...new Set(relaciones)].join('\n');
+
+  if (!inicializado) {
+    mermaid.initialize({startOnLoad:false, theme:'base', securityLevel:'loose',
+      themeVariables:{
+        primaryColor:'#eaf1f9', primaryTextColor:'#14161a', primaryBorderColor:'#1c4e80',
+        lineColor:'#8b929c', fontSize:'12px',
+        fontFamily:'ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif',
+      }});
+    inicializado = true;
+  }
+  try {
+    const {svg} = await mermaid.render('er' + Date.now(), fuente);
+    $('diagrama').innerHTML = svg;
+  } catch (e) {
+    $('diagrama').textContent = 'No pude dibujar el diagrama: ' + e.message;
+  }
+}
+
+/* ---------------------------------------------------------------- tablas */
+function pintar() {
+  const q = $('buscar').value.toLowerCase();
+  const capa = $('capa').value;
+  const filas = T.filter(t =>
+    (!capa || t.capa === capa) &&
+    (!q || t.nombre.includes(q) || t.columnas.some(c => c.nombre.includes(q))));
+
+  $('tablas').innerHTML = filas.map(t => `
+    <details class="tabla-esq"${t.nombre === $('foco').value ? ' open' : ''}>
+      <summary>
+        <span class="capa ${esc(t.capa)}">${esc(t.capa)}</span>
+        <code>${esc(t.nombre)}</code>
+        <span class="cta">${fmt(t.filas)} filas · ${t.columnas.length} columnas${
+          t.referencia_a.length ? ' · →&nbsp;' + t.referencia_a.length : ''}</span>
+      </summary>
+      <table class="cols"><tbody>${t.columnas.map(c => `
+        <tr>
+          <td style="width:34%"><code>${esc(c.nombre)}</code></td>
+          <td style="width:20%; color:var(--tenue)">${esc(c.tipo.toLowerCase())}</td>
+          <td style="width:14%">${c.nulo ? '' : '<span class="pill pend">obligatorio</span>'}</td>
+          <td>${c.pk ? '<span class="llave">PK</span> ' : ''}${
+            c.fk ? `<span class="llave">FK</span> <code>${esc(c.fk)}</code>` : ''}</td>
+        </tr>`).join('')}</tbody></table>
+    </details>`).join('') ||
+    '<p class="lede">Ninguna tabla coincide.</p>';
+}
+
+$('foco').onchange = () => { diagrama($('foco').value); pintar(); };
+$('capa').onchange = pintar;
+$('buscar').oninput = pintar;
+
+$('foco').value = 'declaracion';
+diagrama('declaracion');
+pintar();
+</script>
+</body>
+</html>
