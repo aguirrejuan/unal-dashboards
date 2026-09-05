@@ -15,6 +15,11 @@ pic-etl = "pic_etl.cli:main"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+llm = [
+    "langchain-anthropic>=0.3",
+    "langchain-core>=0.3",
+    "langgraph>=0.2",
+]
 
 [build-system]
 requires = ["hatchling"]

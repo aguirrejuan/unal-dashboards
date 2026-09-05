@@ -472,3 +472,52 @@ SNIES code belongs. It sits in the sheet's header block, not in a data row, and
 it is a broken *identifier* rather than a measure — no current table has a place
 for it. Recording it properly needs somewhere to hold a document's own header
 assertions. It is listed here rather than forced into a shape that fits.
+
+## El paso asistido por modelo
+
+Los cinco escaneos del Ministerio no tienen capa de texto: `pdftotext` no
+devuelve nada y ningún parser determinista los alcanza. Ese es el único punto
+del proceso donde hace falta un modelo, y está aislado deliberadamente.
+
+```
+escaneo.pdf ──► pic-etl transcribe ──► extractions/propuestas/*.yaml
+                (LangGraph + visión)            │
+                                                ▼  una persona lee la propuesta
+                                                │  junto a la imagen de la página
+                                        pic-etl review   (diff cifra a cifra)
+                                                │
+                                        pic-etl promote
+                                                ▼
+                                     extractions/*.yaml ──► pic-etl build
+```
+
+**Por qué un grafo y no una función.** La estructura que importa es un bucle
+con compuerta, no una cadena: el modelo lee una página, el resultado se valida
+contra el mismo contrato Pydantic que aplica el cargador, y un fallo vuelve al
+modelo con el error en lugar de llegar a una persona. Reintentos acotados, una
+página a la vez, y un checkpoint tras cada una.
+
+El estado lleva dos cubetas de filas a propósito. Una sola lista acumulativa no
+puede expresar un reintento: las filas a descartar son justamente las del
+intento fallido, y no se identifican después del hecho — una fila que citó la
+página equivocada no lleva el prefijo de la página correcta por el cual
+filtrarla. `borrador` se sobrescribe entero; `confirmadas` sólo crece.
+
+**Por qué se detiene en YAML.** El grafo escribe una propuesta que `build` no
+lee: el glob es `extractions/*.yaml`, no recursivo. Promover es un acto
+explícito y separado. Esa frontera es lo que deja a un modelo contribuir sin
+que el proceso pierda su determinismo: su salida se convierte en un artefacto
+revisado, comprometido y con hash, y todo lo que viene después es una función
+pura de archivos en git. El cargador no sabe que hubo un modelo, y no debe
+saberlo.
+
+**Qué se registra.** Junto a cada propuesta va un acta: modelo, hash de la
+instrucción, páginas leídas, resolución, fecha, y las cifras que el modelo vio
+y decidió no transcribir. Una transcripción sólo es auditable si consta qué se
+preguntó; cuando la instrucción cambia, cambia su hash, y las propuestas
+anteriores quedan visiblemente hijas de otra pregunta.
+
+**El prompt se construye, no se escribe.** Las listas de identificadores
+permitidos salen de los mismos YAML de referencia que lee el cargador, de modo
+que un `fuente_id` nuevo llega a la instrucción en cuanto llega a la base, y la
+instrucción no puede ofrecerle al modelo un identificador que ya no existe.

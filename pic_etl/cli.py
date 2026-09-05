@@ -218,6 +218,135 @@ def cmd_publish(args: argparse.Namespace) -> int:
     return 0
 
 
+# ------------------------------------------------------ transcripción asistida
+
+def _registro() -> dict:
+    return yaml.safe_load((REFERENCIA / "documento.yaml").read_text(encoding="utf-8"))
+
+
+def _documento(documento_id: str) -> dict:
+    for d in _registro()["documento"]:
+        if d["documento_id"] == documento_id:
+            return d
+    raise SystemExit(
+        f"{documento_id} no está en documento.yaml. Para un archivo nuevo use "
+        f"`--archivo RUTA --id ID --tipo TIPO --emisor EMISOR --titulo TITULO`."
+    )
+
+
+def _anotar_registro(fila: dict) -> None:
+    """Append a document to the register, in the file, for a person to review.
+
+    Written rather than inserted: the register is a committed reference file, so
+    a new document arrives as a diff someone reads, like every other fact here.
+    """
+    destino = REFERENCIA / "documento.yaml"
+    texto = destino.read_text(encoding="utf-8")
+    if f"documento_id: {fila['documento_id']}\n" in texto:
+        print(f"  {fila['documento_id']} ya estaba en el registro")
+        return
+    bloque = yaml.safe_dump([fila], allow_unicode=True, sort_keys=False, width=200)
+    marca = "\ndocumento_cita:"
+    if marca in texto:
+        texto = texto.replace(marca, "\n" + bloque + marca, 1)
+    else:
+        texto = texto.rstrip() + "\n" + bloque
+    destino.write_text(texto, encoding="utf-8")
+    print(f"  registrado {fila['documento_id']} en documento.yaml")
+
+
+def cmd_transcribe(args: argparse.Namespace) -> int:
+    """Read a scan with a vision model into a reviewable proposal.
+
+    The only step that needs a network. It writes `extractions/propuestas/`,
+    which `build` does not read: promoting the proposal is a separate, explicit
+    act, and that is what keeps the load deterministic.
+    """
+    from pic_etl.extract.vision import grafo, revision
+
+    if args.archivo:
+        ruta = Path(args.archivo)
+        if not (args.id and args.tipo and args.emisor and args.titulo):
+            raise SystemExit("con --archivo hacen falta --id, --tipo, --emisor y --titulo")
+        documento_id, tipo, titulo = args.id, args.tipo, args.titulo
+        fila = {"documento_id": args.id, "tipo": args.tipo, "emisor": args.emisor,
+                "titulo": args.titulo, "estado": "EN_CORPUS", "soporte": "TRANSCRITO",
+                "ruta_archivo": str(ruta), "sha256": sha256_de(ruta)}
+        if args.registrar:
+            _anotar_registro(fila)
+    else:
+        doc = _documento(args.documento)
+        ruta = RAIZ / doc["ruta_archivo"]
+        if not ruta.exists():
+            ruta = texto_pdf.ruta_de(doc["ruta_archivo"], RAIZ)
+        documento_id, tipo, titulo = args.documento, doc["tipo"], doc["titulo"]
+
+    sha = sha256_de(ruta)
+    numeros = ([int(n) for n in args.paginas.split(",")] if args.paginas else None)
+    print(f"  {documento_id}  {ruta.name}")
+
+    extraccion, acta = grafo.transcribir_documento(
+        documento_id, ruta, sha, titulo=titulo, tipo=tipo, paginas_=numeros)
+    destino, acta_ruta = revision.escribir(extraccion, acta)
+
+    for linea in acta["diario"]:
+        print(f"    {linea}")
+    for o in acta["omitido"]:
+        print(f"    omitido — {o}")
+    print(f"  -> {destino.relative_to(RAIZ)}  {len(extraccion.filas)} filas")
+    print(f"  -> {acta_ruta.relative_to(RAIZ)}")
+
+    _imprimir_diff(revision.comparar(documento_id))
+    if args.promover:
+        cmd_promote(args)
+    return 0
+
+
+def _imprimir_diff(d: dict) -> None:
+    print(f"\n  frente a lo ya comprometido:"
+          f"  {len(d['coincide'])} coinciden,"
+          f" {len(d['sobra'])} nuevas, {len(d['falta'])} sin proponer")
+    for c in d["sobra"]:
+        print(f"    +  {c}")
+    for c in d["falta"]:
+        print(f"    −  {c}")
+
+
+def cmd_review(args: argparse.Namespace) -> int:
+    """The proposal against the committed transcription, figure by figure."""
+    from pic_etl.extract.vision import revision
+
+    _imprimir_diff(revision.comparar(args.documento))
+    return 0
+
+
+def cmd_promote(args: argparse.Namespace) -> int:
+    """Move a reviewed proposal into `extractions/`, where the build sees it."""
+    from pic_etl.extract.vision import revision
+
+    documento = args.documento or args.id
+    origen = revision.PROPUESTAS / f"{documento.lower()}.yaml"
+    if not origen.exists():
+        raise SystemExit(f"no hay propuesta para {documento}")
+    # Validate once more against the contract: the file may have been edited by
+    # hand between the proposal and this moment, which is the point of it.
+    datos = yaml.safe_load(origen.read_text(encoding="utf-8"))
+    ext = Extraction.model_validate(datos)
+
+    destino = EXTRACCIONES / f"{documento.lower()}.yaml"
+    destino.write_text(
+        revision.CABECERA.replace("PROPUESTA — no la carga `pic-etl build`.",
+                                  "Transcripción asistida por modelo, revisada y "
+                                  "promovida.")
+        + yaml.safe_dump(yaml.safe_load(ext.model_dump_json()),
+                         allow_unicode=True, sort_keys=False, width=200),
+        encoding="utf-8")
+    origen.unlink()
+    print(f"  {destino.relative_to(RAIZ)}  {len(ext.filas)} filas — "
+          f"`pic-etl build` ya la carga")
+    return 0
+
+
 def cmd_verify(args: argparse.Namespace) -> int:
     from pic_etl.verify.invariants import ejecutar
 
@@ -241,9 +370,31 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("snapshots", help="tablas fuente -> build/fuentes/ (sin tocar extractions/)")
     sub.add_parser("publish", help="vistas -> site/ estático para GitHub Pages")
 
+    t = sub.add_parser("transcribe",
+                       help="escaneo -> propuesta revisable (usa un modelo de visión)")
+    t.add_argument("--documento", help="documento_id ya registrado")
+    t.add_argument("--archivo", help="PDF que aún no está en el registro")
+    t.add_argument("--id"), t.add_argument("--tipo")
+    t.add_argument("--emisor"), t.add_argument("--titulo")
+    t.add_argument("--registrar", action="store_true",
+                   help="con --archivo, anota el documento en documento.yaml")
+    t.add_argument("--paginas", help="sólo estas páginas, p. ej. 2,3")
+    t.add_argument("--promover", action="store_true",
+                   help="tras revisar el diff, mover la propuesta a extractions/")
+
+    r = sub.add_parser("review", help="propuesta frente a lo comprometido, cifra a cifra")
+    r.add_argument("documento")
+
+    m = sub.add_parser("promote", help="propuesta revisada -> extractions/")
+    m.add_argument("documento")
+
     args = p.parse_args(argv)
+    if args.cmd == "transcribe" and not (args.documento or args.archivo):
+        raise SystemExit("indique --documento o --archivo")
     return {"extract": cmd_extract, "build": cmd_build, "snapshots": cmd_snapshots,
-            "verify": cmd_verify, "publish": cmd_publish}[args.cmd](args)
+            "verify": cmd_verify, "publish": cmd_publish,
+            "transcribe": cmd_transcribe, "review": cmd_review,
+            "promote": cmd_promote}[args.cmd](args)
 
 
 if __name__ == "__main__":
