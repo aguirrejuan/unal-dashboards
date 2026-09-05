@@ -11,6 +11,7 @@ JavaScript disabled. `consulta.html` adds real SQL client-side over the same
 
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 from datetime import date
@@ -91,17 +92,27 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         "window.FUENTES=" + json.dumps(fuentes, ensure_ascii=False) + ";",
         encoding="utf-8")
 
+    # Shared assets: one stylesheet and one helper module across every page, so
+    # they read as one document rather than five. Copied before the pages,
+    # because the pages have to name their versions.
+    for recurso in ("estilo.css", "comun.js"):
+        shutil.copy2(PLANTILLAS / recurso, destino / recurso)
+
+    # GitHub Pages serves these with `cache-control: max-age=600`. HTML and
+    # scripts deploy together but expire independently, so a returning visitor
+    # gets a fresh page calling a function its cached `comun.js` has never heard
+    # of — which is exactly how `sello is not defined` reached production. The
+    # content hash in the URL makes a changed asset a different request.
+    version = {n: _huella(destino / n)
+               for n in ("estilo.css", "comun.js", "datos.js", "fuentes.js")}
+
     paginas = ("index.html", "proceso.html", "procedencia.html", "esquema.html",
                "documento.html")
     for pagina in paginas:
-        (destino / pagina).write_text(_leer_plantilla(pagina), encoding="utf-8")
+        (destino / pagina).write_text(
+            _versionar(_leer_plantilla(pagina), version), encoding="utf-8")
     (destino / "consulta.html").write_text(
-        _consulta(datos["v_hallazgos"]), encoding="utf-8")
-
-    # Shared assets: one stylesheet and one helper module across every page, so
-    # they read as one document rather than five.
-    for recurso in ("estilo.css", "comun.js"):
-        shutil.copy2(PLANTILLAS / recurso, destino / recurso)
+        _versionar(_consulta(datos["v_hallazgos"]), version), encoding="utf-8")
 
     # The escudo, if a person has been given the right to publish it. Nothing
     # here fabricates the mark: the slot stays empty and the masthead falls back
@@ -122,6 +133,17 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         "filas": sum(len(v) for v in datos.values()),
         "fuentes": len(instantaneas),
     }
+
+
+def _huella(ruta: Path) -> str:
+    return hashlib.sha256(ruta.read_bytes()).hexdigest()[:10]
+
+
+def _versionar(html: str, version: dict[str, str]) -> str:
+    """Point every local asset at the exact bytes this page was built against."""
+    for nombre, huella in version.items():
+        html = html.replace(f'"{nombre}"', f'"{nombre}?v={huella}"')
+    return html
 
 
 def _leer_plantilla(nombre: str) -> str:

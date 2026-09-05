@@ -136,3 +136,33 @@ def test_los_documentos_del_corpus_se_pueden_enlazar():
     for d in con_archivo:
         destino = RAIZ / "site" / "corpus" / "/".join(d["ruta_archivo"].split("/")[1:])
         assert destino.exists(), f"el enlace de {d['documento_id']} no resuelve"
+
+
+def test_los_recursos_compartidos_llevan_su_huella():
+    """HTML and scripts deploy together and expire apart.
+
+    GitHub Pages serves both with `cache-control: max-age=600`, so a returning
+    visitor can get a fresh page calling a function its cached `comun.js` has
+    never heard of. That is not hypothetical: `sello is not defined` reached
+    production exactly that way. The content hash makes a changed asset a
+    different URL.
+    """
+    sitio = RAIZ / "site"
+    if not (sitio / "index.html").exists():
+        pytest.skip("site/ vacío; ejecute `pic-etl publish`")
+
+    import hashlib
+    import re
+
+    for pagina in sorted(sitio.glob("*.html")):
+        html = pagina.read_text(encoding="utf-8")
+        for recurso in ("estilo.css", "comun.js", "datos.js", "fuentes.js"):
+            if recurso not in html:
+                continue
+            m = re.search(rf'"{re.escape(recurso)}\?v=([0-9a-f]{{10}})"', html)
+            assert m, f"{pagina.name} carga {recurso} sin versión"
+            real = hashlib.sha256((sitio / recurso).read_bytes()).hexdigest()[:10]
+            assert m[1] == real, \
+                f"{pagina.name} pide una versión de {recurso} que no es la publicada"
+            assert f'"{recurso}"' not in html, \
+                f"{pagina.name} todavía carga {recurso} sin versionar"
