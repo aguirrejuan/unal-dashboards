@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import re
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -18,7 +19,7 @@ import pytest
 RAIZ = Path(__file__).resolve().parent.parent
 PLANTILLAS = RAIZ / "pic_etl" / "plantillas"
 
-_URL = re.compile(r'<script src="(https://[^"]+)"')
+_URL = re.compile(r'<(?:script src|link[^>]*?href)="(https://[^"]+)"')
 
 
 def _urls() -> list[tuple[str, str]]:
@@ -26,6 +27,9 @@ def _urls() -> list[tuple[str, str]]:
         (archivo.name, url)
         for archivo in sorted(PLANTILLAS.glob("*.html"))
         for url in _URL.findall(archivo.read_text(encoding="utf-8"))
+        # A preconnect names a host and fetches nothing; HEAD on a bare origin
+        # proves nothing about the asset the page actually loads.
+        if urllib.parse.urlparse(url).path not in ("", "/")
     ]
 
 
@@ -47,7 +51,22 @@ def test_el_recurso_externo_existe(pagina: str, url: str):
 
 
 def test_las_versiones_estan_fijadas():
-    """An unpinned CDN URL changes under the page without warning."""
+    """An unpinned CDN URL changes under the page without warning.
+
+    Google Fonts is the exception, and deliberately: its stylesheet is versioned
+    by the `family` query, and pinning a file hash there would break the moment
+    the service re-cuts the face.
+    """
     sueltas = [(p, u) for p, u in _urls()
-               if not re.search(r"/\d+\.\d+\.\d+/", u)]
+               if "fonts.googleapis.com" not in u
+               and not re.search(r"/\d+\.\d+\.\d+/", u)]
     assert not sueltas, f"versiones sin fijar: {sueltas}"
+
+
+def test_la_tipografia_declara_un_respaldo_local():
+    """Ancízar is the institutional typeface and a registered mark: the page may
+    prefer it when the reader has it installed, but must never ship it. What
+    ships is an open humanist of near proportions, and the stack says so."""
+    css = (PLANTILLAS / "estilo.css").read_text(encoding="utf-8")
+    assert "Ancizar Sans" in css and "Source Sans 3" in css
+    assert "@font-face" not in css, "no se distribuye la tipografía institucional"

@@ -21,14 +21,31 @@ const cop = n => {
 const CSSVAR = n => getComputedStyle(document.documentElement)
   .getPropertyValue(n).trim();
 
-const PALETA = ['#1c4e80', '#2d7dd2', '#68a5e0', '#a8c8ea', '#b4432f', '#1d7a4f'];
+/* The institutional palette, in chart order. The dark green leads because the
+   institutional green — Pantone 376, the University's signature — is too light
+   to carry a thin bar on white; it takes second place, where it reads as the
+   accent it is. The two greys are Pantone 425 and 421, not neutrals of my
+   choosing. Series beyond the sixth get tints of 376, which is the only
+   direction the palette extends without inventing a colour. */
+const PALETA = ['#466b3f', '#94b43b', '#a61c31', '#565a5c', '#76232f', '#b1b2b0'];
+const PALETA_LARGA = PALETA.concat(
+  ['#6f8f4a', '#b9cd7c', '#c26a76', '#8b9093', '#a8bd5e', '#d5dfb7']);
+
+/* On this site the alterno red means a divergence between documents — the two
+   endings of the funnel, a finding of high impact. A series that merely lists
+   cycles or document types must not spend it, or every page looks like an
+   alarm. This ramp runs from 7743 C through 376 C and out into the two official
+   greys: ordinal where the data is ordinal, and never alarming. */
+const PALETA_SERIE = ['#466b3f', '#6f8f4a', '#94b43b', '#b9cd7c',
+                      '#565a5c', '#8b9093', '#b1b2b0', '#d5dfb7'];
 
 /** One Plotly layout for every chart, so the pages look like one document. */
 function layout(extra = {}) {
   const tinta = CSSVAR('--tinta'), tenue = CSSVAR('--tenue'), linea = CSSVAR('--linea');
   const base = {
     paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{family:'ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif',
+    font:{family:CSSVAR('--tipo') ||
+          'ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif',
           size:12, color:tinta},
     margin:{l:10, r:18, t:14, b:44, pad:6},
     xaxis:{gridcolor:linea, zerolinecolor:linea, linecolor:linea,

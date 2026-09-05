@@ -86,7 +86,13 @@ Sin el extra `llm`, todo lo demás sigue corriendo sin red.
 
 ## El tablero
 
-Cinco páginas sobre el mismo `pic.sqlite`, más un visor por documento.
+Cinco páginas sobre el mismo `pic.sqlite`, más un visor por documento. Sigue la
+[guía de identidad visual de la Universidad
+Nacional](https://identidad.unal.edu.co/guia-identidad-visual/): la paleta es la
+oficial de 2016 —Pantone 376 C, 187 C y los cuatro complementarios— y la
+tipografía prefiere Ancízar cuando el lector la tiene instalada. No lleva escudo
+ni logosímbolo: son marcas registradas y su uso institucional requiere aval de
+Unimedios.
 
 | | |
 |---|---|

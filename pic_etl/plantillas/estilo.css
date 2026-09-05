@@ -1,26 +1,53 @@
-/* Shared design system for the three pages.
-   Restrained on purpose: this is a document people will argue over, so the
-   chrome stays quiet and the figures carry the page. */
+/* Identidad visual de la Universidad Nacional de Colombia.
+   Guía: https://identidad.unal.edu.co/guia-identidad-visual/
+   Paleta oficial: PALETA_DE_COLOR_INTITUCIONAL-2016.pdf
+
+     institucional   Pantone 376 C   RGB 148 180 59    #94b43b
+     alterno         Pantone 187 C   RGB 166  28 49    #a61c31
+     complementario  Pantone 7743 C  RGB  70 107 63    #466b3f
+     complementario  Pantone 188 C   RGB 118  35 47    #76232f
+     complementario  Pantone 425 C   RGB  86  90 92    #565a5c
+     complementario  Pantone 421 C   RGB 177 178 176   #b1b2b0
+
+   El verde institucional es claro: sobre blanco no alcanza contraste para texto
+   ni para una barra fina, así que carga el acento y el resalte, y el 7743 C
+   —su hermano oscuro— hace el trabajo estructural. Los grises 425 y 421 son los
+   de la guía, no unos neutros cualesquiera.
+
+   Esta página no lleva escudo ni logosímbolo: son marcas registradas cuyo uso
+   requiere aval de Unimedios. */
 
 :root{
-  color-scheme: light;   /* committed to one look, so the palette below is it */
-  --tinta:#14161a; --tenue:#5a616b; --suave:#8b929c;
-  --linea:#e4e6ea; --linea-fuerte:#d0d4da;
-  --fondo:#f4f6f8; --panel:#fff; --panel-alt:#f8fafb;
-  --acento:#1c4e80; --acento-claro:#2d7dd2; --acento-tenue:#eaf1f9;
-  --alerta:#b4432f; --alerta-tenue:#fbeeeb;
-  --ok:#1d7a4f; --ok-tenue:#eaf5ef;
-  --ambar:#8a6410; --ambar-tenue:#fdf4e0;
-  --marca:#fff2bf; --marca-borde:#c9a227;
-  --sombra:0 1px 2px rgba(20,22,26,.05), 0 4px 12px rgba(20,22,26,.04);
+  color-scheme: light;
+
+  /* paleta institucional, literal */
+  --un-verde:#94b43b; --un-rojo:#a61c31; --un-verde-oscuro:#466b3f;
+  --un-vino:#76232f;  --un-gris:#565a5c; --un-gris-claro:#b1b2b0;
+
+  --tinta:#22262a; --tenue:#565a5c; --suave:#7f8486;
+  --linea:#e3e5e2; --linea-fuerte:#c9ccc6;
+  --fondo:#f5f6f3; --panel:#fff; --panel-alt:#f8f9f5;
+  --acento:#466b3f; --acento-claro:#94b43b; --acento-tenue:#eef3e2;
+  --alerta:#a61c31; --alerta-tenue:#f9ecee;
+  --ok:#466b3f; --ok-tenue:#eef3e2;
+  --ambar:#76232f; --ambar-tenue:#f6eef0;
+  --marca:#e9f0d6; --marca-borde:#94b43b;
+  --sombra:0 1px 2px rgba(34,38,42,.05), 0 4px 12px rgba(34,38,42,.04);
   --radio:10px;
+
+  /* Ancízar es la tipografía institucional y es marca registrada: se usa si
+     está instalada, y si no, una humanista abierta de proporciones cercanas. */
+  --tipo:"Ancizar Sans","Ancízar Sans","Source Sans 3","Source Sans Pro",
+         ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+         "Helvetica Neue",Arial,sans-serif;
+  --tipo-titulo:"Ancizar Serif","Ancízar Serif","Source Serif 4",
+         ui-serif,Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--fondo); color:var(--tinta);
-  font:15px/1.55 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
-       "Helvetica Neue",Arial,sans-serif;
+  font:15px/1.55 var(--tipo);
   font-feature-settings:"tnum" 0;
   -webkit-font-smoothing:antialiased;
 }
@@ -29,12 +56,16 @@ body{
 .barra{
   position:sticky; top:0; z-index:50; background:var(--panel);
   border-bottom:1px solid var(--linea); backdrop-filter:saturate(180%) blur(8px);
+  border-top:3px solid var(--un-verde);
 }
 .barra .caja{
   max-width:1220px; margin:0 auto; padding:0 24px;
   display:flex; align-items:center; gap:28px; height:56px;
 }
-.marca-sitio{font-weight:660; letter-spacing:-.015em; font-size:15px; white-space:nowrap}
+.marca-sitio{
+  font-family:var(--tipo-titulo); font-weight:600; letter-spacing:-.005em;
+  font-size:15.5px; white-space:nowrap;
+}
 .marca-sitio span{color:var(--tenue); font-weight:450}
 .nav{display:flex; gap:2px; margin-left:auto}
 .nav a{
@@ -49,7 +80,10 @@ main{padding-bottom:88px}
 
 /* ------------------------------------------------------------------ cabecera */
 .encabezado{padding:44px 0 8px}
-h1{font-size:31px; line-height:1.2; margin:0 0 10px; letter-spacing:-.025em; font-weight:660}
+h1{
+  font-family:var(--tipo-titulo); font-size:33px; line-height:1.18;
+  margin:0 0 10px; letter-spacing:-.015em; font-weight:600;
+}
 .entrada{color:var(--tenue); max-width:70ch; margin:0; font-size:15.5px}
 
 /* -------------------------------------------------------------------- bloques */
@@ -75,7 +109,8 @@ h2{
   padding:16px 18px; box-shadow:var(--sombra);
 }
 .kpi b{
-  display:block; font-size:30px; font-weight:660; letter-spacing:-.03em;
+  display:block; font-family:var(--tipo-titulo); font-size:30px; font-weight:600;
+  letter-spacing:-.015em;
   font-variant-numeric:tabular-nums; line-height:1.1;
 }
 .kpi .et{color:var(--tenue); font-size:12.5px; margin-top:5px; display:block}
@@ -198,7 +233,11 @@ footer{
    that mid-word turns evidence into noise. Give it room and break on spaces. */
 table.cifras{min-width:0}
 table.cifras .cita{word-break:normal; overflow-wrap:break-word}
-table.cifras td:last-child{width:1%; white-space:nowrap}
+/* Document, medium and location in one cell: they are one citation, and three
+   columns cost width the table does not have. Only the seven scans are marked —
+   «tabla» on the other 421 rows is noise that says nothing. */
+.procedencia{display:flex; flex-wrap:wrap; align-items:center; gap:4px 6px}
+.procedencia .cita:last-child{flex:1 1 100%}
 
 .etapas{display:flex; flex-direction:column; gap:0}
 .etapa{

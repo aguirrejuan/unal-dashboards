@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PIC · Panorama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
@@ -233,7 +236,7 @@ const traza = (pasos, color) => ({
 // hang off the last common step, because they are alternatives, not a sequence.
 const anterior = e => e.grupo === 'FINAL' ? ultimoFlujo
                                           : flujo[flujo.indexOf(e) - 1];
-Plotly.newPlot('embudo', [traza(flujo, PALETA[0]), traza(finales, PALETA[4])],
+Plotly.newPlot('embudo', [traza(flujo, PALETA[0]), traza(finales, PALETA[2])],
   layout({
     showlegend:false, height:300, barmode:'stack',
     yaxis:{autorange:'reversed', ticksuffix:'  '},
@@ -257,7 +260,7 @@ const ciclos = [...new Set(comp.map(c=>c.ciclo_id))].sort();
 Plotly.newPlot('compromiso', ciclos.map((c,i)=>({
   type:'bar', name:c.replace('PIC_CO_',''),
   x:sedes, y:sedes.map(s=>{const f=comp.find(x=>x.unidad===s&&x.ciclo_id===c); return f?f.cupos:null;}),
-  marker:{color:PALETA[i]},
+  marker:{color:PALETA_SERIE[i]},
   customdata:sedes.map(s=>{
     const f = comp.find(x=>x.unidad===s&&x.ciclo_id===c);
     const k = CICLOS[c];
@@ -363,7 +366,8 @@ Plotly.newPlot('linea-tiempo', tipos.map((t,i)=>{
     type:'scatter', mode:'markers', name:t.toLowerCase(),
     x:ds.map(d=>d.fecha), y:ds.map(()=>t.toLowerCase()),
     marker:{size:ds.map(d=>Math.max(12, Math.min(34, 12+Math.sqrt(d.cifras||0)*2.4))),
-            color:PALETA[i%PALETA.length], line:{color:'#fff', width:1.5}, opacity:.85},
+            color:PALETA_SERIE[i%PALETA_SERIE.length],
+            line:{color:'#fff', width:1.5}, opacity:.85},
     customdata:ds.map(d=>[d.titulo, d.cifras]),
     hovertemplate:'<b>%{customdata[0]}</b><br>%{x|%-d %b %Y}<br>'
                   +'%{customdata[1]} cifras<extra></extra>',
@@ -387,7 +391,7 @@ D.v_dinero_fuente.forEach(f=>{ porFuente[f.fuente] = (porFuente[f.fuente]||0)+f.
 const fs = Object.entries(porFuente).sort((a,b)=>b[1]-a[1]);
 Plotly.newPlot('pie-fuente', [{
   type:'pie', hole:.58, labels:fs.map(f=>f[0]), values:fs.map(f=>f[1]),
-  marker:{colors:PALETA.concat(['#8fa9c4','#c9a227','#6b8f71','#9a7fb0'])},
+  marker:{colors:PALETA_LARGA},
   textinfo:'percent', textposition:'inside',
   hovertemplate:'%{label}<br>%{value:,.0f} · %{percent}<extra></extra>',
 }], layout({height:400, showlegend:true,
@@ -401,7 +405,7 @@ D.v_corpus.forEach(d=>{ porTipo[d.tipo] = (porTipo[d.tipo]||0)+1; });
 const ts = Object.entries(porTipo).sort((a,b)=>b[1]-a[1]);
 Plotly.newPlot('pie-tipo', [{
   type:'pie', hole:.58, labels:ts.map(t=>t[0].toLowerCase()), values:ts.map(t=>t[1]),
-  marker:{colors:PALETA.concat(['#8fa9c4','#c9a227'])},
+  marker:{colors:PALETA_SERIE},
   textinfo:'value', textposition:'inside',
   hovertemplate:'%{label}: %{value} documentos<extra></extra>',
 }], layout({height:400, showlegend:true,
@@ -422,7 +426,8 @@ const orden = ['PROCESADO','SIN_CIFRAS','PENDIENTE','PENDIENTE_VISION','AUSENTE'
   .filter(k=>cuenta[k]);
 Plotly.newPlot('corpus', [{
   type:'bar', orientation:'h', x:orden.map(k=>cuenta[k]), y:orden.map(k=>etiqueta[k]),
-  marker:{color:orden.map((k,i)=>k==='PROCESADO'?CSSVAR('--ok'):PALETA[i+1])},
+  marker:{color:orden.map((k,i)=>k==='PROCESADO' ? CSSVAR('--ok')
+                            : k==='AUSENTE' ? PALETA[2] : PALETA_SERIE[i+2])},
   text:orden.map(k=>cuenta[k]+' documentos'), textposition:'auto',
   hovertemplate:'%{y}: %{x}<extra></extra>',
 }], layout({height:200, yaxis:{autorange:'reversed'},
