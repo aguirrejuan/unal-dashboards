@@ -1,0 +1,17 @@
+documento_id: ACU_CSU_017_2023
+fuente_sha256: 854cbd6379c9404433dc9dc9637a2a5b6f66b4652d40dd1a48eeb3d7e0292533
+fecha_asercion: '2023-11-01'
+filas:
+- ubicacion: p.2, «$11.386.578.188»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_017_2023|PIC_AMPLIACION|UNAL_TOTAL|2023
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2023
+  vigencia: 2023
+  fuente_id: PIC_AMPLIACION
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '11386578188'
+  monto_origen: $11.386.578.188

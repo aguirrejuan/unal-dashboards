@@ -1,0 +1,231 @@
+documento_id: ACU_CSU_005_2024
+fuente_sha256: 1f1c31335baa4812d6f411183a880c065946fdcebe3a84e0358b5d865374f9c3
+fecha_asercion: '2024-02-16'
+filas:
+- ubicacion: p.2, «Amazonia 11»
+  nota: null
+  tipo: cargo_creado
+  unidad: Amazonia
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '11'
+  cantidad_origen: '11'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Amazonia 11»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '11'
+  valor_origen: '11'
+  componentes: []
+- ubicacion: p.2, «Caribe 7»
+  nota: null
+  tipo: cargo_creado
+  unidad: Caribe
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '7'
+  cantidad_origen: '7'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Caribe 7»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '7'
+  valor_origen: '7'
+  componentes: []
+- ubicacion: p.2, «Orinoquía 13»
+  nota: null
+  tipo: cargo_creado
+  unidad: Orinoquía
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '13'
+  cantidad_origen: '13'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Orinoquía 13»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '13'
+  valor_origen: '13'
+  componentes: []
+- ubicacion: p.2, «Tumaco 19»
+  nota: null
+  tipo: cargo_creado
+  unidad: Tumaco
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '19'
+  cantidad_origen: '19'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Tumaco 19»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '19'
+  valor_origen: '19'
+  componentes: []
+- ubicacion: p.2, «Medellín 55»
+  nota: null
+  tipo: cargo_creado
+  unidad: Medellín
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '55'
+  cantidad_origen: '55'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Medellín 55»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '55'
+  valor_origen: '55'
+  componentes: []
+- ubicacion: p.2, «Manizales 12»
+  nota: null
+  tipo: cargo_creado
+  unidad: Manizales
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '12'
+  cantidad_origen: '12'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Manizales 12»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '12'
+  valor_origen: '12'
+  componentes: []
+- ubicacion: p.2, «Palmira 20»
+  nota: null
+  tipo: cargo_creado
+  unidad: Palmira
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '20'
+  cantidad_origen: '20'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Palmira 20»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '20'
+  valor_origen: '20'
+  componentes: []
+- ubicacion: p.2, «Bogotá 15»
+  nota: null
+  tipo: cargo_creado
+  unidad: Bogotá
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '15'
+  cantidad_origen: '15'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Bogotá 15»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '15'
+  valor_origen: '15'
+  componentes: []
+- ubicacion: p.2, «TOTAL 152»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '152'
+  valor_origen: '152'
+  componentes:
+  - p.2, «Amazonia 11»
+  - p.2, «Caribe 7»
+  - p.2, «Orinoquía 13»
+  - p.2, «Tumaco 19»
+  - p.2, «Medellín 55»
+  - p.2, «Manizales 12»
+  - p.2, «Palmira 20»
+  - p.2, «Bogotá 15»
+- ubicacion: p.1, «$18.120.000.000»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_005_2024|PIC_PROGRAMA|UNAL_TOTAL|2024
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: PIC_PROGRAMA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '18120000000'
+  monto_origen: $18.120.000.000
+- ubicacion: p.1, «$23.276.000.000»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_005_2024|PIC_PROGRAMA|Medellín|2024
+  unidad: Medellín
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: PIC_PROGRAMA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '23276000000'
+  monto_origen: $23.276.000.000
+- ubicacion: p.1, «$11.386.578.188»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_005_2024|PIC_AMPLIACION|UNAL_TOTAL|2024
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: PIC_AMPLIACION
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '11386578188'
+  monto_origen: $11.386.578.188

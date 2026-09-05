@@ -1,0 +1,23 @@
+# Transcripción de un escaneo. NO la regenera `pic-etl extract`: estos PDF no
+# tienen capa de texto, así que las cifras se leyeron con visión y las revisa una
+# persona antes de confirmarlas. La garantía contra la deriva es fuente_sha256:
+# si el archivo cambia, la construcción falla en lugar de cargar una
+# transcripción de un documento que ya no existe.
+documento_id: RES_MEN_016202_2023
+fuente_sha256: '844667611a31fa5725305c5f754859b4e7bca8aad07a02eac31955c2f823a9a6'
+fecha_asercion: 2023-09-06
+filas:
+  # Suma exactamente los tres programas que el Acuerdo 005/2024 enumera:
+  # 18.120.000.000 + 23.276.000.000 + 11.386.578.188.
+  - tipo: asignacion
+    asignacion_id: RES_016202_2023|UNAL|REC_10
+    unidad: UNAL_TOTAL
+    ciclo_id: PIC_CO_2023
+    vigencia: 2023
+    fuente_id: REC_10
+    tipo_flujo: ADICION_BASE_RECURRENTE
+    momento: ASIGNADO
+    recurso: REC 10
+    monto: 52782578188
+    monto_origen: "52.782.578.188"
+    ubicacion: "p.3, UNIDAD 225701, A. FUNCIONAMIENTO"

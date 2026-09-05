@@ -1,0 +1,52 @@
+documento_id: INFORME_CUALITATIVO
+fuente_sha256: 522c268d50ebaed573c951d687cc30ba948618fcf2f4268883fa299eae3015d5
+fecha_asercion: '2026-04-13'
+filas:
+- ubicacion: Tabla de fuentes, fila 'Res. 018433 de 2024', col 'Valor'
+  nota: cifra que este informe atribuye a RES_MEN_018433_2024
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: monto
+  ciclo_id: PIC_CO_2024
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '52782578187'
+  valor_origen: $ 52.782.578.187
+  componentes: []
+- ubicacion: Tabla de fuentes, fila 'Res. 018970 de 2025', col 'Valor'
+  nota: cifra que este informe atribuye a RES_MEN_018970_2025
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '47589901338'
+  valor_origen: $ 47.589.901.338
+  componentes: []
+- ubicacion: Tabla de fuentes, fila 'Res. 016468 de 2025', col 'Valor'
+  nota: cifra que este informe atribuye a RES_MEN_016468_2025
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '46115857101'
+  valor_origen: $ 46.115.857.101
+  componentes: []
+- ubicacion: Tabla de fuentes, fila 'Res. 019862 de 2025', col 'Valor'
+  nota: cifra que este informe atribuye a RES_MEN_019862_2025
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '2313166700'
+  valor_origen: $2.313.166.700
+  componentes: []

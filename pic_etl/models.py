@@ -16,7 +16,7 @@ from datetime import date
 from decimal import Decimal, InvalidOperation
 from typing import Annotated, Literal, Union
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field, field_validator
 
 # frozen: an extraction is a transcription (P1/L1); nothing mutates after parse.
 # extra="forbid": a mistyped key in a hand-edited file fails loudly instead of
@@ -201,7 +201,13 @@ class Extraction(BaseModel):
     # Hash of the file this was read from. A changed source invalidates the
     # extraction, so the build fails rather than loading a transcription of a
     # document that no longer exists.
-    fuente_sha256: Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
+    # `str` in the annotation is not enough: an all-digit hash is valid YAML for
+    # an integer, and arrives here already parsed as one. Coercing before
+    # validation keeps a legitimate hash from being rejected — and keeps the
+    # guard from crashing on it.
+    fuente_sha256: Annotated[str, BeforeValidator(lambda v: f"{v:064d}"
+                                                  if isinstance(v, int) else v),
+                             Field(pattern=r"^[0-9a-f]{64}$")]
     fecha_asercion: date
     filas: list[Fila]
 

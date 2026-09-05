@@ -166,6 +166,13 @@ _VISTAS = [
                    CAST(monto AS REAL), monto_origen, documento_id, ubicacion
             FROM   presupuesto_rubro
             UNION ALL
+            -- Posts created are facts with provenance like any other. Leaving
+            -- them out made five documents read as unprocessed when their only
+            -- figures had loaded correctly.
+            SELECT 'cargo_creado', 'cargos_creados', 'TODOS', unidad_id,
+                   CAST(cantidad AS REAL), cantidad_origen, documento_id, ubicacion
+            FROM   cargo_creado
+            UNION ALL
             SELECT 'cobertura_territorial', 'estudiantes_cuartil', ciclo_id, unidad_id,
                    CAST(estudiantes AS REAL), CAST(estudiantes AS TEXT),
                    documento_id, ubicacion
@@ -182,7 +189,9 @@ _VISTAS = [
                -- source tables are named.
                CASE WHEN h.ubicacion LIKE '%!%'
                     THEN substr(h.ubicacion, 1, instr(h.ubicacion, '!') - 1)
-                    WHEN h.ubicacion LIKE 'Tabla %,%'
+                    WHEN h.ubicacion LIKE 'Tabla %,%' OR h.ubicacion LIKE 'p.%,%'
+                      OR h.ubicacion LIKE '§%,%'
+                      OR h.ubicacion LIKE 'Tabla de fuentes,%'
                     THEN substr(h.ubicacion, 1, instr(h.ubicacion, ',') - 1)
                     ELSE h.documento_id END AS contenedor
         FROM   hechos h
@@ -280,9 +289,10 @@ _VISTAS = [
         SELECT d.documento_id, d.tipo, d.emisor, d.titulo,
                d.estado, d.soporte, d.ruta_archivo,
                COALESCE(f.cifras, 0) AS cifras,
-               CASE WHEN COALESCE(f.cifras, 0) > 0 THEN 'PROCESADO'
-                    WHEN d.estado <> 'EN_CORPUS'   THEN 'AUSENTE'
-                    WHEN d.soporte = 'ESCANEO'     THEN 'PENDIENTE_VISION'
+               CASE WHEN COALESCE(f.cifras, 0) > 0    THEN 'PROCESADO'
+                    WHEN d.estado <> 'EN_CORPUS'       THEN 'AUSENTE'
+                    WHEN d.aporta_cifras = 0           THEN 'SIN_CIFRAS'
+                    WHEN d.soporte = 'ESCANEO'         THEN 'PENDIENTE_VISION'
                     ELSE 'PENDIENTE' END AS avance
         FROM   documento d
         LEFT   JOIN (SELECT documento_id, count(*) AS cifras

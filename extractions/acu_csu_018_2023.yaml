@@ -1,0 +1,43 @@
+documento_id: ACU_CSU_018_2023
+fuente_sha256: 94e148870bd748a4144653cdcd4fcb24658371a26a0275811d2db5e82d8302ff
+fecha_asercion: '2023-11-01'
+filas:
+- ubicacion: p.2, «primer año (2023) $23.276.000.000»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_018_2023|PIC_PROGRAMA|Medellín|2023
+  unidad: Medellín
+  ciclo_id: PIC_CO_2023
+  vigencia: 2023
+  fuente_id: PIC_PROGRAMA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '23276000000'
+  monto_origen: $23.276.000.000
+- ubicacion: p.2, «segundo año (2024) $23.951.000.000»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_018_2023|VIGENCIA_PROYECTADA|Medellín|2024
+  unidad: Medellín
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: VIGENCIA_PROYECTADA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '23951000000'
+  monto_origen: $23.951.000.000
+- ubicacion: p.2, «tercer año, (2025) $27.830.000.000.»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_018_2023|VIGENCIA_PROYECTADA|Medellín|2025
+  unidad: Medellín
+  ciclo_id: PIC_CO_2023
+  vigencia: 2025
+  fuente_id: VIGENCIA_PROYECTADA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '27830000000'
+  monto_origen: $27.830.000.000.

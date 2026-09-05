@@ -44,8 +44,13 @@ def test_toda_cifra_resuelve_a_su_tabla_fuente(construido):
     disponibles = set(json.loads(indice.read_text(encoding="utf-8")))
 
     with construido.connect() as c:
-        claves = {f"{r.documento_id}|{r.contenedor}" for r in c.execute(text(
-            "SELECT documento_id, contenedor FROM v_procedencia"))}
+        # A transcribed scan is an image: there is no text to render as a
+        # snapshot, so its evidence is the page itself and the site links to it.
+        claves = {f"{r.documento_id}|{r.contenedor}" for r in c.execute(text("""
+            SELECT p.documento_id, p.contenedor
+            FROM v_procedencia p JOIN documento d ON d.documento_id = p.documento_id
+            WHERE d.soporte <> 'TRANSCRITO'
+        """))}
 
     faltan = claves - disponibles
     assert not faltan, f"contenedores citados sin instantánea: {faltan}"
@@ -61,8 +66,13 @@ def test_el_sitio_generado_lleva_los_datos_dentro():
     )
     assert carga["datos"]["v_procedencia"], "sin cifras rastreables"
     assert carga["fuentes"], "sin tablas fuente"
-    # every citation in the payload must find its snapshot in the same payload
-    claves = {f"{f['documento_id']}|{f['contenedor']}" for f in carga["datos"]["v_procedencia"]}
+    # Every citation in the payload must find its snapshot in the same payload —
+    # except a transcribed scan, which is a page image with no text to render.
+    claves = {
+        f"{f['documento_id']}|{f['contenedor']}"
+        for f in carga["datos"]["v_procedencia"]
+        if f.get("soporte") != "TRANSCRITO"
+    }
     assert not claves - set(carga["fuentes"])
 
 

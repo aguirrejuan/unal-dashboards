@@ -1,0 +1,13 @@
+documento_id: ACU_CSU_013_2024
+fuente_sha256: fc0a5c54b60c97e2f8c513b7d785f796abc442a02d2dd041bf38df338757a5c2
+fecha_asercion: '2024-08-28'
+filas:
+- ubicacion: p.1, «creando tres (3) cargos de libre nombramiento»
+  nota: null
+  tipo: cargo_creado
+  unidad: Manizales
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '3'
+  cantidad_origen: '3'
+  costo_total: null
+  costo_origen: null

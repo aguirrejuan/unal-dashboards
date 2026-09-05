@@ -61,3 +61,30 @@ fuente_financiacion:
      tipo_flujo: OTRA,       columna_xlsx: S}
   - {fuente_id: SUMA_FUENTES, nombre: Suma de las fuentes del proyecto,
      tipo_flujo: OTRA,       columna_xlsx: T}
+
+  # Sources the Acuerdos name when they quote a MEN resolution. Kept separate
+  # from the Anexo 2 columns: these are figures the CSU restates, and L7 says a
+  # figure quoted from another document is a claim by the quoting one.
+  - {fuente_id: PIC_AMPLIACION,  nombre: Ampliación de Cobertura - PIC,
+     tipo_flujo: ADICION_BASE_RECURRENTE}
+  - {fuente_id: PIC_PROGRAMA,    nombre: Asignación por programa (PIC / SPN / Medellín),
+     tipo_flujo: ADICION_BASE_RECURRENTE}
+  - {fuente_id: FORTALECIMIENTO, nombre: Fortalecimiento institucional (histórico y gestión),
+     tipo_flujo: ADICION_BASE_RECURRENTE}
+  - {fuente_id: CIERRE_BRECHAS,  nombre: Cierre de brechas,
+     tipo_flujo: POR_UNA_VEZ}
+  - {fuente_id: VIGENCIA_PROYECTADA, nombre: Vigencia proyectada del programa,
+     tipo_flujo: VIGENCIA_FUTURA}
+  - {fuente_id: BIENESTAR,       nombre: Mejoramiento bienestar,
+     tipo_flujo: ADICION_BASE_RECURRENTE}
+  - {fuente_id: GESTION,         nombre: Fortalecimiento a la gestión,
+     tipo_flujo: ADICION_BASE_RECURRENTE}
+
+  # The two recursos the MEN resolutions distribute under. REC 10 is ordinary
+  # revenue, REC 11 is other treasury resources; the PIC line of Res. 016468 is
+  # REC 11, which is why the distinction is load-bearing rather than accounting
+  # detail.
+  - {fuente_id: REC_10, nombre: "Recurso 10 · recursos corrientes",
+     tipo_flujo: ADICION_BASE_RECURRENTE}
+  - {fuente_id: REC_11, nombre: "Recurso 11 · otros recursos del tesoro",
+     tipo_flujo: ADICION_BASE_RECURRENTE}

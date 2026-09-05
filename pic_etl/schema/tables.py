@@ -260,6 +260,9 @@ documento = Table(
     Column("soporte", Text, ForeignKey("soporte.soporte_id")),
     Column("ruta_archivo", Text),
     Column("sha256", Text),
+    # NULL = not yet read. FALSE = read, and it states no figure about the PIC.
+    # Without this a cover letter is indistinguishable from a backlog.
+    Column("aporta_cifras", Boolean),
     # I6: held documents have a path and a soporte; cited ones have neither.
     CheckConstraint(
         "estado <> 'EN_CORPUS' OR (ruta_archivo IS NOT NULL AND soporte IS NOT NULL)",

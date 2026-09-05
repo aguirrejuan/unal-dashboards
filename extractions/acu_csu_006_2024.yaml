@@ -1,0 +1,52 @@
+documento_id: ACU_CSU_006_2024
+fuente_sha256: 60313360639c76df3b7e3f3a3a875b3e56e9ecb9d5bdef3d8644b67eb4ee44d2
+fecha_asercion: '2024-02-16'
+filas:
+- ubicacion: p.2, «Manizales $3.146.311.806»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_006_2024|PIC_PROGRAMA|Manizales|2024
+  unidad: Manizales
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: PIC_PROGRAMA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '3146311806'
+  monto_origen: $3.146.311.806
+- ubicacion: p.2, «Palmira $4.840.266.381»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_006_2024|PIC_PROGRAMA|Palmira|2024
+  unidad: Palmira
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: PIC_PROGRAMA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '4840266381'
+  monto_origen: $4.840.266.381
+- ubicacion: p.2, «Bogotá $3.400.000.000»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_006_2024|PIC_PROGRAMA|Bogotá|2024
+  unidad: Bogotá
+  ciclo_id: PIC_CO_2023
+  vigencia: 2024
+  fuente_id: PIC_PROGRAMA
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '3400000000'
+  monto_origen: $3.400.000.000
+- ubicacion: p.1, «se crean cuatro (4) cargos de Libre Nombramiento»
+  nota: null
+  tipo: cargo_creado
+  unidad: UNAL_TOTAL
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '4'
+  cantidad_origen: '4'
+  costo_total: null
+  costo_origen: null

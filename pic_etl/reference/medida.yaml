@@ -15,6 +15,11 @@ medida:
   - {medida_id: compromiso,         nombre: Compromiso de cupos,         unidad_medida: CUPOS,    tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
   - {medida_id: compromiso_rezago, nombre: Cupos comprometidos para cubrir rezago, unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: true}
   - {medida_id: compromiso_total,  nombre: Compromiso total proyectado,           unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: true}
+  # Two documents, one word, opposite signs. Anexo 1 writes "Rezago
+  # (Compromiso-matriculados)": positive is a shortfall. The Informe writes
+  # "Rezago / cumplimiento": matriculados − compromiso, so negative is the
+  # shortfall. Modelling them as one measure inverts every sede.
+  - {medida_id: balance_cumplimiento, nombre: Balance de cumplimiento (matriculados − compromiso), unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: false}
   - {medida_id: rezago,             nombre: Rezago (compromiso − matriculados), unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: true}
   - {medida_id: monto,              nombre: Monto,                       unidad_medida: COP,      tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
   - {medida_id: cargos_creados,     nombre: Cargos creados,              unidad_medida: ETC,      tipo_agregacion: STOCK, aditiva_unidad: true,  aditiva_tiempo: false}
@@ -26,5 +31,6 @@ medida:
 programa_medida_permitida:
   PIC_CO: [matriculados, primera_matricula, aumento_matriculados, admitidos, inscritos,
            cupos_ofertados, compromiso, compromiso_rezago, compromiso_total, rezago,
+           balance_cumplimiento,
            monto, cargos_creados, cargos_provistos, estudiantes_cuartil]
   PIC_ET: [monto, cargos_creados, cargos_provistos]

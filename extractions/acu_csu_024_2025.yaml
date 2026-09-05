@@ -1,0 +1,262 @@
+documento_id: ACU_CSU_024_2025
+fuente_sha256: 929b473228802b7e69be22b29abd256f8b0fb5c9971a4407ede1ccd91414a955
+fecha_asercion: '2025-07-24'
+filas:
+- ubicacion: p.2, «Amazonia 14»
+  nota: null
+  tipo: cargo_creado
+  unidad: Amazonia
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '14'
+  cantidad_origen: '14'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Amazonia 14»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Amazonia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '14'
+  valor_origen: '14'
+  componentes: []
+- ubicacion: p.2, «Caribe 15»
+  nota: null
+  tipo: cargo_creado
+  unidad: Caribe
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '15'
+  cantidad_origen: '15'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Caribe 15»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '15'
+  valor_origen: '15'
+  componentes: []
+- ubicacion: p.2, «Orinoquía 14»
+  nota: null
+  tipo: cargo_creado
+  unidad: Orinoquía
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '14'
+  cantidad_origen: '14'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Orinoquía 14»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '14'
+  valor_origen: '14'
+  componentes: []
+- ubicacion: p.2, «Tumaco 17»
+  nota: null
+  tipo: cargo_creado
+  unidad: Tumaco
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '17'
+  cantidad_origen: '17'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Tumaco 17»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '17'
+  valor_origen: '17'
+  componentes: []
+- ubicacion: p.2, «Medellín 16»
+  nota: null
+  tipo: cargo_creado
+  unidad: Medellín
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '16'
+  cantidad_origen: '16'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Medellín 16»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '16'
+  valor_origen: '16'
+  componentes: []
+- ubicacion: p.3, «Facultad Ciencias de la»
+  nota: null
+  tipo: cargo_creado
+  unidad: Facultad Ciencias de la Vida
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '25'
+  cantidad_origen: '25'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.3, «Facultad Ciencias de la»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Facultad Ciencias de la Vida
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '25'
+  valor_origen: '25'
+  componentes: []
+- ubicacion: p.3, «Manizales 32»
+  nota: null
+  tipo: cargo_creado
+  unidad: Manizales
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '32'
+  cantidad_origen: '32'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.3, «Manizales 32»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '32'
+  valor_origen: '32'
+  componentes: []
+- ubicacion: p.3, «Palmira 31,5»
+  nota: null
+  tipo: cargo_creado
+  unidad: Palmira
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '31.5'
+  cantidad_origen: 31,5
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.3, «Palmira 31,5»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '31.5'
+  valor_origen: 31,5
+  componentes: []
+- ubicacion: p.3, «Bogotá 13»
+  nota: null
+  tipo: cargo_creado
+  unidad: Bogotá
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '13'
+  cantidad_origen: '13'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.3, «Bogotá 13»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '13'
+  valor_origen: '13'
+  componentes: []
+- ubicacion: p.3, «De La Paz 14»
+  nota: null
+  tipo: cargo_creado
+  unidad: De La Paz
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '14'
+  cantidad_origen: '14'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.3, «De La Paz 14»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: De La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '14'
+  valor_origen: '14'
+  componentes: []
+- ubicacion: p.3, «TOTAL 191,5»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2024
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '191.5'
+  valor_origen: 191,5
+  componentes:
+  - p.2, «Amazonia 14»
+  - p.2, «Caribe 15»
+  - p.2, «Orinoquía 14»
+  - p.2, «Tumaco 17»
+  - p.2, «Medellín 16»
+  - p.3, «Facultad Ciencias de la»
+  - p.3, «Manizales 32»
+  - p.3, «Palmira 31,5»
+  - p.3, «Bogotá 13»
+  - p.3, «De La Paz 14»
+- ubicacion: p.2, «$ 24.964.619.055»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_024_2025|FORTALECIMIENTO|UNAL_TOTAL|2024
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2024
+  vigencia: 2024
+  fuente_id: FORTALECIMIENTO
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '24964619055'
+  monto_origen: $ 24.964.619.055
+- ubicacion: p.2, «$ 12.565.370.407»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_024_2025|CIERRE_BRECHAS|UNAL_TOTAL|2024
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2024
+  vigencia: 2024
+  fuente_id: CIERRE_BRECHAS
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '12565370407'
+  monto_origen: $ 12.565.370.407

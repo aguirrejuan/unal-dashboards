@@ -357,7 +357,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Palmira
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '157'
   valor_origen: '157'
@@ -369,7 +369,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Manizales
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '120'
   valor_origen: '120'
@@ -381,7 +381,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Bogotá
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '186'
   valor_origen: '186'
@@ -393,7 +393,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Amazonia
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '155'
   valor_origen: '155'
@@ -405,7 +405,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Caribe
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '45'
   valor_origen: '45'
@@ -417,7 +417,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Orinoquia
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '214'
   valor_origen: '214'
@@ -429,7 +429,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Tumaco
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '127'
   valor_origen: '127'
@@ -441,7 +441,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: Medellín
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '157'
   valor_origen: '157'
@@ -453,7 +453,7 @@ filas:
   medida_id: matriculados
   ciclo_id: PIC_CO_2023
   unidad: TOTAL
-  periodo_id: 2025-1
+  periodo_id: NA
   poblacion_id: PROYECTOS_APROBADOS
   valor: '1161'
   valor_origen: '1161'

@@ -10,7 +10,10 @@ from pathlib import Path
 import yaml
 from sqlalchemy import select
 
-from pic_etl.extract import anexo1, anexo2
+import re
+from datetime import date
+
+from pic_etl.extract import acuerdos, anexo1, anexo2, informes, texto_pdf
 from pic_etl.load.loader import (
     cargar_extracciones,
     cargar_referencia,
@@ -61,14 +64,43 @@ def cmd_extract(args: argparse.Namespace) -> int:
     rutas = _corpus(Path(args.source))
     EXTRACCIONES.mkdir(exist_ok=True)
 
-    salidas = {
+    salidas: dict[str, object] = {}
+
+    # The twelve Acuerdos: metadata parses deterministically, and the ETC
+    # distribution tables have a fixed shape. Figures buried in free prose are
+    # left out rather than guessed at.
+    for ruta in sorted(Path(args.source).glob("*/PIC-Info_/Acuerdo*.pdf")):
+        m = re.match(r"Acuerdo (\d{3}) de (\d{4})", ruta.name)
+        documento_id = f"ACU_CSU_{m[1]}_{m[2]}"
+        ext = acuerdos.extraer(
+            ruta, documento_id, sha256_de(ruta),
+            fecha_asercion=date.fromisoformat(
+                texto_pdf.metadata(ruta)["fecha"]),
+        )
+        if ext is not None:
+            salidas[documento_id] = ext
+
+    # The MEN report: its tables exist only in the raw OLE stream.
+    informe = next(Path(args.source).glob("*/Pic_Info-3/Informe PIC*.doc"), None)
+    if informe is not None:
+        ext = informes.extraer(informe, sha256_de(informe))
+        if ext is not None:
+            salidas[informes.DOCUMENTO_ID] = ext
+
+    cualitativo = next(Path(args.source).glob("*/Pic_Info-3/PDF Reader*.doc"), None)
+    if cualitativo is not None:
+        ext = informes.extraer_cualitativo(cualitativo, sha256_de(cualitativo))
+        if ext is not None:
+            salidas[informes.DOCUMENTO_CUALITATIVO] = ext
+
+    salidas |= {
         "ANEXO1_PIC": anexo1.extraer(
             rutas["ANEXO1_PIC"], sha256_de(rutas["ANEXO1_PIC"]),
             cuartiles=_cuartiles(), rubros=_rubros()
         ),
         "ANEXO2_PIC": anexo2.extraer(rutas["ANEXO2_PIC"], sha256_de(rutas["ANEXO2_PIC"])),
     }
-    _snapshots(rutas)
+    _snapshots(rutas, Path(args.source))
 
     for nombre, ext in salidas.items():
         destino = EXTRACCIONES / f"{nombre.lower()}.yaml"
@@ -83,7 +115,23 @@ def cmd_extract(args: argparse.Namespace) -> int:
     return 0
 
 
-def _snapshots(rutas: dict[str, Path]) -> int:
+def _paginas_citadas(documento_id: str) -> set[int]:
+    """Which pages of a document any committed extraction actually cites."""
+    import yaml as _yaml
+
+    paginas: set[int] = set()
+    for archivo in EXTRACCIONES.glob("*.yaml"):
+        datos = _yaml.safe_load(archivo.read_text(encoding="utf-8")) or {}
+        if datos.get("documento_id") != documento_id:
+            continue
+        for fila in datos.get("filas", []):
+            m = re.match(r"p\.(\d+),", fila.get("ubicacion", ""))
+            if m:
+                paginas.add(int(m[1]))
+    return paginas
+
+
+def _snapshots(rutas: dict[str, Path], fuente: Path) -> int:
     """Render each source table to HTML. A citation names a cell; this shows it.
 
     Purely derived from the documents, so it is safe to re-run anywhere —
@@ -92,13 +140,28 @@ def _snapshots(rutas: dict[str, Path]) -> int:
     from pic_etl.extract import snapshots
 
     fragmentos = snapshots.anexo1(rutas["ANEXO1_PIC"]) + snapshots.anexo2(rutas["ANEXO2_PIC"])
+
+    informe = next(fuente.glob("*/Pic_Info-3/Informe PIC*.doc"), None)
+    if informe is not None:
+        fragmentos += snapshots.informe(informe, "INFORME_MEN_2024_2025")
+    cualitativo = next(fuente.glob("*/Pic_Info-3/PDF Reader*.doc"), None)
+    if cualitativo is not None:
+        fragmentos += snapshots.informe(cualitativo, "INFORME_CUALITATIVO")
+
+    # Prose documents: render every page a citation points at.
+    for ruta in sorted(fuente.glob("*/PIC-Info_/Acuerdo*.pdf")):
+        m = re.match(r"Acuerdo (\d{3}) de (\d{4})", ruta.name)
+        documento_id = f"ACU_CSU_{m[1]}_{m[2]}"
+        citadas = _paginas_citadas(documento_id)
+        if citadas:
+            fragmentos += snapshots.pdf_paginas(ruta, documento_id, citadas)
     indice = snapshots.escribir(fragmentos, RAIZ / "build" / "fuentes")
     print(f"  build/fuentes  {len(indice)} tablas fuente")
     return len(indice)
 
 
 def cmd_snapshots(args: argparse.Namespace) -> int:
-    _snapshots(_corpus(Path(args.source)))
+    _snapshots(_corpus(Path(args.source)), Path(args.source))
     return 0
 
 

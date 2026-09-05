@@ -151,7 +151,7 @@ document.getElementById('resumen').innerHTML = [
   [corpus.length, 'documentos en el corpus'],
   [porAvance('PROCESADO'), 'procesados'],
   [D.v_procedencia.length, 'cifras rastreables'],
-  [porAvance('PENDIENTE_VISION'), 'escaneos por leer'],
+  [porAvance('SIN_CIFRAS'), 'leídos, sin cifras propias'],
   [porAvance('AUSENTE'), 'citados, no disponibles'],
 ].map(([n, t]) => `<div class="cifra"><b>${num(n)}</b><span>${t}</span></div>`).join('');
 
@@ -160,7 +160,8 @@ tabla(document.getElementById('corpus'), [
   {t:'Tipo', k:'tipo'}, {t:'Emisor', k:'emisor'},
   {t:'Soporte', r:d => d.soporte ? esc(d.soporte) : '<span class="pill pend">sin archivo</span>'},
   {t:'Estado', r:d => `<span class="pill ${d.avance==='PROCESADO'?'ok':'pend'}">${
-      {PROCESADO:'procesado',PENDIENTE:'pendiente',PENDIENTE_VISION:'requiere visión',
+      {PROCESADO:'procesado', PENDIENTE:'pendiente',
+       PENDIENTE_VISION:'requiere visión', SIN_CIFRAS:'leído · sin cifras',
        AUSENTE:'ausente'}[d.avance]}</span>`},
   {t:'Cifras', k:'cifras', num:true},
 ], corpus.slice().sort((a,b) => b.cifras - a.cifras));
@@ -176,8 +177,15 @@ function mostrar(f) {
   evidencia.innerHTML = `<p class="lede" style="margin-bottom:10px"><b>${esc(f.documento)}</b>
     · ${esc(f.contenedor)}<br><span class="cita">${esc(f.ubicacion)}</span></p>
     <div style="overflow:auto;max-height:330px">${frag}</div>`;
-  const celda = evidencia.querySelector(`[data-ubicacion="${CSS.escape(f.ubicacion)}"]`);
-  if (celda) { celda.setAttribute('data-marcada',''); 
+  let celda = evidencia.querySelector(`[data-ubicacion="${CSS.escape(f.ubicacion)}"]`);
+  if (!celda) {
+    // A prose citation names a phrase on a page; the page is rendered as lines,
+    // so find the line that contains it.
+    const m = /^p\.\d+, «(.+)»$/.exec(f.ubicacion);
+    if (m) celda = [...evidencia.querySelectorAll('[data-ubicacion]')]
+      .find(el => el.textContent.replace(/\s+/g,' ').includes(m[1]));
+  }
+  if (celda) { celda.setAttribute('data-marcada','');
     celda.scrollIntoView({block:'center', inline:'center'}); }
 }
 function pintarProc(filtro='') {

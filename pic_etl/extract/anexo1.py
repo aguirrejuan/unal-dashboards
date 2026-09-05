@@ -76,7 +76,11 @@ TABLAS: dict[int, tuple[str, tuple[Columna, ...]]] = {
     2:  ("PIC_CO_2023", (
             Columna(1, "compromiso", "NA", "NA"),
             Columna(2, "cupos_ofertados", "NA", "NA"),
-            Columna(3, "matriculados", "2025-1", CUPOS),
+            # "Matriculados entre 2024-1s y 2025-1s" is a cumulative range, not
+            # a period. Filing it under its endpoint made it a different grain
+            # from the Informe's PIC 2023 total, hiding the corpus's flagship
+            # divergence instead of exposing it.
+            Columna(3, "matriculados", "NA", CUPOS),
             Columna(4, "rezago", "NA", CUPOS))),
     5:  ("PIC_CO_2023", ()),                    # per-period, handled separately
     # Col 3 is col 1 + col 2, so the three are different measures, not three

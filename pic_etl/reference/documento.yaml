@@ -5,11 +5,12 @@
 # has neither. That turns "which held figures depend on a document nobody has?"
 # into a query rather than a footnote.
 #
-# The five MEN resolutions are ESCANEO, not TRANSCRITO. §10 records them as
-# transcribed, but that transcription is not in this repository, and claiming a
-# soporte the repository cannot show would be exactly the kind of unsupported
-# assertion this schema exists to prevent. They become TRANSCRITO when
-# extractions/ holds their text.
+# The five MEN resolutions are TRANSCRITO: read with vision, and their figures
+# are now committed under extractions/. That is a third state on purpose. A
+# TEXTO document is re-checked against its source on every build; a TRANSCRITO
+# one cannot be, because there is no text layer to compare against. Its guard is
+# fuente_sha256 plus a person having read it — which is weaker, and the schema
+# says so rather than pretending otherwise.
 
 documento:
 - documento_id: RES_MEN_016202_2023
@@ -18,7 +19,7 @@ documento:
   numero: '016202'
   titulo: 016202 06 SEP 2023
   estado: EN_CORPUS
-  soporte: ESCANEO
+  soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/016202 06 SEP 2023.pdf
   sha256: 844667611a31fa5725305c5f754859b4e7bca8aad07a02eac31955c2f823a9a6
 - documento_id: RES_MEN_016468_2025
@@ -27,7 +28,7 @@ documento:
   numero: 016468
   titulo: 016468 01 AGO 2025
   estado: EN_CORPUS
-  soporte: ESCANEO
+  soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/016468 01 AGO 2025.pdf
   sha256: 893d5345428a5d4c3389b2e80c3a356be1936da71a534e9b13bd7adc9a260d44
 - documento_id: RES_MEN_018433_2024
@@ -36,7 +37,7 @@ documento:
   numero: 018433
   titulo: 018433 18 OCT 2024
   estado: EN_CORPUS
-  soporte: ESCANEO
+  soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/018433 18 OCT 2024.pdf
   sha256: 2feb8b48d9c04ccdb48f7958905fe2fbac076f6de56f72718d0527b68b44bf75
 - documento_id: RES_MEN_018970_2025
@@ -45,7 +46,7 @@ documento:
   numero: 018970
   titulo: 018970 17 SEP 2025
   estado: EN_CORPUS
-  soporte: ESCANEO
+  soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/018970 17 SEP 2025.pdf
   sha256: 037902969f4d686e5e3529865a8284d450a505fad8bee576a0d9b889f97fb68f
 - documento_id: RES_MEN_019862_2025
@@ -54,7 +55,7 @@ documento:
   numero: 019862
   titulo: 019862 02 OCT 2025
   estado: EN_CORPUS
-  soporte: ESCANEO
+  soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/019862 02 OCT 2025.pdf
   sha256: a7c3b1aa65c23b5c51b5b6c1f9f91fd4da67f399d2a8fd1dbc7bf4d913487fcf
 - documento_id: ACU_CSU_004_2025
@@ -138,6 +139,7 @@ documento:
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 019 de 2023.pdf
   sha256: 91cf8dd7c8bbab52e5cbb3e0e2e9561ab4747d988f4c74b8725d943c16c8b77a
+  aporta_cifras: false   # crea el PAET; es un acto de creación de programa y no declara ninguna cifra
 - documento_id: ACU_CSU_024_2025
   tipo: ACUERDO
   emisor: UNAL_CSU
@@ -171,9 +173,10 @@ documento:
   numero: '422447'
   titulo: Orden 422447
   estado: EN_CORPUS
-  soporte: ESCANEO
+  soporte: TRANSCRITO
   ruta_archivo: extracted/PIC-Información/PIC-Info_/Orden 422447.pdf
   sha256: dfb5db56bdf000f6fb797c53107f14fb40fdf32c8acce02391890e9e58046cb0
+  aporta_cifras: false   # solicitud de cambio de supervisor de un contrato ajeno al PIC; ver V9
 - documento_id: ANEXO1_PIC
   tipo: ANEXO
   emisor: UNAL_PLANEACION
@@ -195,12 +198,14 @@ documento:
 - documento_id: OFICIO_PIC_CO_ET
   tipo: OFICIO
   emisor: UNAL_RECTORIA
-  numero: null
+  numero: N.1.002.04-XXX-2025
+  fecha: 2026-05-19
   titulo: Oficio_PIC-CO-ET
   estado: EN_CORPUS
   soporte: TEXTO
   ruta_archivo: extracted/PIC-Información/Pic_Info-2/Oficio_PIC-CO-ET.docx
   sha256: 5fa7726d571919af80a70ec377070d21924e69fad91148fa3f00de7fad8a02d8
+  aporta_cifras: false   # carta remisoria; su único dato propio es el marcador sin rellenar, ver E16
 - documento_id: INFORME_MEN_2024_2025
   tipo: INFORME
   emisor: MEN
@@ -256,6 +261,8 @@ documento:
   ruta_archivo: null
   sha256: null
 documento_cita:
+- {citante_id: OFICIO_PIC_CO_ET, citado_id: ANEXO1_PIC, ubicacion: 'Los documentos remitidos corresponden a'}
+- {citante_id: OFICIO_PIC_CO_ET, citado_id: ANEXO2_PIC, ubicacion: 'Los documentos remitidos corresponden a'}
 - citante_id: ACU_CSU_024_2025
   citado_id: RES_MEN_008596_2024
   ubicacion: considerandos

@@ -1,0 +1,13 @@
+documento_id: ACU_CSU_017_2024
+fuente_sha256: 55c47c77c4649f38a3ea6c3a3870f87527a6826e99f4eea73bb5655584302a97
+fecha_asercion: '2024-07-30'
+filas:
+- ubicacion: p.1, «creando un (1) cargo de Técnico Administrativo»
+  nota: null
+  tipo: cargo_creado
+  unidad: Palmira
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '1'
+  cantidad_origen: '1'
+  costo_total: null
+  costo_origen: null

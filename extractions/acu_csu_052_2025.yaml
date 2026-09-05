@@ -1,0 +1,134 @@
+documento_id: ACU_CSU_052_2025
+fuente_sha256: 4a028ef9fb84ec8aba5c2a5938ba8284fbecbbd2b3ab0723c5f98e14baf37490
+fecha_asercion: '2025-12-09'
+filas:
+- ubicacion: p.2, «Bogotá 26»
+  nota: null
+  tipo: cargo_creado
+  unidad: Bogotá
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '26'
+  cantidad_origen: '26'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Bogotá 26»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2025
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '26'
+  valor_origen: '26'
+  componentes: []
+- ubicacion: p.2, «Manizales 18»
+  nota: null
+  tipo: cargo_creado
+  unidad: Manizales
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '18'
+  cantidad_origen: '18'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Manizales 18»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2025
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: p.2, «Palmira 7»
+  nota: null
+  tipo: cargo_creado
+  unidad: Palmira
+  tipo_cargo: DOCENTE_ETC
+  cantidad: '7'
+  cantidad_origen: '7'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.2, «Palmira 7»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2025
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '7'
+  valor_origen: '7'
+  componentes: []
+- ubicacion: p.2, «TOTAL 51»
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: cargos_creados
+  ciclo_id: PIC_CO_2025
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '51'
+  valor_origen: '51'
+  componentes:
+  - p.2, «Bogotá 26»
+  - p.2, «Manizales 18»
+  - p.2, «Palmira 7»
+- ubicacion: p.2, «$ 9.561.136.948»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_052_2025|PIC_AMPLIACION|UNAL_TOTAL|2025
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: PIC_AMPLIACION
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '9561136948'
+  monto_origen: $ 9.561.136.948
+- ubicacion: p.2, «$ 40.796.371.737»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_052_2025|FORTALECIMIENTO|UNAL_TOTAL|2025
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: FORTALECIMIENTO
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '40796371737'
+  monto_origen: $ 40.796.371.737
+- ubicacion: p.2, «$ 4.664.016.085»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_052_2025|BIENESTAR|UNAL_TOTAL|2025
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BIENESTAR
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '4664016085'
+  monto_origen: $ 4.664.016.085
+- ubicacion: p.2, «$ 655.841.016»
+  nota: null
+  tipo: asignacion
+  asignacion_id: ACU_CSU_052_2025|GESTION|UNAL_TOTAL|2025
+  unidad: UNAL_TOTAL
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: GESTION
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '655841016'
+  monto_origen: $ 655.841.016

@@ -1,0 +1,40 @@
+documento_id: ACU_CSU_004_2025
+fuente_sha256: 82b5b7986298a6bed8773897d46827348c88d65309f60c2d51ceeb0988c64cf0
+fecha_asercion: '2025-03-12'
+filas:
+- ubicacion: p.1, «creando siete (7) cargos de carrera administrativa»
+  nota: null
+  tipo: cargo_creado
+  unidad: Amazonía
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '7'
+  cantidad_origen: '7'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.1, «creando siete (7) cargos de carrera administrativa»
+  nota: null
+  tipo: cargo_creado
+  unidad: Orinoquía
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '7'
+  cantidad_origen: '7'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.1, «creando siete (7) cargos de carrera administrativa»
+  nota: null
+  tipo: cargo_creado
+  unidad: Caribe
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '7'
+  cantidad_origen: '7'
+  costo_total: null
+  costo_origen: null
+- ubicacion: p.1, «creando siete (7) cargos de carrera administrativa»
+  nota: null
+  tipo: cargo_creado
+  unidad: Tumaco
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '7'
+  cantidad_origen: '7'
+  costo_total: null
+  costo_origen: null

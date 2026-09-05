@@ -7,6 +7,8 @@ cell reference would pass human review and fail nothing here.
 
 from __future__ import annotations
 
+import html
+import re
 from pathlib import Path
 
 import pytest
@@ -89,8 +91,10 @@ def test_toda_cita_resuelve_contra_un_snapshot(cargado):
             self.ubicaciones: set[str] = set()
 
         def handle_starttag(self, tag, attrs):
+            # Any addressable element, not only table cells: a page of prose is
+            # rendered as lines, and those carry citations too.
             d = dict(attrs)
-            if tag in ("td", "th") and "data-ubicacion" in d:
+            if "data-ubicacion" in d:
                 self.ubicaciones.add(d["data-ubicacion"])
 
     disponibles: set[str] = set()
@@ -100,7 +104,68 @@ def test_toda_cita_resuelve_contra_un_snapshot(cargado):
         disponibles |= p.ubicaciones
 
     with cargado.connect() as c:
-        citas = [r[0] for r in c.execute(text("SELECT DISTINCT ubicacion FROM v_procedencia"))]
+        citas = [(r[0], r[1]) for r in c.execute(text(
+            "SELECT DISTINCT ubicacion, documento_id FROM v_procedencia"))]
 
-    sin_resolver = [u for u in citas if u not in disponibles]
+    # A grid citation names one cell, so it must match exactly. A prose citation
+    # names a verbatim phrase on a page, and the page is rendered as lines — so
+    # the right relation there is containment, not equality.
+    # Filenames are slugified (`p.2` → `p_2`), and a considerando wraps across
+    # several source lines, so the comparison is against the page's whole text.
+    texto_por_pagina: dict[str, str] = {}
+    for archivo in fuentes.rglob("p_*.html"):
+        plano = re.sub(r"<[^>]+>", " ", archivo.read_text(encoding="utf-8"))
+        plano = html.unescape(plano)
+        clave = f"{archivo.parent.name}|{archivo.stem.replace('_', '.')}"
+        texto_por_pagina[clave] = " ".join(plano.split())
+
+    with cargado.connect() as c:
+        transcritos = {r[0] for r in c.execute(text(
+            "SELECT documento_id FROM documento WHERE soporte = 'TRANSCRITO'"))}
+
+    sin_resolver = []
+    for u, documento in citas:
+        if u in disponibles or documento in transcritos:
+            # A scanned page has no text to render as a snapshot; its evidence
+            # is the page image, which the site links to directly.
+            continue
+        m = re.match(r"p\.(\d+), «(.+)»$", u)
+        if m and " ".join(m[2].split()) in texto_por_pagina.get(
+                f"{documento}|p.{m[1]}", ""):
+            continue
+        sin_resolver.append(u)
+
     assert not sin_resolver, f"{len(sin_resolver)} citas sin celda: {sin_resolver[:3]}"
+
+
+def test_un_hash_de_fuente_desactualizado_falla(cargado, tmp_path):
+    """The only guard the transcribed scans have, so it must actually run.
+
+    It was declared in the contract and stored on every extraction, but nothing
+    compared it against the file until a question about determinism exposed
+    that the check did not exist.
+    """
+    from pic_etl.verify.invariants import fuentes_sin_cambios
+
+    assert fuentes_sin_cambios(cargado, RAIZ / "extractions") == []
+
+    # An extraction that describes a file the corpus no longer contains
+    falso = tmp_path / "res_men_016468_2025.yaml"
+    original = (RAIZ / "extractions" / "res_men_016468_2025.yaml").read_text(encoding="utf-8")
+    falso.write_text(re.sub(r"fuente_sha256: '?[0-9a-f]{64}'?",
+                            "fuente_sha256: '" + "0" * 64 + "'",
+                            original), encoding="utf-8")
+
+    fallas = fuentes_sin_cambios(cargado, tmp_path)
+    assert len(fallas) == 1
+    assert "el archivo cambió" in fallas[0].detalle
+
+
+def test_los_escaneos_no_se_dan_por_comprobados(cargado):
+    """A transcribed scan has no text layer, so its figures cannot be re-read.
+    The suite must report that exposure rather than let `ok` imply otherwise."""
+    from pic_etl.verify.invariants import cifras_sin_comprobacion_automatica
+
+    limites = cifras_sin_comprobacion_automatica(cargado)
+    assert limites, "los escaneos transcritos deben declararse como no comprobables"
+    assert all("sin comprobación automática" in f.detalle for f in limites)

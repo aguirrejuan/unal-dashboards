@@ -50,6 +50,13 @@ unidad_alias:
   - {ambito: GLOBAL, literal: La Paz,         unidad_id: LA_PAZ}
   - {ambito: GLOBAL, literal: LA PAZ,         unidad_id: LA_PAZ}
 
+  # Acuerdo 024/2025 lists the Facultad de Ciencias de la Vida as its own
+  # allocation unit, on the same table as Medellín — direct evidence for D5,
+  # and the reason FCV's grain is a blocking prerequisite rather than a detail.
+  - {ambito: GLOBAL, literal: Facultad Ciencias de la Vida, unidad_id: FCV}
+  - {ambito: GLOBAL, literal: Facultad de Ciencias de la Vida, unidad_id: FCV}
+  - {ambito: GLOBAL, literal: De La Paz, unidad_id: LA_PAZ}
+
   # A table's own total row. It becomes an AGREGADO declared at university
   # grain, never a fact row — see the loader.
   - {ambito: GLOBAL, literal: Total,      unidad_id: UNAL_TOTAL}

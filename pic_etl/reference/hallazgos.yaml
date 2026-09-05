@@ -30,30 +30,48 @@ hallazgo:
 - hallazgo_id: E2
   clase: ERROR
   titulo: El Informe Cualitativo cita mal la Res. 019862
-  detalle: Dice $2 313 166 700; el escaneo dice $2 738 054 656.
+  detalle: >-
+    El informe cualitativo atribuye $2.313.166.700 a la Res. 019862. El escaneo
+    de esa resolución, página 3, UNIDAD 225701, dice $2.738.054.656.
   impacto: MEDIO
   documento_id: INFORME_CUALITATIVO
-  estado: PENDIENTE_FASE_4
+  ubicacion: Tabla de fuentes, fila 'Res. 019862 de 2025'
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, CAST(valor AS INT) AS valor, valor_origen, ubicacion FROM declaracion WHERE medida_id='monto' AND ubicacion LIKE 'Tabla de fuentes%' UNION ALL SELECT documento_id, CAST(monto AS INT), monto_origen, ubicacion FROM asignacion WHERE documento_id LIKE 'RES_MEN_%' ORDER BY documento_id
 
 - hallazgo_id: E3
   clase: ERROR
   titulo: El Informe Cualitativo cita mal la Res. 016468
   detalle: >-
-    Dice $46 115 857 101; el escaneo da un total UNAL de $55 677 365 786, que no
-    coincide con ninguno de sus dos componentes.
+    El informe atribuye $46.115.857.101 a la Res. 016468. El escaneo da un total
+    UNAL de $55.677.365.786, compuesto por REC 10 $46.116.228.838 y REC 11
+    $9.561.136.948. La cifra del informe no coincide con el total ni con
+    ninguno de los dos componentes: se desvía del REC 10 en $371.737.
   impacto: MEDIO
   documento_id: INFORME_CUALITATIVO
-  estado: PENDIENTE_FASE_4
+  ubicacion: Tabla de fuentes, fila 'Res. 016468 de 2025'
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, CAST(valor AS INT) AS valor, valor_origen, ubicacion FROM declaracion WHERE medida_id='monto' AND ubicacion LIKE 'Tabla de fuentes%' UNION ALL SELECT documento_id, CAST(monto AS INT), monto_origen, ubicacion FROM asignacion WHERE documento_id LIKE 'RES_MEN_%' ORDER BY documento_id
 
 - hallazgo_id: E4
   clase: ERROR
   titulo: El Acuerdo 024/2025 llama inversión a la Res. 18433
   detalle: >-
-    El escaneo ubica a la UNAL bajo FUNCIONAMIENTO. Es material: el art. 124 es
-    un mecanismo de funcionamiento, no de inversión.
+    El Acuerdo 024/2025 dice que la Res. 18433 distribuye «gastos de inversión».
+    La resolución hace ambas cosas: su ARTÍCULO PRIMERO reparte $12.190.206.461
+    de inversión entre cinco ITTU, y su ARTÍCULO SEGUNDO asigna a la UNAL
+    $45.237.548.800 bajo A. FUNCIONAMIENTO. La UNAL no recibe nada de la parte
+    de inversión. Es material: el art. 124 es un mecanismo de funcionamiento.
+    Y el acuerdo cifra en $37.529.989.462 lo que la resolución pone en
+    $45.237.548.800.
   impacto: MEDIO
   documento_id: ACU_CSU_024_2025
-  estado: PENDIENTE_FASE_2
+  ubicacion: p.6 / p.2
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, fuente_id, CAST(monto AS INT) AS valor, ubicacion FROM asignacion WHERE documento_id IN ('RES_MEN_018433_2024','ACU_CSU_024_2025') ORDER BY documento_id
 
 - hallazgo_id: E5
   clase: ERROR
@@ -85,10 +103,17 @@ hallazgo:
 - hallazgo_id: E7
   clase: ERROR
   titulo: El §6 del Informe MEN suma 1 180 pero imprime 1 120
-  detalle: Diferencia constante de 60 unidades en tres columnas.
+  detalle: >-
+    Tres columnas de la tabla §6 quedan exactamente 60 por debajo de sus propias
+    filas: 2026-1 imprime 1 120 sobre 1 180, «Total matriculados» 2 257 sobre
+    2 317 y «Rezago / cumplimiento» 421 sobre 481. Las otras siete cuadran al
+    dígito, así que no es un error de lectura sino del documento.
   impacto: MEDIO
   documento_id: INFORME_MEN_2024_2025
-  estado: PENDIENTE_FASE_4
+  ubicacion: §6, fila 10 'Total'
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT a.ubicacion, CAST(a.valor AS INT) AS declarado, (SELECT sum(CAST(c.valor AS REAL)) FROM es_agregado_de e JOIN declaracion c ON c.declaracion_id=e.componente_id WHERE e.agregado_id=a.declaracion_id) AS suman_las_filas FROM declaracion a WHERE a.tipo_declaracion='AGREGADO' AND a.ubicacion LIKE '§6%'
 
 - hallazgo_id: E8
   clase: ERROR
@@ -96,15 +121,22 @@ hallazgo:
   detalle: 1 043 + 94 + 1 120 = 2 257.
   impacto: MEDIO
   documento_id: INFORME_MEN_2024_2025
-  estado: PENDIENTE_FASE_4
+  ubicacion: §3 / §6
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT CAST(valor AS INT) AS valor, ubicacion FROM declaracion WHERE medida_id='matriculados' AND ciclo_id='TODOS' AND unidad_id='UNAL_TOTAL'
 
 - hallazgo_id: E9
   clase: ERROR
   titulo: «PIC 2024 → 1 241 matriculados»
-  detalle: 94 + 1 120 = 1 214, no 1 241. Parece una transposición de dígitos.
+  detalle: >-
+    El informe atribuye 1 241 matriculados al PIC 2024. Sus propias cifras dan
+    94 (2025-2) + 1 120 (2026-1) = 1 214.
   impacto: MEDIO
   documento_id: INFORME_MEN_2024_2025
-  estado: PENDIENTE_FASE_4
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT CAST(valor AS INT) AS valor, periodo_id, ubicacion FROM declaracion WHERE ubicacion LIKE '§6, fila 10%' AND periodo_id IN ('2025-2','2026-1') UNION ALL SELECT CAST(valor AS INT), 'PIC 2024', ubicacion FROM declaracion WHERE ciclo_id='PIC_CO_2024' AND medida_id='matriculados' AND ubicacion LIKE '§3%'
 
 - hallazgo_id: E10
   clase: ERROR
@@ -112,23 +144,43 @@ hallazgo:
   detalle: Sus componentes suman 81 140 millones.
   impacto: MEDIO
   documento_id: ACU_CSU_016_2023
-  estado: PENDIENTE_FASE_2
+  ubicacion: p.3
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT sum(CAST(monto AS REAL)) AS suman_las_cuatro_vigencias
+    FROM asignacion WHERE documento_id = 'ACU_CSU_016_2023' 
 
 - hallazgo_id: E11
   clase: ERROR
   titulo: Se reclaman 50 cargos administrativos
-  detalle: El Acuerdo 004/2025 crea 28; el conjunto de acuerdos suma 37 netos.
+  detalle: >-
+    Los acuerdos crean 38 cargos administrativos —28 en las cuatro Sedes de
+    Presencia Nacional (siete en cada una), 4 de libre nombramiento, 3 en
+    Manizales, 1 en Palmira y 2 más en Manizales— y el Acuerdo 034/2025 suprime
+    uno para crear esos dos últimos, con lo que el neto es 37. La cifra que se
+    reclama es 50.
   impacto: MEDIO
   documento_id: ACU_CSU_004_2025
-  estado: PENDIENTE_FASE_2
+  ubicacion: títulos de los acuerdos
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, unidad_id, CAST(cantidad AS INT) AS creados FROM cargo_creado WHERE tipo='ADMINISTRATIVO' ORDER BY documento_id, unidad_id
 
 - hallazgo_id: E12
   clase: ERROR
   titulo: La matriz difiere en un peso para 016202 y 018970
-  detalle: Cada una desviada exactamente $1.
+  detalle: >-
+    La Res. 018970 asigna $47.589.901.337 y el informe escribe $47.589.901.338:
+    un peso. Y en la misma tabla, la fila rotulada «Res. 018433 de 2024» lleva
+    $52.782.578.187, que no es la cifra de esa resolución ($45.237.548.800)
+    sino la de la Res. 016202 de 2023 ($52.782.578.188), también con un peso
+    de diferencia. La tabla no sólo desvía cifras: cambia la resolución.
   impacto: BAJO
   documento_id: INFORME_CUALITATIVO
-  estado: PENDIENTE_FASE_4
+  ubicacion: Tabla de fuentes
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, CAST(valor AS INT) AS valor, valor_origen, ubicacion FROM declaracion WHERE medida_id='monto' AND ubicacion LIKE 'Tabla de fuentes%' UNION ALL SELECT documento_id, CAST(monto AS INT), monto_origen, ubicacion FROM asignacion WHERE documento_id LIKE 'RES_MEN_%' ORDER BY documento_id
 
 - hallazgo_id: E13
   clase: ERROR
@@ -173,67 +225,108 @@ hallazgo:
 - hallazgo_id: E16
   clase: ERROR
   titulo: El oficio conserva un marcador sin rellenar
-  detalle: N.1.002.04-XXX-2025, con sufijo 2025 y fecha de 2026.
+  detalle: >-
+    El oficio que remite todo el paquete conserva su marcador sin rellenar,
+    N.1.002.04-XXX-2025: sufijo de 2025 en una carta fechada el 19 de mayo de
+    2026.
   impacto: BAJO
   documento_id: OFICIO_PIC_CO_ET
-  estado: PENDIENTE_FASE_4
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, numero, fecha FROM documento WHERE documento_id='OFICIO_PIC_CO_ET'
 
 - hallazgo_id: E17
   clase: ERROR
   titulo: Sólo una resolución nombra el PIC
   detalle: >-
-    La Res. 018433 es la única. Rastrear el dinero hasta el programa descansa
-    sobre un solo documento.
+    De las cinco resoluciones del MEN, sólo la 018433 nombra el PIC: su página 3
+    dice que los recursos apalancan «iniciativas que hacen parte de los Planes
+    Integrales de Cobertura (PIC)». Las otras cuatro distribuyen dinero a la
+    UNAL sin mencionar el programa, así que rastrear el gasto hasta el PIC
+    descansa sobre un solo documento.
   impacto: ALTO
   documento_id: RES_MEN_018433_2024
-  estado: PENDIENTE_FASE_3
+  ubicacion: p.3
+  estado: VERIFICADO
 
 # ----------------------------------------------------------- DIVERGENCIAS (8)
+  verificacion: >-
+    SELECT documento_id, count(*) AS cifras FROM asignacion WHERE documento_id LIKE 'RES_MEN_%' GROUP BY documento_id
 
 - hallazgo_id: D1
   clase: DIVERGENCIA
   titulo: Matrícula de 1 161 frente a 1 043
   detalle: >-
-    1 161 cubre los ocho proyectos aprobados; 1 043 es un consolidado que
-    incluye La Paz. Ambas son ciertas. La dimensión poblacion lo parametriza.
+    1 161 cubre los ocho proyectos aprobados y excluye La Paz; 1 043 es el
+    consolidado que el informe presenta al Ministerio. Ambas son ciertas: la
+    dimensión poblacion las separa con incluye_la_paz en lugar de elegir una.
   impacto: ALTO
   documento_id: ANEXO1_PIC
   ubicacion: Tabla 2
-  estado: PENDIENTE_FASE_4
+  ubicacion: Tabla 2 / §3
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT d.valor, d.documento_id, p.etiqueta_corta, p.incluye_la_paz, d.ubicacion FROM declaracion d JOIN poblacion p USING (poblacion_id) WHERE d.medida_id='matriculados' AND d.unidad_id='UNAL_TOTAL' AND d.ciclo_id='PIC_CO_2023' AND d.periodo_id='NA'
 
 - hallazgo_id: D2
   clase: DIVERGENCIA
   titulo: Compromiso de 1 818 frente a 1 836
-  detalle: 1 836 = 1 818 + los 18 de La Paz. v1 lo clasificaba como error.
+  detalle: >-
+    1 836 = 1 818 + los 18 de La Paz, que el Anexo 1 no incluye en sus tablas 1
+    y 2 y el informe sí. v1 lo clasificaba como error.
   impacto: MEDIO
   documento_id: ANEXO1_PIC
   ubicacion: Tabla 1
-  estado: PENDIENTE_FASE_4
+  ubicacion: Tabla 1 / §6
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT CAST(valor AS INT) AS valor, documento_id, ubicacion FROM declaracion WHERE medida_id='compromiso' AND unidad_id='UNAL_TOTAL' AND ciclo_id='PIC_CO_2023' AND periodo_id='NA' ORDER BY valor
 
 - hallazgo_id: D3
   clase: DIVERGENCIA
   titulo: 2026-1 declarado como 1 189, 1 120 y 1 180
-  detalle: Divergencia a tres bandas; interactúa con E7.
+  detalle: >-
+    2026-1 aparece como 1 189 en el Anexo 1 y como 1 120 en el informe, cuyas
+    propias filas suman 1 180. Tres cifras para un mismo periodo; interactúa
+    con E7.
   impacto: MEDIO
   documento_id: ANEXO1_PIC
   ubicacion: Tabla 7
-  estado: PENDIENTE_FASE_4
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT CAST(valor AS INT) AS valor, documento_id, ubicacion FROM declaracion WHERE periodo_id='2026-1' AND unidad_id='UNAL_TOTAL'
 
 - hallazgo_id: D4
   clase: DIVERGENCIA
   titulo: 191,5 ETC en el titular frente a 394,5 creados
-  detalle: Se resuelve con es_agregado_de cuando los acuerdos estén cargados.
+  detalle: >-
+    El Acuerdo 024/2025 crea 191,5 ETC y esa es la cifra que se cita. Los tres
+    acuerdos juntos crean 394,5: 152 (005/2024) + 191,5 (024/2025) + 51
+    (052/2025). Cada tabla cuadra con su propio total; lo que no cuadra es citar
+    una sola de las tres.
   impacto: MEDIO
-  estado: PENDIENTE_FASE_2
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, CAST(valor AS REAL) AS etc_creados
+    FROM declaracion WHERE medida_id = 'cargos_creados'
+      AND tipo_declaracion = 'AGREGADO' ORDER BY documento_id
 
 - hallazgo_id: D5
   clase: DIVERGENCIA
   titulo: La FCV se reporta en dos granos distintos
   detalle: >-
     Parte de Medellín en 2023, unidad de asignación en 2025. Es un cambio de
-    tipo 2, no una decisión puntual; el rango de vigencia lo sostiene.
+    tipo 2, no una decisión puntual; el rango de vigencia lo sostiene. El
+    Acuerdo 024/2025 lo muestra sin ambigüedad: reparte 25 ETC a la Facultad de
+    Ciencias de la Vida y 16 a Medellín, en la misma tabla y como unidades
+    distintas. Sumar ambas por sede daría 41.
   impacto: ALTO
-  estado: PENDIENTE_FASE_2
+  documento_id: ACU_CSU_024_2025
+  ubicacion: p.2-3
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT unidad_id, cantidad, ubicacion FROM cargo_creado
+    WHERE documento_id = 'ACU_CSU_024_2025' AND unidad_id IN ('FCV','MEDELLIN')
 
 - hallazgo_id: D6
   clase: DIVERGENCIA
@@ -253,10 +346,14 @@ hallazgo:
   clase: DIVERGENCIA
   titulo: Admitidos frente a matriculados
   detalle: >-
-    No es un conflicto de datos sino de criterio: las partes no discrepan sobre
-    cuántos se matricularon, sino sobre qué cuenta como cumplimiento.
+    No es un conflicto de datos sino de criterio. El informe da 1 809 admitidos
+    frente a 1 836 comprometidos: medido en admisión el cumplimiento es del
+    98%, medido en matrícula es mucho menor. Las partes no discrepan sobre las
+    cifras, sino sobre cuál cuenta.
   impacto: ALTO
-  estado: PENDIENTE_FASE_4
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT medida_id, CAST(valor AS INT) AS valor, ubicacion FROM declaracion WHERE unidad_id='UNAL_TOTAL' AND medida_id IN ('admitidos','matriculados','compromiso') AND ubicacion LIKE '§6%'
 
 - hallazgo_id: D8
   clase: DIVERGENCIA
@@ -434,6 +531,65 @@ hallazgo:
   verificacion: >-
     SELECT presupuesto_id, rubro_id, monto FROM presupuesto_rubro
     WHERE ciclo_id = 'PIC_ET_2026'
+
+- hallazgo_id: E18
+  clase: ERROR
+  titulo: El mismo programa vale un peso distinto en dos acuerdos
+  detalle: >-
+    El Acuerdo 005/2024 asigna $11.386.578.188 al PIC de Palmira, Manizales y
+    Bogotá. El Acuerdo 006/2024, cuatro meses después, reparte ese mismo
+    programa entre las tres sedes y sus cifras suman $11.386.578.187. Un peso
+    de diferencia entre dos actos del mismo consejo. No estaba en el registro:
+    aparece al cargar ambos acuerdos y comparar.
+  impacto: BAJO
+  documento_id: ACU_CSU_006_2024
+  ubicacion: p.2
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT 'Acuerdo 005' AS acuerdo, CAST(monto AS REAL) AS valor
+    FROM asignacion WHERE documento_id='ACU_CSU_005_2024' AND fuente_id='PIC_AMPLIACION'
+    UNION ALL
+    SELECT 'Acuerdo 006 (suma de sedes)', sum(CAST(monto AS REAL))
+    FROM asignacion WHERE documento_id='ACU_CSU_006_2024'
+
+- hallazgo_id: C6
+  clase: COLISION
+  titulo: «Rezago» significa lo contrario en cada documento
+  detalle: >-
+    El Anexo 1 titula su columna «Rezago (Compromiso-matriculados)»: positivo es
+    déficit, y Bogotá aparece con −38 por haber superado su compromiso. El
+    informe titula la suya «Rezago / cumplimiento» y calcula matriculados menos
+    compromiso: negativo es déficit, y Bogotá aparece con +154. Misma palabra,
+    signo invertido. Tratarlas como una sola medida invierte el resultado de
+    todas las sedes, así que se cargan como medidas distintas.
+  impacto: ALTO
+  documento_id: INFORME_MEN_2024_2025
+  ubicacion: Tabla 2 / §6
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT medida_id, unidad_id, CAST(valor AS INT) AS valor, documento_id
+    FROM declaracion WHERE medida_id IN ('rezago','balance_cumplimiento')
+    AND unidad_id IN ('BOGOTA','AMAZONIA') ORDER BY unidad_id, medida_id
+
+- hallazgo_id: V9
+  clase: VACIO
+  titulo: La Orden 422447 nombra el PIC pero no aporta ninguna cifra
+  detalle: >-
+    v1 la excluyó por no guardar relación; v2 corrigió señalando que su página 3
+    cita el PIC por su nombre. Ambas cosas son ciertas y la corrección se queda
+    corta: es una solicitud de cambio de supervisor de la OFS 97 de 2025, un
+    contrato de servicios profesionales por $67.500.000 ajeno al programa, y el
+    PIC aparece una sola vez, como una de cuatro fuentes de memoria institucional
+    («Proyecto 609, PIC, PLEI 2034, PGD») dentro del informe de actividades del
+    contratista. Está en el corpus y no produce ningún hecho del PIC.
+  impacto: BAJO
+  documento_id: ORDEN_422447
+  ubicacion: p.3, obligación 1.1
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT d.documento_id, d.soporte, count(p.ubicacion) AS cifras
+    FROM documento d LEFT JOIN v_procedencia p ON p.documento_id = d.documento_id
+    WHERE d.documento_id = 'ORDEN_422447' GROUP BY d.documento_id
 
 # ---------------------------------------------------------------- ANOMALÍA (1)
 

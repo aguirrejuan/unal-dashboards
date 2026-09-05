@@ -1,0 +1,46 @@
+# Transcripción de un escaneo. NO la regenera `pic-etl extract`: estos PDF no
+# tienen capa de texto, así que las cifras se leyeron con visión y las revisa una
+# persona antes de confirmarlas. La garantía contra la deriva es fuente_sha256:
+# si el archivo cambia, la construcción falla en lugar de cargar una
+# transcripción de un documento que ya no existe.
+documento_id: RES_MEN_016468_2025
+fuente_sha256: '893d5345428a5d4c3389b2e80c3a356be1936da71a534e9b13bd7adc9a260d44'
+fecha_asercion: 2025-08-01
+filas:
+  - tipo: asignacion
+    asignacion_id: RES_016468_2025|UNAL|REC_10
+    unidad: UNAL_TOTAL
+    ciclo_id: PIC_CO_2025
+    vigencia: 2025
+    fuente_id: REC_10
+    tipo_flujo: ADICION_BASE_RECURRENTE
+    momento: ASIGNADO
+    recurso: REC 10
+    monto: 46116228838
+    monto_origen: "46.116.228.838"
+    ubicacion: "p.2, UNIDAD 225701, REC 10"
+  # La línea PIC. El Acuerdo 052/2025 la etiqueta «AMPLIACIÓN DE COBERTURA - PIC»
+  # y es la cifra con soporte primario frente a la columna N del Anexo 2.
+  - tipo: asignacion
+    asignacion_id: RES_016468_2025|UNAL|REC_11
+    unidad: UNAL_TOTAL
+    ciclo_id: PIC_CO_2025
+    vigencia: 2025
+    fuente_id: REC_11
+    tipo_flujo: ADICION_BASE_RECURRENTE
+    momento: ASIGNADO
+    recurso: REC 11
+    monto: 9561136948
+    monto_origen: "9.561.136.948"
+    ubicacion: "p.2, UNIDAD 225701, REC 11"
+  - tipo: declaracion
+    tipo_declaracion: AGREGADO
+    medida_id: monto
+    ciclo_id: PIC_CO_2025
+    unidad: UNAL_TOTAL
+    periodo_id: NA
+    poblacion_id: NA
+    valor: 55677365786
+    valor_origen: "55.677.365.786"
+    ubicacion: "p.2, UNIDAD 225701, TRANSFERENCIAS CORRIENTES"
+    nota: "REC 10 46.116.228.838 + REC 11 9.561.136.948"

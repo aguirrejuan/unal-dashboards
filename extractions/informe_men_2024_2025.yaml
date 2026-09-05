@@ -1,0 +1,1313 @@
+documento_id: INFORME_MEN_2024_2025
+fuente_sha256: 87dc1f69b09c41b9c608cf2bdc0fc15615dbbb678de7eaf1bfa5322c24033a5b
+fecha_asercion: '2026-04-15'
+filas:
+- ubicacion: §3, fila 1 'PIC 2023 (Ejecutado en 2024)', col 'Compromiso (Cupos)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1818'
+  valor_origen: '1.818'
+  componentes: []
+- ubicacion: §3, fila 1 'PIC 2023 (Ejecutado en 2024)', col 'Matriculados Totales'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1043'
+  valor_origen: '1.043'
+  componentes: []
+- ubicacion: §3, fila 2 'PIC 2024 (Ejecutado en 2025)', col 'Compromiso (Cupos)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '179'
+  valor_origen: '179'
+  componentes: []
+- ubicacion: §3, fila 2 'PIC 2024 (Ejecutado en 2025)', col 'Matriculados Totales'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1241'
+  valor_origen: '1.241'
+  componentes: []
+- ubicacion: §3, fila 2 'PIC 2024 (Ejecutado en 2025)', col 'Diferencia'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: rezago
+  ciclo_id: PIC_CO_2024
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1062'
+  valor_origen: '+1.062'
+  componentes: []
+- ubicacion: §3, fila 3 'TOTAL', col 'Compromiso (Cupos)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: TODOS
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1997'
+  valor_origen: '1.997'
+  componentes: []
+- ubicacion: §3, fila 3 'TOTAL', col 'Matriculados Totales'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '2284'
+  valor_origen: '2.284'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '240'
+  valor_origen: '240'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '165'
+  valor_origen: '165'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '183'
+  valor_origen: '183'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '57'
+  valor_origen: '57'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '46'
+  valor_origen: '46'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '54'
+  valor_origen: '54'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '52'
+  valor_origen: '52'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '167'
+  valor_origen: '167'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '376'
+  valor_origen: '376'
+  componentes: []
+- ubicacion: §6, fila 1 'Palmira', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '136'
+  valor_origen: '+136'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '180'
+  valor_origen: '180'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '220'
+  valor_origen: '220'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '171'
+  valor_origen: '171'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '59'
+  valor_origen: '59'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '34'
+  valor_origen: '34'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '10'
+  valor_origen: '10'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '262'
+  valor_origen: '262'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '365'
+  valor_origen: '365'
+  componentes: []
+- ubicacion: §6, fila 2 'Manizales', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '185'
+  valor_origen: '+185'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '148'
+  valor_origen: '148'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '115'
+  valor_origen: '115'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '327'
+  valor_origen: '327'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '37'
+  valor_origen: '37'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '43'
+  valor_origen: '43'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '22'
+  valor_origen: '22'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '32'
+  valor_origen: '32'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '168'
+  valor_origen: '168'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '302'
+  valor_origen: '302'
+  componentes: []
+- ubicacion: §6, fila 3 'Bogotá', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '154'
+  valor_origen: '+154'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '280'
+  valor_origen: '280'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '313'
+  valor_origen: '313'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '85'
+  valor_origen: '85'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '69'
+  valor_origen: '69'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '51'
+  valor_origen: '51'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '205'
+  valor_origen: '205'
+  componentes: []
+- ubicacion: §6, fila 4 'Amazonía', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '-45'
+  valor_origen: '-45'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '200'
+  valor_origen: '200'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '74'
+  valor_origen: '74'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '27'
+  valor_origen: '27'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '9'
+  valor_origen: '9'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '54'
+  valor_origen: '54'
+  componentes: []
+- ubicacion: §6, fila 5 'Caribe', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '-196'
+  valor_origen: '-196'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '372'
+  valor_origen: '372'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '333'
+  valor_origen: '333'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '95'
+  valor_origen: '95'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '111'
+  valor_origen: '111'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '3'
+  valor_origen: '3'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '209'
+  valor_origen: '209'
+  componentes: []
+- ubicacion: §6, fila 6 'Orinoquía', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '-41'
+  valor_origen: '-41'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '246'
+  valor_origen: '246'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '220'
+  valor_origen: '220'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '66'
+  valor_origen: '66'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '60'
+  valor_origen: '60'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '126'
+  valor_origen: '126'
+  componentes: []
+- ubicacion: §6, fila 7 'Tumaco', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '-124'
+  valor_origen: '-124'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '188'
+  valor_origen: '188'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '64'
+  valor_origen: '64'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '61'
+  valor_origen: '61'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '32'
+  valor_origen: '32'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '483'
+  valor_origen: '483'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '640'
+  valor_origen: '640'
+  componentes: []
+- ubicacion: §6, fila 8 'Medellín', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '390'
+  valor_origen: '+390'
+  componentes: []
+- ubicacion: §6, fila 9 'La Paz', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: §6, fila 9 'La Paz', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: La Paz
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: §6, fila 9 'La Paz', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: La Paz
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '40'
+  valor_origen: '40'
+  componentes: []
+- ubicacion: §6, fila 9 'La Paz', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '40'
+  valor_origen: '40'
+  componentes: []
+- ubicacion: §6, fila 9 'La Paz', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '22'
+  valor_origen: '+22'
+  componentes: []
+- ubicacion: §6, fila 10 'Total', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1836'
+  valor_origen: '1836'
+  componentes:
+  - §6, fila 1 'Palmira', col 'Compromiso'
+  - §6, fila 2 'Manizales', col 'Compromiso'
+  - §6, fila 3 'Bogotá', col 'Compromiso'
+  - §6, fila 4 'Amazonía', col 'Compromiso'
+  - §6, fila 5 'Caribe', col 'Compromiso'
+  - §6, fila 6 'Orinoquía', col 'Compromiso'
+  - §6, fila 7 'Tumaco', col 'Compromiso'
+  - §6, fila 8 'Medellín', col 'Compromiso'
+  - §6, fila 9 'La Paz', col 'Compromiso'
+- ubicacion: §6, fila 10 'Total', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1848'
+  valor_origen: '1848'
+  componentes:
+  - §6, fila 1 'Palmira', col 'Cupos'
+  - §6, fila 2 'Manizales', col 'Cupos'
+  - §6, fila 3 'Bogotá', col 'Cupos'
+  - §6, fila 4 'Amazonía', col 'Cupos'
+  - §6, fila 5 'Caribe', col 'Cupos'
+  - §6, fila 6 'Orinoquía', col 'Cupos'
+  - §6, fila 7 'Tumaco', col 'Cupos'
+  - §6, fila 8 'Medellín', col 'Cupos'
+- ubicacion: §6, fila 10 'Total', col 'Admitidos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: admitidos
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1809'
+  valor_origen: '1809'
+  componentes:
+  - §6, fila 1 'Palmira', col 'Admitidos'
+  - §6, fila 2 'Manizales', col 'Admitidos'
+  - §6, fila 3 'Bogotá', col 'Admitidos'
+  - §6, fila 4 'Amazonía', col 'Admitidos'
+  - §6, fila 5 'Caribe', col 'Admitidos'
+  - §6, fila 6 'Orinoquía', col 'Admitidos'
+  - §6, fila 7 'Tumaco', col 'Admitidos'
+  - §6, fila 8 'Medellín', col 'Admitidos'
+- ubicacion: §6, fila 10 'Total', col '2024-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2024-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '481'
+  valor_origen: '481'
+  componentes:
+  - §6, fila 1 'Palmira', col '2024-1'
+  - §6, fila 2 'Manizales', col '2024-1'
+  - §6, fila 3 'Bogotá', col '2024-1'
+  - §6, fila 4 'Amazonía', col '2024-1'
+  - §6, fila 5 'Caribe', col '2024-1'
+  - §6, fila 6 'Orinoquía', col '2024-1'
+  - §6, fila 7 'Tumaco', col '2024-1'
+  - §6, fila 8 'Medellín', col '2024-1'
+- ubicacion: §6, fila 10 'Total', col '2024-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2024-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '417'
+  valor_origen: '417'
+  componentes:
+  - §6, fila 1 'Palmira', col '2024-2'
+  - §6, fila 2 'Manizales', col '2024-2'
+  - §6, fila 3 'Bogotá', col '2024-2'
+  - §6, fila 4 'Amazonía', col '2024-2'
+  - §6, fila 5 'Caribe', col '2024-2'
+  - §6, fila 6 'Orinoquía', col '2024-2'
+  - §6, fila 7 'Tumaco', col '2024-2'
+  - §6, fila 8 'Medellín', col '2024-2'
+- ubicacion: §6, fila 10 'Total', col '2025-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2025-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '145'
+  valor_origen: '145'
+  componentes:
+  - §6, fila 1 'Palmira', col '2025-1'
+  - §6, fila 2 'Manizales', col '2025-1'
+  - §6, fila 3 'Bogotá', col '2025-1'
+  - §6, fila 4 'Amazonía', col '2025-1'
+  - §6, fila 5 'Caribe', col '2025-1'
+  - §6, fila 6 'Orinoquía', col '2025-1'
+  - §6, fila 7 'Tumaco', col '2025-1'
+  - §6, fila 8 'Medellín', col '2025-1'
+- ubicacion: §6, fila 10 'Total', col '2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2025-2
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '94'
+  valor_origen: '94'
+  componentes:
+  - §6, fila 1 'Palmira', col '2025-2'
+  - §6, fila 2 'Manizales', col '2025-2'
+  - §6, fila 3 'Bogotá', col '2025-2'
+  - §6, fila 4 'Amazonía', col '2025-2'
+  - §6, fila 5 'Caribe', col '2025-2'
+  - §6, fila 6 'Orinoquía', col '2025-2'
+  - §6, fila 7 'Tumaco', col '2025-2'
+  - §6, fila 8 'Medellín', col '2025-2'
+  - §6, fila 9 'La Paz', col '2025-2'
+- ubicacion: §6, fila 10 'Total', col '2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: primera_matricula
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2026-1
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '1120'
+  valor_origen: '1120'
+  componentes:
+  - §6, fila 1 'Palmira', col '2026-1'
+  - §6, fila 2 'Manizales', col '2026-1'
+  - §6, fila 3 'Bogotá', col '2026-1'
+  - §6, fila 4 'Amazonía', col '2026-1'
+  - §6, fila 5 'Caribe', col '2026-1'
+  - §6, fila 6 'Orinoquía', col '2026-1'
+  - §6, fila 7 'Tumaco', col '2026-1'
+  - §6, fila 8 'Medellín', col '2026-1'
+  - §6, fila 9 'La Paz', col '2026-1'
+- ubicacion: §6, fila 10 'Total', col 'Total matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: TODOS
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '2257'
+  valor_origen: '2257'
+  componentes:
+  - §6, fila 1 'Palmira', col 'Total matriculados'
+  - §6, fila 2 'Manizales', col 'Total matriculados'
+  - §6, fila 3 'Bogotá', col 'Total matriculados'
+  - §6, fila 4 'Amazonía', col 'Total matriculados'
+  - §6, fila 5 'Caribe', col 'Total matriculados'
+  - §6, fila 6 'Orinoquía', col 'Total matriculados'
+  - §6, fila 7 'Tumaco', col 'Total matriculados'
+  - §6, fila 8 'Medellín', col 'Total matriculados'
+  - §6, fila 9 'La Paz', col 'Total matriculados'
+- ubicacion: §6, fila 10 'Total', col 'Rezago / cumplimiento'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: balance_cumplimiento
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: CONSOLIDADO_LA_PAZ
+  valor: '421'
+  valor_origen: '+421'
+  componentes:
+  - §6, fila 1 'Palmira', col 'Rezago / cumplimiento'
+  - §6, fila 2 'Manizales', col 'Rezago / cumplimiento'
+  - §6, fila 3 'Bogotá', col 'Rezago / cumplimiento'
+  - §6, fila 4 'Amazonía', col 'Rezago / cumplimiento'
+  - §6, fila 5 'Caribe', col 'Rezago / cumplimiento'
+  - §6, fila 6 'Orinoquía', col 'Rezago / cumplimiento'
+  - §6, fila 7 'Tumaco', col 'Rezago / cumplimiento'
+  - §6, fila 8 'Medellín', col 'Rezago / cumplimiento'
+  - §6, fila 9 'La Paz', col 'Rezago / cumplimiento'

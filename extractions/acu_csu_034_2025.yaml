@@ -1,0 +1,13 @@
+documento_id: ACU_CSU_034_2025
+fuente_sha256: 37970dc9a6a4ad736aba449206361c67fdbf07528c77890ab9d2a644ccfd5824
+fecha_asercion: '2025-09-02'
+filas:
+- ubicacion: p.1, «para crear dos (2) cargo»
+  nota: null
+  tipo: cargo_creado
+  unidad: Manizales
+  tipo_cargo: ADMINISTRATIVO
+  cantidad: '2'
+  cantidad_origen: '2'
+  costo_total: null
+  costo_origen: null
