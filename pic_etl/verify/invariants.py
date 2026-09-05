@@ -191,7 +191,7 @@ def fuentes_sin_cambios(engine: Engine, extracciones: Path) -> list[Falla]:
         if ruta is None or declarado is None:
             fallas.append(Falla("fuente", f"{archivo.name}: sin documento o sin hash"))
             continue
-        real = hashlib.sha256(Path(ruta).read_bytes()).hexdigest()
+        real = hashlib.sha256(texto_pdf.ruta_de(ruta).read_bytes()).hexdigest()
         if real != declarado:
             fallas.append(Falla("fuente",
                 f"{documento}: el archivo cambió — la extracción describe "
@@ -287,7 +287,7 @@ def retranscripcion(engine: Engine, corpus: Path, extracciones: Path) -> list[Fa
             # The report's tables survive only in the raw OLE stream, so the
             # check reads them the same way the extractor did.
             if r.documento_id not in tablas_por_doc:
-                tablas_por_doc[r.documento_id] = informes.tablas(Path(r.ruta_archivo))
+                tablas_por_doc[r.documento_id] = informes.tablas(texto_pdf.ruta_de(r.ruta_archivo))
             queja = _comprobar_seccion(
                 tablas_por_doc[r.documento_id], r.ubicacion, r.literal
             )
@@ -299,7 +299,7 @@ def retranscripcion(engine: Engine, corpus: Path, extracciones: Path) -> list[Fa
             # Prose has no cell address, so the citation carries a verbatim
             # anchor. Both the anchor and the figure must still be on that page.
             if r.documento_id not in paginas_por_doc:
-                paginas_por_doc[r.documento_id] = texto_pdf.paginas(Path(r.ruta_archivo))
+                paginas_por_doc[r.documento_id] = texto_pdf.paginas(texto_pdf.ruta_de(r.ruta_archivo))
             queja = texto_pdf.comprobar(
                 paginas_por_doc[r.documento_id], r.ubicacion, r.literal
             )

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import re
 import subprocess
+import unicodedata
 from pathlib import Path
 
 # Header/footer the browser adds; none of it belongs to the document.
@@ -32,11 +33,28 @@ def _limpiar(texto: str) -> str:
     )
 
 
+def ruta_de(valor: str | Path) -> Path:
+    """Resolve a stored path under either Unicode normalisation.
+
+    macOS returns NFD from the filesystem and resolves either form; Linux
+    resolves only the exact bytes. A path written on one and read on the other
+    is the difference between a green local run and a failed deploy.
+    """
+    ruta = Path(valor)
+    if ruta.exists():
+        return ruta
+    for forma in ("NFC", "NFD"):
+        alterna = Path(unicodedata.normalize(forma, str(valor)))
+        if alterna.exists():
+            return alterna
+    return ruta
+
+
 def paginas(ruta: Path) -> list[str]:
     """Page text, chrome removed, 1-indexed by list position + 1."""
     try:
         salida = subprocess.run(
-            ["pdftotext", "-layout", str(ruta), "-"],
+            ["pdftotext", "-layout", str(ruta_de(ruta)), "-"],
             capture_output=True, text=True, check=True,
         ).stdout
     except FileNotFoundError as exc:      # noqa: PERF203
