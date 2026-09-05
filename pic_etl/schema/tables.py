@@ -587,25 +587,6 @@ criterio_cumplimiento = Table(
 
 # --------------------------------------------------------------- the register
 
-lectura = Table(
-    "lectura",
-    metadata,
-    # What the data says once it is loaded, as rows. The findings register says
-    # where the corpus contradicts itself; this says what the figures show when
-    # they are finally next to each other and can be subtracted.
-    Column("lectura_id", Text, primary_key=True),
-    Column("orden", Integer, nullable=False),
-    Column("titulo", Text, nullable=False),
-    # `{0}`, `{1}`… are filled from the columns `consulta` returns, so the
-    # sentence cannot go stale without the query changing with it.
-    Column("cuerpo", Text, nullable=False),
-    Column("ancla", Text),                # the chart or page that shows it
-    Column("consulta", Text, nullable=False),
-    # Positions that must not be grouped as quantities: a vigencia is 2025, not
-    # 2.025, and nothing about the value itself says which it is.
-    Column("sin_formato", Text),
-)
-
 hallazgo = Table(
     "hallazgo",
     metadata,

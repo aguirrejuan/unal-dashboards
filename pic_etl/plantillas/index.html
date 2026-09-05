@@ -31,13 +31,6 @@
     que salió. <span id="sello"></span></p>
   </div>
 
-  <h2>Qué muestran estas cifras</h2>
-  <p class="lede">Seis lecturas que no se ven en un gráfico suelto, sólo al
-  restar. Cada una trae la consulta que produce su número, y una prueba la
-  comprueba en cada construcción: si el corpus crece y una deja de ser cierta,
-  el despliegue falla en vez de publicarla.</p>
-  <ol class="lecturas" id="lecturas"></ol>
-
   <h2>Cómo leer los años</h2>
   <p class="lede">Tres años distintos conviven en estas cifras y se confunden con
   facilidad. Un ciclo lleva el nombre del año en que se formuló, gasta en vigencias
@@ -202,19 +195,6 @@ $('kpis').innerHTML = [
         +'registra. Cada monto pertenece a una vigencia fiscal, que no coincide '
         +'con el año del ciclo: la vigencia 2025 financia el PIC 2023.'},
 ].map(cifra).join('');
-
-/* --------------------------------------------------------------- lecturas */
-// The sentences arrive already resolved: `publish` ran each query against the
-// database and substituted the numbers, so this section is correct with
-// JavaScript switched off too.
-$('lecturas').innerHTML = (CARGA.lecturas || []).map(l => {
-  const destino = l.ancla && l.ancla.endsWith('.html') ? l.ancla : '#' + l.ancla;
-  return `<li class="lectura">
-    <h3>${esc(l.titulo)}</h3>
-    <p>${esc(l.texto)}</p>
-    ${l.ancla ? `<a class="ver" href="${esc(destino)}">Verlo →</a>` : ''}
-  </li>`;
-}).join('');
 
 /* ----------------------------------------------------------------- ciclos */
 const CIC = (D.v_ciclo||[]).slice().sort((a,b)=>

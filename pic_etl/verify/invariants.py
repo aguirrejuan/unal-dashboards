@@ -372,42 +372,6 @@ COMPROBACIONES: list[Callable] = [
 # it" is a statement about the corpus, not about the loader — v2 says a failure
 # here "is a finding, not an error". It is reported, and it does not block a
 # publish, because the whole point of this database is to hold documents that
-def lecturas_ejecutables(engine: Engine) -> list[Falla]:
-    """Every takeaway's query must run and fill its sentence.
-
-    A reading states a number and names the query that produced it. If the query
-    stops running, or stops returning enough columns for the sentence, the
-    dashboard would publish a claim nobody can check — which is the one thing
-    this project is against. A blocking failure, not a note.
-    """
-    fallas = []
-    with engine.connect() as c:
-        filas = c.execute(text(
-            "SELECT lectura_id, cuerpo, consulta FROM lectura ORDER BY orden")
-        ).mappings().all()
-        if not filas:
-            return [Falla("lecturas", "no hay ninguna lectura cargada")]
-        for l in filas:
-            try:
-                valores = c.execute(text(l["consulta"])).one()
-            except Exception as exc:                       # noqa: BLE001
-                fallas.append(Falla("lecturas",
-                                    f"{l['lectura_id']}: la consulta falla — {exc}"))
-                continue
-            if any(v is None for v in valores):
-                fallas.append(Falla("lecturas",
-                                    f"{l['lectura_id']}: la consulta devuelve nulos"))
-                continue
-            try:
-                l["cuerpo"].format(*valores)
-            except (IndexError, KeyError):
-                fallas.append(Falla(
-                    "lecturas",
-                    f"{l['lectura_id']}: el texto pide más valores de los que "
-                    f"la consulta devuelve ({len(valores)})"))
-    return fallas
-
-
 # do not add up.
 HALLAZGOS: list[Callable] = [i15_agregados_igualan_sus_partes,
                             cifras_sin_comprobacion_automatica]
@@ -415,7 +379,7 @@ HALLAZGOS: list[Callable] = [i15_agregados_igualan_sus_partes,
 
 def ejecutar(engine: Engine, corpus: Path, extracciones: Path) -> list[Falla]:
     fallas: list[Falla] = []
-    for comprobar in COMPROBACIONES + [lecturas_ejecutables]:
+    for comprobar in COMPROBACIONES:
         resultado = comprobar(engine)
         print(f"  {comprobar.__name__:38} {f'{len(resultado)} fallas' if resultado else 'ok'}")
         fallas += resultado

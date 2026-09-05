@@ -74,7 +74,6 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
         # Pre-shaped for the coverage chart: pivoting in SQL keeps the page from
         # having to know how the two admission routes relate.
         "cuartiles": _cuartiles(engine),
-        "lecturas": _lecturas(engine),
         "esquema": esquema(engine),
         # The corpus is published under site/corpus/, so a stored path becomes a
         # link by dropping the directory it was read from.
@@ -222,46 +221,6 @@ def esquema(engine: Engine) -> dict:
         "total_columnas": sum(len(t["columnas"]) for t in tablas),
         "total_fks": sum(len(t["referencia_a"]) for t in tablas),
     }
-
-
-def _lecturas(engine: Engine) -> list[dict]:
-    """Each takeaway with its numbers already in it.
-
-    The substitution happens here, against the real database, rather than in the
-    page: a sentence that states a figure should be produced by the same thing
-    that produced the figure. It also means this section reads correctly with
-    JavaScript switched off, which for the one part of the site that draws a
-    conclusion seems the right way round.
-    """
-    salida = []
-    with engine.connect() as c:
-        filas = c.execute(text(
-            "SELECT lectura_id, titulo, cuerpo, ancla, consulta, sin_formato "
-            "FROM lectura ORDER BY orden")).mappings().all()
-        for l in filas:
-            valores = c.execute(text(l["consulta"])).one()
-            crudos = {int(i) for i in (l["sin_formato"] or "").split(",") if i}
-            texto = l["cuerpo"].format(
-                *[v if i in crudos else _es(v) for i, v in enumerate(valores)])
-            salida.append({
-                "lectura_id": l["lectura_id"], "titulo": l["titulo"],
-                "ancla": l["ancla"], "texto": texto,
-                "valores": [str(v) for v in valores],
-            })
-    return salida
-
-
-def _es(valor: object) -> object:
-    """A number as a Spanish reader writes it: 1.818 and 35,8.
-
-    Years are numbers too and must not be grouped, which no rule can infer —
-    `sin_formato` names those positions in the reading itself.
-    """
-    if isinstance(valor, bool) or not isinstance(valor, (int, float)):
-        return valor
-    if isinstance(valor, float) and valor != int(valor):
-        return f"{valor:,.1f}".replace(",", "·").replace(".", ",").replace("·", ".")
-    return f"{int(valor):,}".replace(",", ".")
 
 
 def _cuartiles(engine: Engine) -> list[dict]:
