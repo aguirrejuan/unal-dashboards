@@ -1,0 +1,26 @@
+# Departments and municipalities. v2 §3.7 lists both as "referenced but never
+# defined". Only those a corpus row actually names are seeded; Anexo 2's hidden
+# `Listas` sheet holds the authoritative national list if the set ever needs to
+# grow.
+
+departamento:
+  - {departamento_id: AMA, nombre: Amazonas}
+  - {departamento_id: ANT, nombre: Antioquia}
+  - {departamento_id: ARA, nombre: Arauca}
+  - {departamento_id: CAL, nombre: Caldas}
+  - {departamento_id: CES, nombre: Cesar}
+  - {departamento_id: DC,  nombre: Bogotá D.C.}
+  - {departamento_id: NAR, nombre: Nariño}
+  - {departamento_id: SAP, nombre: Archipiélago de San Andrés, Providencia y Santa Catalina}
+  - {departamento_id: VAC, nombre: Valle del Cauca}
+
+municipio:
+  - {municipio_id: AMA_LETICIA,    nombre: Leticia,              departamento_id: AMA}
+  - {municipio_id: ANT_MEDELLIN,   nombre: Medellín,             departamento_id: ANT}
+  - {municipio_id: ARA_ARAUCA,     nombre: Arauca,               departamento_id: ARA}
+  - {municipio_id: CAL_MANIZALES,  nombre: Manizales,            departamento_id: CAL}
+  - {municipio_id: CES_LA_PAZ,     nombre: La Paz,               departamento_id: CES}
+  - {municipio_id: DC_BOGOTA,      nombre: Bogotá D.C.,          departamento_id: DC}
+  - {municipio_id: NAR_TUMACO,     nombre: San Andrés de Tumaco, departamento_id: NAR}
+  - {municipio_id: SAP_SAN_ANDRES, nombre: San Andrés,           departamento_id: SAP}
+  - {municipio_id: VAC_PALMIRA,    nombre: Palmira,              departamento_id: VAC}

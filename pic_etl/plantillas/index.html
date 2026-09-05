@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIC · de documentos a datos</title>
+<style>
+  :root{
+    --tinta:#16171a; --tenue:#5c6068; --linea:#e2e3e7; --fondo:#fbfbfc;
+    --panel:#fff; --acento:#1a4d8f; --alerta:#a5322a; --ok:#1c6b46;
+    --marca:#fff3c4; --marca-borde:#d9a908;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{--tinta:#e8e9ec; --tenue:#9a9ea8; --linea:#2b2d33; --fondo:#131417;
+      --panel:#191b1f; --acento:#7aa9e0; --alerta:#e0847c; --ok:#6cc39a;
+      --marca:#4a3c0e; --marca-borde:#a88b1e;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fondo);color:var(--tinta);
+    font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  .envoltura{max-width:1140px;margin:0 auto;padding:0 20px 80px}
+  header{padding:52px 0 30px;border-bottom:1px solid var(--linea);margin-bottom:34px}
+  h1{font-size:29px;margin:0 0 8px;letter-spacing:-.02em;font-weight:640}
+  .sub{color:var(--tenue);font-size:15px;max-width:66ch;margin:0}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:var(--tenue);
+    margin:44px 0 4px;font-weight:640}
+  h2 .n{color:var(--acento);margin-right:7px}
+  .lede{margin:0 0 18px;max-width:70ch;color:var(--tenue);font-size:14px}
+  .panel{background:var(--panel);border:1px solid var(--linea);border-radius:9px;
+    padding:18px;margin-bottom:14px}
+  .cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:12px}
+  .cifra{background:var(--panel);border:1px solid var(--linea);border-radius:9px;padding:15px}
+  .cifra b{display:block;font-size:27px;font-weight:660;letter-spacing:-.02em}
+  .cifra span{color:var(--tenue);font-size:12.5px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--linea);
+    vertical-align:top}
+  th{color:var(--tenue);font-weight:600;font-size:12px;text-transform:uppercase;
+    letter-spacing:.05em;position:sticky;top:0;background:var(--panel)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .scroll{overflow:auto;max-height:430px;border:1px solid var(--linea);border-radius:9px;
+    background:var(--panel)}
+  .cita{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;
+    color:var(--tenue)}
+  .pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;
+    font-weight:600;border:1px solid var(--linea)}
+  .pill.ok{color:var(--ok);border-color:currentColor}
+  .pill.pend{color:var(--tenue)}
+  .pill.alto{color:var(--alerta);border-color:currentColor}
+  tr.sel{background:color-mix(in srgb,var(--acento) 12%,transparent)}
+  tbody tr{cursor:pointer}
+  tbody tr:hover{background:color-mix(in srgb,var(--acento) 7%,transparent)}
+  .evidencia table{font-size:11.5px;table-layout:auto}
+  .evidencia td,.evidencia th{white-space:nowrap;max-width:230px;overflow:hidden;
+    text-overflow:ellipsis;border:1px solid var(--linea)}
+  .evidencia [data-marcada]{background:var(--marca);outline:2px solid var(--marca-borde);
+    font-weight:700}
+  .dos{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+  @media(max-width:900px){.dos{grid-template-columns:1fr}}
+  .embudo{display:flex;flex-direction:column;gap:9px}
+  .paso{display:grid;grid-template-columns:150px 1fr 92px;gap:12px;align-items:center}
+  .barra{height:27px;border-radius:5px;background:var(--acento);opacity:.85}
+  .delta{font-variant-numeric:tabular-nums;font-weight:600}
+  .delta.neg{color:var(--alerta)} .delta.pos{color:var(--ok)}
+  input[type=search]{width:100%;padding:8px 11px;border:1px solid var(--linea);
+    border-radius:7px;background:var(--panel);color:var(--tinta);font-size:14px;
+    margin-bottom:11px}
+  a{color:var(--acento)}
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--linea);
+    color:var(--tenue);font-size:12.5px}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12px;
+    background:color-mix(in srgb,var(--tinta) 7%,transparent);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+<header>
+  <h1>Plan Integral de Cobertura — de documentos a datos</h1>
+  <p class="sub">Veintitrés documentos en Word, Excel y PDF escaneado convertidos en una base
+  consultable. Cada cifra conserva el documento y la celda de la que salió, y puede
+  comprobarse contra su tabla original. <span id="sello"></span></p>
+</header>
+
+<h2><span class="n">1</span>Del documento al dato</h2>
+<p class="lede">Lo que el corpus contiene, lo que se ha procesado y lo que sigue pendiente.
+Se declara aquí en lugar de esperar a que alguien pregunte.</p>
+<div class="cifras" id="resumen"></div>
+<div class="panel" style="margin-top:14px"><div class="scroll"><table id="corpus"></table></div></div>
+
+<h2><span class="n">2</span>Procedencia</h2>
+<p class="lede">Elija cualquier cifra. A la derecha aparece la tabla original con la celda
+citada resaltada — no un enlace al archivo, sino la fila que produjo el número.</p>
+<div class="dos">
+  <div>
+    <input type="search" id="buscar" placeholder="Filtrar por medida, sede, documento o ubicación…">
+    <div class="scroll"><table id="procedencia"></table></div>
+  </div>
+  <div class="panel evidencia" id="evidencia"></div>
+</div>
+
+<h2><span class="n">3</span>Lo que el corpus se contradice</h2>
+<p class="lede">Hallazgos que no se obtienen retecleando: sólo aparecen si los documentos se
+leen de verdad. Los marcados <span class="pill ok">verificado</span> traen la consulta que
+los demuestra; los demás esperan documentos que aún no se han procesado.</p>
+<div class="cifras" id="resumen-hallazgos"></div>
+<div class="panel" style="margin-top:14px"><div class="scroll"><table id="hallazgos"></table></div></div>
+
+<h2><span class="n">4</span>Las cifras</h2>
+<p class="lede">El embudo del PIC 2023, y el compromiso de cupos por sede y ciclo.</p>
+<div class="dos">
+  <div class="panel"><div class="embudo" id="embudo"></div></div>
+  <div class="panel"><div class="scroll" style="max-height:340px"><table id="compromiso"></table></div></div>
+</div>
+
+<footer>
+  <p>Generado por <code>pic-etl publish</code> desde <code>build/pic.sqlite</code>.
+  Las mismas vistas alimentan el tablero local de Superset.
+  <a href="consulta.html">Consultar la base con SQL en el navegador →</a></p>
+</footer>
+</div>
+
+<script id="carga" type="application/json">/*__DATOS__*/</script>
+<script>
+const CARGA = JSON.parse(document.getElementById('carga').textContent);
+const D = CARGA.datos, FUENTES = CARGA.fuentes;
+const num = n => n === null || n === undefined ? '' : Number(n).toLocaleString('es-CO');
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+document.getElementById('sello').textContent = 'Generado el ' + CARGA.generado + '.';
+
+function tabla(el, cols, filas, opts = {}) {
+  const th = cols.map(c => `<th class="${c.num?'num':''}">${esc(c.t)}</th>`).join('');
+  const tr = filas.map((f, i) => '<tr data-i="' + i + '">' + cols.map(c =>
+    `<td class="${c.num?'num':''} ${c.cls||''}">${c.r ? c.r(f) : esc(f[c.k])}</td>`
+  ).join('') + '</tr>').join('');
+  el.innerHTML = `<thead><tr>${th}</tr></thead><tbody>${tr}</tbody>`;
+  if (opts.alSeleccionar) el.querySelectorAll('tbody tr').forEach(tr =>
+    tr.onclick = () => {
+      el.querySelectorAll('tr.sel').forEach(x => x.classList.remove('sel'));
+      tr.classList.add('sel');
+      opts.alSeleccionar(filas[+tr.dataset.i]);
+    });
+}
+
+/* 1 — corpus */
+const corpus = D.v_corpus;
+const porAvance = a => corpus.filter(d => d.avance === a).length;
+document.getElementById('resumen').innerHTML = [
+  [corpus.length, 'documentos en el corpus'],
+  [porAvance('PROCESADO'), 'procesados'],
+  [D.v_procedencia.length, 'cifras rastreables'],
+  [porAvance('PENDIENTE_VISION'), 'escaneos por leer'],
+  [porAvance('AUSENTE'), 'citados, no disponibles'],
+].map(([n, t]) => `<div class="cifra"><b>${num(n)}</b><span>${t}</span></div>`).join('');
+
+tabla(document.getElementById('corpus'), [
+  {t:'Documento', k:'titulo'},
+  {t:'Tipo', k:'tipo'}, {t:'Emisor', k:'emisor'},
+  {t:'Soporte', r:d => d.soporte ? esc(d.soporte) : '<span class="pill pend">sin archivo</span>'},
+  {t:'Estado', r:d => `<span class="pill ${d.avance==='PROCESADO'?'ok':'pend'}">${
+      {PROCESADO:'procesado',PENDIENTE:'pendiente',PENDIENTE_VISION:'requiere visión',
+       AUSENTE:'ausente'}[d.avance]}</span>`},
+  {t:'Cifras', k:'cifras', num:true},
+], corpus.slice().sort((a,b) => b.cifras - a.cifras));
+
+/* 2 — procedencia */
+const proc = D.v_procedencia;
+const evidencia = document.getElementById('evidencia');
+function mostrar(f) {
+  const clave = f.documento_id + '|' + f.contenedor;
+  const frag = FUENTES[clave];
+  if (!frag) { evidencia.innerHTML = '<p class="lede">Sin instantánea para ' +
+    esc(clave) + '.</p>'; return; }
+  evidencia.innerHTML = `<p class="lede" style="margin-bottom:10px"><b>${esc(f.documento)}</b>
+    · ${esc(f.contenedor)}<br><span class="cita">${esc(f.ubicacion)}</span></p>
+    <div style="overflow:auto;max-height:330px">${frag}</div>`;
+  const celda = evidencia.querySelector(`[data-ubicacion="${CSS.escape(f.ubicacion)}"]`);
+  if (celda) { celda.setAttribute('data-marcada',''); 
+    celda.scrollIntoView({block:'center', inline:'center'}); }
+}
+function pintarProc(filtro='') {
+  const q = filtro.toLowerCase();
+  const filas = proc.filter(f => !q || [f.medida,f.unidad,f.documento_id,f.ubicacion]
+    .join(' ').toLowerCase().includes(q));
+  tabla(document.getElementById('procedencia'), [
+    {t:'Medida', k:'medida'}, {t:'Sede', k:'unidad'},
+    {t:'Valor', r:f => num(f.valor), num:true},
+    {t:'Literal', r:f => `<span class="cita">${esc(f.literal)}</span>`},
+    {t:'Ubicación', r:f => `<span class="cita">${esc(f.ubicacion)}</span>`},
+  ], filas, {alSeleccionar: mostrar});
+  if (filas.length) mostrar(filas[0]);
+}
+document.getElementById('buscar').oninput = e => pintarProc(e.target.value);
+pintarProc();
+
+/* 3 — hallazgos */
+const hall = D.v_hallazgos;
+const probados = hall.filter(h => h.probado).length;
+document.getElementById('resumen-hallazgos').innerHTML = [
+  [hall.length, 'hallazgos en el registro'],
+  [probados, 'demostrados con los datos cargados'],
+  [hall.filter(h => h.clase === 'ERROR').length, 'errores aritméticos o de transcripción'],
+  [hall.filter(h => h.impacto === 'ALTO').length, 'de impacto alto'],
+].map(([n, t]) => `<div class="cifra"><b>${num(n)}</b><span>${t}</span></div>`).join('');
+
+tabla(document.getElementById('hallazgos'), [
+  {t:'', k:'hallazgo_id'},
+  {t:'Clase', r:h => h.clase.toLowerCase()},
+  {t:'Hallazgo', r:h => `<b>${esc(h.titulo)}</b><br><span style="color:var(--tenue)">${
+      esc(h.detalle||'')}</span>`},
+  {t:'Impacto', r:h => `<span class="pill ${h.impacto==='ALTO'?'alto':'pend'}">${
+      h.impacto.toLowerCase()}</span>`},
+  {t:'Estado', r:h => h.probado
+      ? '<span class="pill ok">verificado</span>'
+      : `<span class="pill pend">${esc((h.estado||'').replace('PENDIENTE_','fase ').replace('_',' ').toLowerCase())}</span>`},
+  {t:'Ubicación', r:h => `<span class="cita">${esc(h.ubicacion||'')}</span>`},
+], hall.slice().sort((a,b) => b.probado - a.probado ||
+    a.clase.localeCompare(b.clase) || a.hallazgo_id.localeCompare(b.hallazgo_id)));
+
+/* 4 — cifras */
+const emb = D.v_embudo.slice().sort((a,b) => a.paso - b.paso);
+const tope = Math.max(...emb.map(e => e.valor), 1);
+const nombre = {compromiso:'Comprometidos', cupos_ofertados:'Ofertados',
+  admitidos:'Admitidos', matriculados:'Matriculados'};
+document.getElementById('embudo').innerHTML = emb.map((e, i) => {
+  const d = i ? e.valor - emb[i-1].valor : null;
+  return `<div class="paso">
+    <div>${nombre[e.medida_id]||e.medida_id}<br><span class="cita">${esc(e.ubicacion)}</span></div>
+    <div class="barra" style="width:${(e.valor/tope*100).toFixed(1)}%"></div>
+    <div class="num"><b>${num(e.valor)}</b>${d===null?'':
+      `<br><span class="delta ${d<0?'neg':'pos'}">${d>0?'+':''}${num(d)}</span>`}</div>
+  </div>`;
+}).join('');
+
+const comp = D.v_compromiso_ciclo;
+const sedes = [...new Set(comp.map(c => c.unidad))].sort();
+const ciclos = [...new Set(comp.map(c => c.ciclo_id))].sort();
+const celda = (s, c) => comp.find(x => x.unidad === s && x.ciclo_id === c);
+tabla(document.getElementById('compromiso'),
+  [{t:'Sede', r:s => esc(s)}].concat(ciclos.map(c => ({
+    t: c.replace('PIC_CO_',''), num: true,
+    r: s => { const v = celda(s, c); return v ? num(v.cupos) :
+      '<span class="pill pend" title="sin fila en el documento">—</span>'; }
+  }))), sedes);
+</script>
+</body>
+</html>

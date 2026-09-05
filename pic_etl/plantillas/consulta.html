@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIC · consultar la base</title>
+<style>
+  :root{--tinta:#16171a;--tenue:#5c6068;--linea:#e2e3e7;--fondo:#fbfbfc;--panel:#fff;
+    --acento:#1a4d8f;--alerta:#a5322a;--ok:#1c6b46;}
+  @media (prefers-color-scheme:dark){:root{--tinta:#e8e9ec;--tenue:#9a9ea8;--linea:#2b2d33;
+    --fondo:#131417;--panel:#191b1f;--acento:#7aa9e0;--alerta:#e0847c;--ok:#6cc39a;}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fondo);color:var(--tinta);
+    font:15px/1.55 ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .envoltura{max-width:1140px;margin:0 auto;padding:0 20px 70px}
+  header{padding:46px 0 26px;border-bottom:1px solid var(--linea);margin-bottom:26px}
+  h1{font-size:25px;margin:0 0 8px;letter-spacing:-.02em;font-weight:640}
+  .sub{color:var(--tenue);max-width:68ch;margin:0;font-size:14.5px}
+  a{color:var(--acento)}
+  .dos{display:grid;grid-template-columns:290px 1fr;gap:18px;align-items:start}
+  @media(max-width:880px){.dos{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--linea);border-radius:9px;padding:14px}
+  h2{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--tenue);
+    margin:0 0 10px;font-weight:640}
+  button{font:inherit;font-size:13px;padding:7px 13px;border-radius:7px;
+    border:1px solid var(--linea);background:var(--panel);color:var(--tinta);cursor:pointer}
+  button.primario{background:var(--acento);color:#fff;border-color:transparent;font-weight:600}
+  button:disabled{opacity:.5;cursor:default}
+  .preset{display:block;width:100%;text-align:left;margin-bottom:6px;line-height:1.35}
+  .preset b{color:var(--acento);font-family:ui-monospace,Menlo,monospace;font-size:11.5px}
+  .preset span{display:block;color:var(--tenue);font-size:12.5px}
+  textarea{width:100%;min-height:120px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+    padding:11px;border:1px solid var(--linea);border-radius:8px;resize:vertical;
+    background:var(--panel);color:var(--tinta)}
+  table{border-collapse:collapse;width:100%;font-size:13px;margin-top:12px}
+  th,td{text-align:left;padding:5px 9px;border-bottom:1px solid var(--linea)}
+  th{color:var(--tenue);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
+  .scroll{overflow:auto;max-height:440px}
+  .aviso{color:var(--alerta);font-size:13.5px;margin-top:10px}
+  .meta{color:var(--tenue);font-size:12.5px;margin-top:9px}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:12px;
+    background:color-mix(in srgb,var(--tinta) 7%,transparent);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="envoltura">
+<header>
+  <h1>Consultar la base</h1>
+  <p class="sub">SQL real contra <code>pic.sqlite</code>, ejecutado en su navegador. No hay
+  servidor: el archivo se descarga una vez y las consultas corren localmente. Es el mismo
+  archivo que lee el tablero de Superset. <a href="index.html">← volver</a></p>
+</header>
+
+<div class="dos">
+  <div>
+    <div class="panel">
+      <h2>Hallazgos comprobables</h2>
+      <p class="meta" style="margin:0 0 11px">Cada uno trae la consulta que lo demuestra.
+      Ejecútela usted mismo.</p>
+      <div id="presets"></div>
+    </div>
+  </div>
+  <div>
+    <textarea id="sql" spellcheck="false">SELECT medida, unidad, valor, literal, ubicacion
+FROM v_procedencia
+ORDER BY valor DESC
+LIMIT 25;</textarea>
+    <div style="margin-top:10px;display:flex;gap:9px;align-items:center">
+      <button class="primario" id="correr" disabled>Ejecutar</button>
+      <span class="meta" id="estado">Cargando el motor…</span>
+    </div>
+    <div id="salida"></div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/sql-wasm.js"></script>
+<script id="presets-json" type="application/json">/*__PRESETS__*/</script>
+<script>
+const PRESETS = JSON.parse(document.getElementById('presets-json').textContent);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $ = id => document.getElementById(id);
+
+$('presets').innerHTML = PRESETS.map((p, i) =>
+  `<button class="preset" data-i="${i}"><b>${esc(p.id)}</b>
+   <span>${esc(p.titulo)}</span></button>`).join('');
+$('presets').onclick = e => {
+  const b = e.target.closest('.preset');
+  if (!b) return;
+  $('sql').value = PRESETS[+b.dataset.i].sql.trim() + ';';
+  correr();
+};
+
+let db = null;
+
+async function arrancar() {
+  try {
+    const SQL = await initSqlJs({locateFile: f =>
+      'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.13.0/' + f});
+    const resp = await fetch('pic.sqlite');
+    if (!resp.ok) throw new Error('no pude descargar pic.sqlite (' + resp.status + ')');
+    db = new SQL.Database(new Uint8Array(await resp.arrayBuffer()));
+    $('estado').textContent = 'Listo. La base está en memoria; nada sale de su navegador.';
+    $('correr').disabled = false;
+    correr();
+  } catch (err) {
+    $('estado').innerHTML = '<span class="aviso">' + esc(err.message) + '</span>';
+  }
+}
+
+function correr() {
+  if (!db) return;
+  const sql = $('sql').value.trim();
+  const t0 = performance.now();
+  try {
+    const res = db.exec(sql);
+    const ms = (performance.now() - t0).toFixed(1);
+    if (!res.length) {
+      $('salida').innerHTML = '<p class="meta">La consulta no devolvió filas. ' +
+        ms + ' ms.</p>';
+      return;
+    }
+    const {columns, values} = res[0];
+    $('salida').innerHTML =
+      '<div class="scroll"><table><thead><tr>' +
+      columns.map(c => `<th>${esc(c)}</th>`).join('') +
+      '</tr></thead><tbody>' +
+      values.map(f => '<tr>' + f.map(v => `<td>${esc(v)}</td>`).join('') + '</tr>').join('') +
+      '</tbody></table></div>' +
+      `<p class="meta">${values.length} fila${values.length === 1 ? '' : 's'} · ${ms} ms</p>`;
+  } catch (err) {
+    $('salida').innerHTML = '<p class="aviso">' + esc(err.message) + '</p>';
+  }
+}
+
+$('correr').onclick = correr;
+$('sql').addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') correr();
+});
+arrancar();
+</script>
+</body>
+</html>

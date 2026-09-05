@@ -1,0 +1,17 @@
+# Academic periods, plus the 'NA' sentinel.
+#
+# No view exposes a column named `año`. A user who drags "year" onto an axis
+# sees PIC 2025 at zero and reads it as non-execution, when in fact it does not
+# execute until 2026-2.
+
+periodo:
+  - {periodo_id: NA,     anio: null, semestre: null, orden: 0,  es_proyectado: false}
+  - {periodo_id: 2024-1, anio: 2024, semestre: 1,    orden: 1,  es_proyectado: false}
+  - {periodo_id: 2024-2, anio: 2024, semestre: 2,    orden: 2,  es_proyectado: false}
+  - {periodo_id: 2025-1, anio: 2025, semestre: 1,    orden: 3,  es_proyectado: false}
+  - {periodo_id: 2025-2, anio: 2025, semestre: 2,    orden: 4,  es_proyectado: false}
+  - {periodo_id: 2026-1, anio: 2026, semestre: 1,    orden: 5,  es_proyectado: false}
+  - {periodo_id: 2026-2, anio: 2026, semestre: 2,    orden: 6,  es_proyectado: true}
+  - {periodo_id: 2027-1, anio: 2027, semestre: 1,    orden: 7,  es_proyectado: true}
+  - {periodo_id: 2027-2, anio: 2027, semestre: 2,    orden: 8,  es_proyectado: true}
+  - {periodo_id: 2028-1, anio: 2028, semestre: 1,    orden: 9,  es_proyectado: true}

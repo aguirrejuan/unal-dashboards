@@ -1,0 +1,57 @@
+# Every spelling the corpus uses for an academic unit, and what it means.
+#
+# L5: resolve aliases at load, never at source. An unmatched spelling must fail
+# the load rather than invent a unit (I9), so this list is exhaustive over the
+# Phase-1 sources — harvested from them, not remembered.
+#
+# `ambito` is GLOBAL, or a documento_id where a spelling means something only in
+# one document. Anexo 2 calls Sede Orinoquía "Sede Arauca" (C2); that reading
+# must not leak into documents that use "Arauca" to mean the department.
+
+unidad_alias:
+  # Amazonía — four spellings, one document
+  - {ambito: GLOBAL, literal: Sede Amazonia,  unidad_id: AMAZONIA}
+  - {ambito: GLOBAL, literal: Amazonia,       unidad_id: AMAZONIA}
+  - {ambito: GLOBAL, literal: Amazonía,       unidad_id: AMAZONIA}
+  - {ambito: GLOBAL, literal: AMAZONÍA,       unidad_id: AMAZONIA}
+
+  # Orinoquía — five, counting Anexo 2's misnomer
+  - {ambito: GLOBAL, literal: Sede Orinoquia, unidad_id: ORINOQUIA}
+  - {ambito: GLOBAL, literal: Orinoquia,      unidad_id: ORINOQUIA}
+  - {ambito: GLOBAL, literal: Orinoquía,      unidad_id: ORINOQUIA}
+  - {ambito: GLOBAL, literal: ORINOQUÍA,      unidad_id: ORINOQUIA}
+  - {ambito: ANEXO2_PIC, literal: Sede Arauca, unidad_id: ORINOQUIA}
+
+  - {ambito: GLOBAL, literal: Sede Caribe,    unidad_id: CARIBE}
+  - {ambito: GLOBAL, literal: Caribe,         unidad_id: CARIBE}
+  - {ambito: GLOBAL, literal: CARIBE,         unidad_id: CARIBE}
+
+  - {ambito: GLOBAL, literal: Sede Tumaco,    unidad_id: TUMACO}
+  - {ambito: GLOBAL, literal: Tumaco,         unidad_id: TUMACO}
+  - {ambito: GLOBAL, literal: TUMACO,         unidad_id: TUMACO}
+
+  - {ambito: GLOBAL, literal: Sede Medellín,  unidad_id: MEDELLIN}
+  - {ambito: GLOBAL, literal: Medellín,       unidad_id: MEDELLIN}
+  - {ambito: GLOBAL, literal: MEDELLÍN,       unidad_id: MEDELLIN}
+
+  - {ambito: GLOBAL, literal: Sede Bogotá,    unidad_id: BOGOTA}
+  - {ambito: GLOBAL, literal: Bogotá,         unidad_id: BOGOTA}
+  - {ambito: GLOBAL, literal: BOGOTÁ,         unidad_id: BOGOTA}
+
+  - {ambito: GLOBAL, literal: Sede Palmira,   unidad_id: PALMIRA}
+  - {ambito: GLOBAL, literal: Palmira,        unidad_id: PALMIRA}
+  - {ambito: GLOBAL, literal: PALMIRA,        unidad_id: PALMIRA}
+
+  - {ambito: GLOBAL, literal: Sede Manizales, unidad_id: MANIZALES}
+  - {ambito: GLOBAL, literal: Manizales,      unidad_id: MANIZALES}
+  - {ambito: GLOBAL, literal: MANIZALES,      unidad_id: MANIZALES}
+
+  - {ambito: GLOBAL, literal: Sede La Paz,    unidad_id: LA_PAZ}
+  - {ambito: GLOBAL, literal: La Paz,         unidad_id: LA_PAZ}
+  - {ambito: GLOBAL, literal: LA PAZ,         unidad_id: LA_PAZ}
+
+  # A table's own total row. It becomes an AGREGADO declared at university
+  # grain, never a fact row — see the loader.
+  - {ambito: GLOBAL, literal: Total,      unidad_id: UNAL_TOTAL}
+  - {ambito: GLOBAL, literal: TOTAL,      unidad_id: UNAL_TOTAL}
+  - {ambito: GLOBAL, literal: UNAL_TOTAL, unidad_id: UNAL_TOTAL}

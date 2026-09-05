@@ -1,0 +1,526 @@
+documento_id: ANEXO2_PIC
+fuente_sha256: 0c09589a0cbfdbc23a8e2746c6e5d1f17e65975950fa8013ed6e8666a5d24026
+fecha_asercion: '2026-04-13'
+filas:
+- ubicacion: Registro_Proyectos_2025!B10
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P01
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Amazonia
+  numero: 1
+  nombre: Aumento de la cobertura en la Sede Amazonia
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N10
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P01_BASE_2025
+  unidad: Sede Amazonia
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '6652536272'
+  monto_origen: '6652536272'
+- ubicacion: Registro_Proyectos_2025!O10
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P01_SALDOS
+  unidad: Sede Amazonia
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '5592277294.3119755'
+  monto_origen: '5592277294.3119755'
+- ubicacion: Registro_Proyectos_2025!P10
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P01_INDEXACION
+  unidad: Sede Amazonia
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '4895974740.75787'
+  monto_origen: '4895974740.75787'
+- ubicacion: Registro_Proyectos_2025!T10
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Amazonia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '17140788307.069845'
+  valor_origen: '17140788307.069845'
+  componentes:
+  - Registro_Proyectos_2025!N10
+  - Registro_Proyectos_2025!O10
+  - Registro_Proyectos_2025!P10
+- ubicacion: Registro_Proyectos_2025!B11
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P02
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Caribe
+  numero: 2
+  nombre: Aumento de la cobertura en la Sede Caribe
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N11
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P02_BASE_2025
+  unidad: Sede Caribe
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '4945410345'
+  monto_origen: '4945410345'
+- ubicacion: Registro_Proyectos_2025!O11
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P02_SALDOS
+  unidad: Sede Caribe
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '3408282379.8356714'
+  monto_origen: '3408282379.8356714'
+- ubicacion: Registro_Proyectos_2025!P11
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P02_INDEXACION
+  unidad: Sede Caribe
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '3732786451.7065682'
+  monto_origen: '3732786451.7065682'
+- ubicacion: Registro_Proyectos_2025!T11
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '12086479176.5422'
+  valor_origen: '12086479176.5422'
+  componentes:
+  - Registro_Proyectos_2025!N11
+  - Registro_Proyectos_2025!O11
+  - Registro_Proyectos_2025!P11
+- ubicacion: Registro_Proyectos_2025!B12
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P03
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Arauca
+  numero: 3
+  nombre: Aumento de la cobertura en la Sede Arauca
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N12
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P03_BASE_2025
+  unidad: Sede Arauca
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '7694629745'
+  monto_origen: '7694629745'
+- ubicacion: Registro_Proyectos_2025!O12
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P03_SALDOS
+  unidad: Sede Arauca
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '6386433230.786121'
+  monto_origen: '6386433230.786121'
+- ubicacion: Registro_Proyectos_2025!P12
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P03_INDEXACION
+  unidad: Sede Arauca
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '5474752224.963787'
+  monto_origen: '5474752224.963787'
+- ubicacion: Registro_Proyectos_2025!T12
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Arauca
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '19555815200.74991'
+  valor_origen: '19555815200.74991'
+  componentes:
+  - Registro_Proyectos_2025!N12
+  - Registro_Proyectos_2025!O12
+  - Registro_Proyectos_2025!P12
+- ubicacion: Registro_Proyectos_2025!B13
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P04
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Tumaco
+  numero: 4
+  nombre: Aumento de la cobertura en la Sede Tumaco
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N13
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P04_BASE_2025
+  unidad: Sede Tumaco
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '9364341455'
+  monto_origen: '9364341455'
+- ubicacion: Registro_Proyectos_2025!O13
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P04_SALDOS
+  unidad: Sede Tumaco
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '9340092633.066185'
+  monto_origen: '9340092633.066185'
+- ubicacion: Registro_Proyectos_2025!P13
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P04_INDEXACION
+  unidad: Sede Tumaco
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '6727702454.571752'
+  monto_origen: '6727702454.571752'
+- ubicacion: Registro_Proyectos_2025!T13
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '25432136542.637936'
+  valor_origen: '25432136542.637936'
+  componentes:
+  - Registro_Proyectos_2025!N13
+  - Registro_Proyectos_2025!O13
+  - Registro_Proyectos_2025!P13
+- ubicacion: Registro_Proyectos_2025!B14
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P05
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Medellín
+  numero: 5
+  nombre: Aumento de la cobertura en la Sede Medellín
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N14
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P05_BASE_2025
+  unidad: Sede Medellín
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '26758369866'
+  monto_origen: '26758369866'
+- ubicacion: Registro_Proyectos_2025!O14
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P05_SALDOS
+  unidad: Sede Medellín
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '92757575670'
+  monto_origen: '92757575670'
+- ubicacion: Registro_Proyectos_2025!P14
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P05_INDEXACION
+  unidad: Sede Medellín
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '30762469833.601685'
+  monto_origen: '30762469833.601685'
+- ubicacion: Registro_Proyectos_2025!T14
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '150278415369.60168'
+  valor_origen: '150278415369.60168'
+  componentes:
+  - Registro_Proyectos_2025!N14
+  - Registro_Proyectos_2025!O14
+  - Registro_Proyectos_2025!P14
+- ubicacion: Registro_Proyectos_2025!B15
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P06
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Bogotá
+  numero: 6
+  nombre: Aumento de la cobertura en la Sede Bogotá
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N15
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P06_BASE_2025
+  unidad: Sede Bogotá
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '3908727040'
+  monto_origen: '3908727040'
+- ubicacion: Registro_Proyectos_2025!O15
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P06_SALDOS
+  unidad: Sede Bogotá
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '5932763295'
+  monto_origen: '5932763295'
+- ubicacion: Registro_Proyectos_2025!P15
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P06_INDEXACION
+  unidad: Sede Bogotá
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '3908727040'
+  monto_origen: '3908727040'
+- ubicacion: Registro_Proyectos_2025!T15
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '13750217375'
+  valor_origen: '13750217375'
+  componentes:
+  - Registro_Proyectos_2025!N15
+  - Registro_Proyectos_2025!O15
+  - Registro_Proyectos_2025!P15
+- ubicacion: Registro_Proyectos_2025!B16
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P07
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Palmira
+  numero: 7
+  nombre: Aumento de la cobertura en la Sede Palmira
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N16
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P07_BASE_2025
+  unidad: Sede Palmira
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '5564494143'
+  monto_origen: '5564494143'
+- ubicacion: Registro_Proyectos_2025!O16
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P07_SALDOS
+  unidad: Sede Palmira
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '7933751128'
+  monto_origen: '7933751128'
+- ubicacion: Registro_Proyectos_2025!P16
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P07_INDEXACION
+  unidad: Sede Palmira
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '4840266381'
+  monto_origen: '4840266381'
+- ubicacion: Registro_Proyectos_2025!T16
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18338511652'
+  valor_origen: '18338511652'
+  componentes:
+  - Registro_Proyectos_2025!N16
+  - Registro_Proyectos_2025!O16
+  - Registro_Proyectos_2025!P16
+- ubicacion: Registro_Proyectos_2025!B17
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P08
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Manizales
+  numero: 8
+  nombre: Aumento de la cobertura en la Sede Manizales
+  linea_id: null
+  sublinea_id: null
+- ubicacion: Registro_Proyectos_2025!N17
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P08_BASE_2025
+  unidad: Sede Manizales
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: BASE_2025
+  tipo_flujo: ADICION_BASE_RECURRENTE
+  momento: ASIGNADO
+  recurso: null
+  monto: '3617080598'
+  monto_origen: '3617080598'
+- ubicacion: Registro_Proyectos_2025!O17
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P08_SALDOS
+  unidad: Sede Manizales
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: SALDOS
+  tipo_flujo: SALDO
+  momento: ASIGNADO
+  recurso: null
+  monto: '5887924806'
+  monto_origen: '5887924806'
+- ubicacion: Registro_Proyectos_2025!P17
+  nota: null
+  tipo: asignacion
+  asignacion_id: PIC_CO_2025_P08_INDEXACION
+  unidad: Sede Manizales
+  ciclo_id: PIC_CO_2025
+  vigencia: 2025
+  fuente_id: INDEXACION
+  tipo_flujo: INDEXACION
+  momento: ASIGNADO
+  recurso: null
+  monto: '3617080597.759834'
+  monto_origen: '3617080597.759834'
+- ubicacion: Registro_Proyectos_2025!T17
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: monto
+  ciclo_id: PIC_CO_2025
+  unidad: Sede Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '13122086001.759834'
+  valor_origen: '13122086001.759834'
+  componentes:
+  - Registro_Proyectos_2025!N17
+  - Registro_Proyectos_2025!O17
+  - Registro_Proyectos_2025!P17
+- ubicacion: Registro_Proyectos_2025!B18
+  nota: null
+  tipo: proyecto
+  proyecto_id: PIC_CO_2025_P09
+  ciclo_id: PIC_CO_2025
+  unidad: Sede La Paz
+  numero: 9
+  nombre: Aumento de la cobertura en la Sede La Paz
+  linea_id: null
+  sublinea_id: null

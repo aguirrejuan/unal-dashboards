@@ -1,0 +1,66 @@
+name: Publicar el tablero
+
+# The point of this workflow is the gate, not the deploy: `verify` re-reads every
+# figure from the original .docx and .xlsx and compares it against the database.
+# If a transcription has drifted, or an invariant fails, the public site does not
+# go out.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Instalar dependencias
+        run: uv sync --extra dev
+
+      # Never `extract` here. Extractions are reviewed by a person and committed;
+      # regenerating them in CI would silently discard that review. Snapshots are
+      # derived purely from the sources, so they are safe to rebuild.
+      - name: Renderizar tablas fuente
+        run: uv run pic-etl snapshots
+
+      - name: Construir la base
+        run: uv run pic-etl build
+
+      - name: Verificar invariantes y re-transcripción
+        run: uv run pic-etl verify
+
+      - name: Pruebas
+        run: uv run pytest -q
+
+      - name: Generar el sitio
+        run: uv run pic-etl publish
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  desplegar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4

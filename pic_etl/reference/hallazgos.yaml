@@ -1,0 +1,455 @@
+# The inconsistency register, as data.
+#
+# §7.1 of pic-data-model-v2.md holds 38 items as prose, which cannot be queried
+# or charted. Here they are rows.
+#
+# `estado` is the honest column. VERIFICADO means the loaded data demonstrates
+# the finding and `verificacion` holds a query that proves it — run it and see.
+# The rest wait on documents Phase 1 has not parsed, and the dashboard must say
+# so rather than imply the pipeline found all 38.
+
+hallazgo:
+
+# ---------------------------------------------------------------- ERRORES (17)
+
+- hallazgo_id: E1
+  clase: ERROR
+  titulo: La columna N del Anexo 2 no reconcilia con ninguna resolución
+  detalle: >-
+    Suma $68 505 589 464. La cifra con soporte primario es $9 561 136 948
+    (Res. 016468, p.2, UNIDAD 225701, REC 11). Además N15 = P15 exactamente para
+    Bogotá, y la celda de "Indexación" de Palmira repite la asignación 2023 sin
+    indexar. v1 lo clasificaba como divergencia.
+  impacto: ALTO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!N10:N18
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT sum(CAST(monto AS REAL)) FROM asignacion WHERE fuente_id = 'BASE_2025'
+
+- hallazgo_id: E2
+  clase: ERROR
+  titulo: El Informe Cualitativo cita mal la Res. 019862
+  detalle: Dice $2 313 166 700; el escaneo dice $2 738 054 656.
+  impacto: MEDIO
+  documento_id: INFORME_CUALITATIVO
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E3
+  clase: ERROR
+  titulo: El Informe Cualitativo cita mal la Res. 016468
+  detalle: >-
+    Dice $46 115 857 101; el escaneo da un total UNAL de $55 677 365 786, que no
+    coincide con ninguno de sus dos componentes.
+  impacto: MEDIO
+  documento_id: INFORME_CUALITATIVO
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E4
+  clase: ERROR
+  titulo: El Acuerdo 024/2025 llama inversión a la Res. 18433
+  detalle: >-
+    El escaneo ubica a la UNAL bajo FUNCIONAMIENTO. Es material: el art. 124 es
+    un mecanismo de funcionamiento, no de inversión.
+  impacto: MEDIO
+  documento_id: ACU_CSU_024_2025
+  estado: PENDIENTE_FASE_2
+
+- hallazgo_id: E5
+  clase: ERROR
+  titulo: La «Res. 08596 de 2023» no existe
+  detalle: >-
+    Es la Resolución 8596 del 27 de mayo de 2024, transcrita dentro del Acuerdo
+    024/2025. v1 la listaba como vacío; nunca lo fue.
+  impacto: BAJO
+  documento_id: ACU_CSU_024_2025
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, titulo, estado FROM documento
+    WHERE documento_id = 'RES_MEN_008596_2024'
+
+- hallazgo_id: E6
+  clase: ERROR
+  titulo: El déficit de −1 168 descarta los dos periodos positivos
+  detalle: >-
+    La Tabla 5 suma −689 (365 + 114 − 681 − 487). La cifra de −1 168 se obtiene
+    sumando sólo −681 y −487.
+  impacto: ALTO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 5
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT sum(CAST(valor AS REAL)) FROM declaracion
+    WHERE medida_id = 'aumento_matriculados'
+
+- hallazgo_id: E7
+  clase: ERROR
+  titulo: El §6 del Informe MEN suma 1 180 pero imprime 1 120
+  detalle: Diferencia constante de 60 unidades en tres columnas.
+  impacto: MEDIO
+  documento_id: INFORME_MEN_2024_2025
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E8
+  clase: ERROR
+  titulo: Titular de 2 284 frente a una tabla que suma 2 257
+  detalle: 1 043 + 94 + 1 120 = 2 257.
+  impacto: MEDIO
+  documento_id: INFORME_MEN_2024_2025
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E9
+  clase: ERROR
+  titulo: «PIC 2024 → 1 241 matriculados»
+  detalle: 94 + 1 120 = 1 214, no 1 241. Parece una transposición de dígitos.
+  impacto: MEDIO
+  documento_id: INFORME_MEN_2024_2025
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E10
+  clase: ERROR
+  titulo: El Acuerdo 016/2023 totaliza 81 480 millones
+  detalle: Sus componentes suman 81 140 millones.
+  impacto: MEDIO
+  documento_id: ACU_CSU_016_2023
+  estado: PENDIENTE_FASE_2
+
+- hallazgo_id: E11
+  clase: ERROR
+  titulo: Se reclaman 50 cargos administrativos
+  detalle: El Acuerdo 004/2025 crea 28; el conjunto de acuerdos suma 37 netos.
+  impacto: MEDIO
+  documento_id: ACU_CSU_004_2025
+  estado: PENDIENTE_FASE_2
+
+- hallazgo_id: E12
+  clase: ERROR
+  titulo: La matriz difiere en un peso para 016202 y 018970
+  detalle: Cada una desviada exactamente $1.
+  impacto: BAJO
+  documento_id: INFORME_CUALITATIVO
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E13
+  clase: ERROR
+  titulo: El código SNIES del Anexo 2 es «#REF!»
+  detalle: >-
+    C3 contiene una referencia rota donde va el código que identifica a la
+    institución. Confirmado en la hoja, pero sin modelar: vive en el bloque de
+    encabezado, no en una fila de datos, y ninguna tabla guarda las aserciones
+    de encabezado de un documento.
+  impacto: BAJO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!C3
+  estado: NO_MODELADO
+
+- hallazgo_id: E14
+  clase: ERROR
+  titulo: El Anexo 2 marca «Ampliación_Territorial» en los nueve proyectos
+  detalle: >-
+    La Tabla 9 del Anexo 1 gasta ese mismo dinero en Docentes y Bienestar. El
+    rubro queda marcado como no mapeable para que ningún JOIN ingenuo reconcilie
+    la contradicción.
+  impacto: MEDIO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!H10:H18
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT rubro_id, nombre, mapeable FROM rubro
+    WHERE rubro_id = 'V25_AMPLIACION_TERRITORIAL'
+
+- hallazgo_id: E15
+  clase: ERROR
+  titulo: El nombre del Anexo 2 dice 2023-2024; la hoja es de 2025
+  detalle: >-
+    El archivo se llama «... durante las vigencias 2023 y 2024», y la única hoja
+    de datos es Registro_Proyectos_2025, con columnas de 2025.
+  impacto: BAJO
+  documento_id: ANEXO2_PIC
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT titulo FROM documento WHERE documento_id = 'ANEXO2_PIC'
+
+- hallazgo_id: E16
+  clase: ERROR
+  titulo: El oficio conserva un marcador sin rellenar
+  detalle: N.1.002.04-XXX-2025, con sufijo 2025 y fecha de 2026.
+  impacto: BAJO
+  documento_id: OFICIO_PIC_CO_ET
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: E17
+  clase: ERROR
+  titulo: Sólo una resolución nombra el PIC
+  detalle: >-
+    La Res. 018433 es la única. Rastrear el dinero hasta el programa descansa
+    sobre un solo documento.
+  impacto: ALTO
+  documento_id: RES_MEN_018433_2024
+  estado: PENDIENTE_FASE_3
+
+# ----------------------------------------------------------- DIVERGENCIAS (8)
+
+- hallazgo_id: D1
+  clase: DIVERGENCIA
+  titulo: Matrícula de 1 161 frente a 1 043
+  detalle: >-
+    1 161 cubre los ocho proyectos aprobados; 1 043 es un consolidado que
+    incluye La Paz. Ambas son ciertas. La dimensión poblacion lo parametriza.
+  impacto: ALTO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 2
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: D2
+  clase: DIVERGENCIA
+  titulo: Compromiso de 1 818 frente a 1 836
+  detalle: 1 836 = 1 818 + los 18 de La Paz. v1 lo clasificaba como error.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 1
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: D3
+  clase: DIVERGENCIA
+  titulo: 2026-1 declarado como 1 189, 1 120 y 1 180
+  detalle: Divergencia a tres bandas; interactúa con E7.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 7
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: D4
+  clase: DIVERGENCIA
+  titulo: 191,5 ETC en el titular frente a 394,5 creados
+  detalle: Se resuelve con es_agregado_de cuando los acuerdos estén cargados.
+  impacto: MEDIO
+  estado: PENDIENTE_FASE_2
+
+- hallazgo_id: D5
+  clase: DIVERGENCIA
+  titulo: La FCV se reporta en dos granos distintos
+  detalle: >-
+    Parte de Medellín en 2023, unidad de asignación en 2025. Es un cambio de
+    tipo 2, no una decisión puntual; el rango de vigencia lo sostiene.
+  impacto: ALTO
+  estado: PENDIENTE_FASE_2
+
+- hallazgo_id: D6
+  clase: DIVERGENCIA
+  titulo: 419 cupos de rezago
+  detalle: >-
+    La Tabla 6 proyecta cupos para cubrir el rezago del PIC 2023 aparte de los
+    cupos nuevos. Suman 419 en las nueve sedes.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 6
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT sum(CAST(valor AS REAL)) FROM declaracion
+    WHERE medida_id = 'compromiso_rezago' AND unidad_id <> 'UNAL_TOTAL'
+
+- hallazgo_id: D7
+  clase: DIVERGENCIA
+  titulo: Admitidos frente a matriculados
+  detalle: >-
+    No es un conflicto de datos sino de criterio: las partes no discrepan sobre
+    cuántos se matricularon, sino sobre qué cuenta como cumplimiento.
+  impacto: ALTO
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: D8
+  clase: DIVERGENCIA
+  titulo: Las columnas N, O y P del Anexo 2 se duplican entre sí
+  detalle: Las subcolumnas divergen de sus propios encabezados. Ver E1.
+  impacto: MEDIO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!N10:P18
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT unidad_id, max(CASE WHEN fuente_id='BASE_2025' THEN monto END) AS n,
+           max(CASE WHEN fuente_id='INDEXACION' THEN monto END) AS p
+    FROM asignacion GROUP BY unidad_id
+
+# -------------------------------------------------------------- COLISIONES (5)
+
+- hallazgo_id: C1
+  clase: COLISION
+  titulo: Dos documentos se llaman «Anexo 2»
+  detalle: La hoja de cálculo de la UNAL y la plantilla del MEN.
+  impacto: MEDIO
+  estado: PENDIENTE_FASE_4
+
+- hallazgo_id: C2
+  clase: COLISION
+  titulo: La «Sede Arauca» del Anexo 2 es la Sede Orinoquía
+  detalle: >-
+    Se resuelve con un alias de ámbito documental, para que esa lectura no se
+    filtre a documentos donde «Arauca» es el departamento.
+  impacto: MEDIO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!B12
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT ambito, literal, unidad_id FROM unidad_alias
+    WHERE literal = 'Sede Arauca'
+
+- hallazgo_id: C3
+  clase: COLISION
+  titulo: PAET (vía de admisión) frente a PIC-ET (programa)
+  detalle: Nombres parecidos, referentes distintos; ambos declarados por separado.
+  impacto: BAJO
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT 'via' AS tipo, via_id AS id, nombre FROM via_admision WHERE via_id='PAET'
+    UNION ALL
+    SELECT 'programa', programa_id, nombre FROM programa WHERE programa_id='PIC_ET'
+
+- hallazgo_id: C4
+  clase: COLISION
+  titulo: «Sedes de Frontera»
+  detalle: >-
+    La Res. 016202 nombra cinco, incluida «Insular»; el resto del corpus habla
+    de cuatro Sedes de Presencia Nacional.
+  impacto: MEDIO
+  documento_id: RES_MEN_016202_2023
+  estado: PENDIENTE_FASE_3
+
+- hallazgo_id: C5
+  clase: COLISION
+  titulo: «Matriculados» significa cuatro cosas
+  detalle: >-
+    Primera matrícula, matrícula global, matrícula efectiva y primer curso
+    SNIES. La dimensión poblacion las separa en lugar de promediarlas.
+  impacto: ALTO
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT poblacion_id, etiqueta_corta, definicion, incluye_la_paz
+    FROM poblacion ORDER BY orden
+
+# ------------------------------------------------------------------ VACÍOS (8)
+
+- hallazgo_id: V1
+  clase: VACIO
+  titulo: El Acuerdo 011/2025, que crea el PTIUN, no está en el corpus
+  detalle: Citado por el Anexo 1 pero ausente. Se registra como CITADO, sin ruta.
+  impacto: ALTO
+  documento_id: ACU_CSU_011_2025
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT documento_id, titulo, estado, ruta_archivo FROM documento
+    WHERE estado = 'CITADO'
+
+- hallazgo_id: V2
+  clase: VACIO
+  titulo: La Paz no tiene ninguna fila de financiación
+  detalle: >-
+    La fila 18 del Anexo 2 está vacía en N, O, P y T. Ausencia, no cero: la fila
+    no existe en lugar de valer 0.
+  impacto: ALTO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!N18:T18
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT count(*) AS filas_de_financiacion_la_paz FROM asignacion
+    WHERE unidad_id = 'LA_PAZ'
+
+- hallazgo_id: V3
+  clase: VACIO
+  titulo: Cinco columnas del Anexo 2 están vacías en las nueve filas
+  detalle: >-
+    C (justificación), J (cantidad), K (unidad de medida), U (riesgos) y V
+    (observaciones). v1 sólo listaba la sub-línea.
+  impacto: MEDIO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!C,J,K,U,V
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT count(*) AS proyectos_sin_sublinea FROM proyecto WHERE sublinea_id IS NULL
+
+- hallazgo_id: V4
+  clase: VACIO
+  titulo: La banda de cuartil (0.586,0.649] no aparece nunca
+  detalle: >-
+    Existe en el esquema y no tiene hechos. Un LEFT JOIN la pintaría igual que
+    un cero medido, por eso la columna observado.
+  impacto: MEDIO
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT q.cuartil_id, q.notacion, q.observado, count(c.estudiantes) AS hechos
+    FROM cuartil_prioridad q
+    LEFT JOIN cobertura_territorial c ON c.cuartil_id = q.cuartil_id
+    GROUP BY q.cuartil_id
+
+- hallazgo_id: V5
+  clase: VACIO
+  titulo: Tres columnas de fuente de financiación están vacías
+  detalle: >-
+    Derechos de matrícula (Q), recursos propios (R) y otras fuentes (S) no
+    tienen valor en ninguna fila.
+  impacto: MEDIO
+  documento_id: ANEXO2_PIC
+  ubicacion: Registro_Proyectos_2025!Q,R,S
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT f.fuente_id, f.columna_xlsx, count(a.asignacion_id) AS filas
+    FROM fuente_financiacion f
+    LEFT JOIN asignacion a ON a.fuente_id = f.fuente_id
+    GROUP BY f.fuente_id ORDER BY f.columna_xlsx
+
+- hallazgo_id: V6
+  clase: VACIO
+  titulo: Las etapas E03, E04 y E06 a E08 no tienen evidencia documental
+  detalle: >-
+    Formulación, revisión, convocatoria, vinculación y matrícula: el corpus no
+    documenta ninguna. La tabla proyecto_etapa está vacía.
+  impacto: ALTO
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT e.etapa_id, e.nombre, count(pe.proyecto_id) AS eventos
+    FROM etapa e LEFT JOIN proyecto_etapa pe ON pe.etapa_id = e.etapa_id
+    GROUP BY e.etapa_id ORDER BY e.orden
+
+- hallazgo_id: V7
+  clase: VACIO
+  titulo: Dos generaciones de rubros sin puente entre ellas
+  detalle: >-
+    Y una tercera sin puentear, «Área del Conocimiento», con 8 categorías
+    heredadas frente a 11 ISCED. rubro_mapping está vacío a propósito: sin
+    puente, una consulta entre generaciones no devuelve nada, que es la
+    respuesta correcta.
+  impacto: ALTO
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT generacion, count(*) AS rubros FROM rubro GROUP BY generacion
+
+- hallazgo_id: V8
+  clase: VACIO
+  titulo: La Tabla 14 nunca dice qué línea PIC-ET corresponde a qué vigencia
+  detalle: El presupuesto se carga sin poder atribuirse a un año fiscal.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 14
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT presupuesto_id, rubro_id, monto FROM presupuesto_rubro
+    WHERE ciclo_id = 'PIC_ET_2026'
+
+# ---------------------------------------------------------------- ANOMALÍA (1)
+
+- hallazgo_id: A1
+  clase: ANOMALIA
+  titulo: Los compromisos de 2025 y 2026 son distribuciones idénticas
+  detalle: >-
+    Las Tablas 10 y 12 reparten 200 cupos entre las nueve sedes exactamente
+    igual. Puede ser deliberado o un copiado; el corpus no lo dice.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 10 / Tabla 12
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT unidad_id,
+           max(CASE WHEN ciclo_id='PIC_CO_2025' THEN CAST(valor AS INT) END) AS c2025,
+           max(CASE WHEN ciclo_id='PIC_CO_2026' THEN CAST(valor AS INT) END) AS c2026
+    FROM declaracion WHERE medida_id='compromiso' AND unidad_id <> 'UNAL_TOTAL'
+    GROUP BY unidad_id ORDER BY unidad_id

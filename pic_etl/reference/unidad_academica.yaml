@@ -1,0 +1,42 @@
+# Academic units. Sedes are roots: each is its own sede and has no parent.
+# UNAL_TOTAL is a sentinel *beside* the hierarchy, not above it — university
+# figures are declared by a document, never summed up from sedes. That is what
+# the presentation rule "never let the tool compute a grand total" means in the
+# schema.
+
+unidad_academica:
+  - {unidad_id: UNAL_TOTAL, nombre: Universidad Nacional (agregado), tipo: UNIVERSIDAD,
+     padre_id: null, sede_id: UNAL_TOTAL, grupo: null, valido_desde: 2023-01-01}
+
+  # Sedes andinas
+  - {unidad_id: BOGOTA,    nombre: Sede Bogotá,    tipo: SEDE, padre_id: null, sede_id: BOGOTA,
+     grupo: ANDINA, departamento_id: DC, municipio_id: DC_BOGOTA, valido_desde: 2023-01-01}
+  - {unidad_id: MEDELLIN,  nombre: Sede Medellín,  tipo: SEDE, padre_id: null, sede_id: MEDELLIN,
+     grupo: ANDINA, departamento_id: ANT, municipio_id: ANT_MEDELLIN, valido_desde: 2023-01-01}
+  - {unidad_id: MANIZALES, nombre: Sede Manizales, tipo: SEDE, padre_id: null, sede_id: MANIZALES,
+     grupo: ANDINA, departamento_id: CAL, municipio_id: CAL_MANIZALES, valido_desde: 2023-01-01}
+  - {unidad_id: PALMIRA,   nombre: Sede Palmira,   tipo: SEDE, padre_id: null, sede_id: PALMIRA,
+     grupo: ANDINA, departamento_id: VAC, municipio_id: VAC_PALMIRA, valido_desde: 2023-01-01}
+  - {unidad_id: LA_PAZ,    nombre: Sede de La Paz, tipo: SEDE, padre_id: null, sede_id: LA_PAZ,
+     grupo: OTRA, departamento_id: CES, municipio_id: CES_LA_PAZ, valido_desde: 2023-01-01}
+
+  # Sedes de Presencia Nacional
+  - {unidad_id: AMAZONIA,  nombre: Sede Amazonía,  tipo: SEDE, padre_id: null, sede_id: AMAZONIA,
+     grupo: SPN, departamento_id: AMA, municipio_id: AMA_LETICIA, valido_desde: 2023-01-01}
+  - {unidad_id: CARIBE,    nombre: Sede Caribe,    tipo: SEDE, padre_id: null, sede_id: CARIBE,
+     grupo: SPN, departamento_id: SAP, municipio_id: SAP_SAN_ANDRES, valido_desde: 2023-01-01}
+  - {unidad_id: ORINOQUIA, nombre: Sede Orinoquía, tipo: SEDE, padre_id: null, sede_id: ORINOQUIA,
+     grupo: SPN, departamento_id: ARA, municipio_id: ARA_ARAUCA, valido_desde: 2023-01-01}
+  - {unidad_id: TUMACO,    nombre: Sede Tumaco,    tipo: SEDE, padre_id: null, sede_id: TUMACO,
+     grupo: SPN, departamento_id: NAR, municipio_id: NAR_TUMACO, valido_desde: 2023-01-01}
+
+  # ------------------------------------------------------------------ BLOCKING
+  # §10: FCV's grain and validity range is an open prerequisite. The reading
+  # encoded here — a faculty inside Medellín, reported separately from 2025 —
+  # is provisional and drives every Medellín subtotal. `valido_hasta` is what
+  # keeps this a type-2 change rather than a retroactive rewrite of the 2023
+  # grain; change the date here, not the facts.
+  - {unidad_id: FCV, nombre: Facultad de Ciencias (reporte separado), tipo: FACULTAD,
+     padre_id: MEDELLIN, sede_id: MEDELLIN, grupo: ANDINA,
+     departamento_id: ANT, municipio_id: ANT_MEDELLIN,
+     valido_desde: 2025-01-01, valido_hasta: null}

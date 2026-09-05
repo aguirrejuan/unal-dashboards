@@ -1,0 +1,276 @@
+# The document register.
+#
+# `estado` separates what the corpus holds from what it merely mentions, and I6
+# enforces the difference: a held document has a path and a soporte, a cited one
+# has neither. That turns "which held figures depend on a document nobody has?"
+# into a query rather than a footnote.
+#
+# The five MEN resolutions are ESCANEO, not TRANSCRITO. §10 records them as
+# transcribed, but that transcription is not in this repository, and claiming a
+# soporte the repository cannot show would be exactly the kind of unsupported
+# assertion this schema exists to prevent. They become TRANSCRITO when
+# extractions/ holds their text.
+
+documento:
+- documento_id: RES_MEN_016202_2023
+  tipo: RESOLUCION
+  emisor: MEN
+  numero: '016202'
+  titulo: 016202 06 SEP 2023
+  estado: EN_CORPUS
+  soporte: ESCANEO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/016202 06 SEP 2023.pdf
+  sha256: 844667611a31fa5725305c5f754859b4e7bca8aad07a02eac31955c2f823a9a6
+- documento_id: RES_MEN_016468_2025
+  tipo: RESOLUCION
+  emisor: MEN
+  numero: 016468
+  titulo: 016468 01 AGO 2025
+  estado: EN_CORPUS
+  soporte: ESCANEO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/016468 01 AGO 2025.pdf
+  sha256: 893d5345428a5d4c3389b2e80c3a356be1936da71a534e9b13bd7adc9a260d44
+- documento_id: RES_MEN_018433_2024
+  tipo: RESOLUCION
+  emisor: MEN
+  numero: 018433
+  titulo: 018433 18 OCT 2024
+  estado: EN_CORPUS
+  soporte: ESCANEO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/018433 18 OCT 2024.pdf
+  sha256: 2feb8b48d9c04ccdb48f7958905fe2fbac076f6de56f72718d0527b68b44bf75
+- documento_id: RES_MEN_018970_2025
+  tipo: RESOLUCION
+  emisor: MEN
+  numero: 018970
+  titulo: 018970 17 SEP 2025
+  estado: EN_CORPUS
+  soporte: ESCANEO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/018970 17 SEP 2025.pdf
+  sha256: 037902969f4d686e5e3529865a8284d450a505fad8bee576a0d9b889f97fb68f
+- documento_id: RES_MEN_019862_2025
+  tipo: RESOLUCION
+  emisor: MEN
+  numero: 019862
+  titulo: 019862 02 OCT 2025
+  estado: EN_CORPUS
+  soporte: ESCANEO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/019862 02 OCT 2025.pdf
+  sha256: a7c3b1aa65c23b5c51b5b6c1f9f91fd4da67f399d2a8fd1dbc7bf4d913487fcf
+- documento_id: ACU_CSU_004_2025
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '004'
+  titulo: Acuerdo 004 de 2025
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 004 de 2025.pdf
+  sha256: 82b5b7986298a6bed8773897d46827348c88d65309f60c2d51ceeb0988c64cf0
+- documento_id: ACU_CSU_005_2024
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '005'
+  titulo: Acuerdo 005 de 2024
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 005 de 2024.pdf
+  sha256: 1f1c31335baa4812d6f411183a880c065946fdcebe3a84e0358b5d865374f9c3
+- documento_id: ACU_CSU_006_2024
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '006'
+  titulo: Acuerdo 006 de 2024
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 006 de 2024.pdf
+  sha256: 60313360639c76df3b7e3f3a3a875b3e56e9ecb9d5bdef3d8644b67eb4ee44d2
+- documento_id: ACU_CSU_013_2024
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '013'
+  titulo: Acuerdo 013 de 2024
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 013 de 2024.pdf
+  sha256: fc0a5c54b60c97e2f8c513b7d785f796abc442a02d2dd041bf38df338757a5c2
+- documento_id: ACU_CSU_016_2023
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '016'
+  titulo: Acuerdo 016 de 2023
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 016 de 2023.pdf
+  sha256: 87fefe99077bb89a2c696c1c00a20d55c6f19fe40f6c56f557bd1e1fbee7dcef
+- documento_id: ACU_CSU_017_2023
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '017'
+  titulo: Acuerdo 017 de 2023
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 017 de 2023.pdf
+  sha256: 854cbd6379c9404433dc9dc9637a2a5b6f66b4652d40dd1a48eeb3d7e0292533
+- documento_id: ACU_CSU_017_2024
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '017'
+  titulo: Acuerdo 017 de 2024
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 017 de 2024.pdf
+  sha256: 55c47c77c4649f38a3ea6c3a3870f87527a6826e99f4eea73bb5655584302a97
+- documento_id: ACU_CSU_018_2023
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: 018
+  titulo: Acuerdo 018 de 2023
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 018 de 2023.pdf
+  sha256: 94e148870bd748a4144653cdcd4fcb24658371a26a0275811d2db5e82d8302ff
+- documento_id: ACU_CSU_019_2023
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: 019
+  titulo: Acuerdo 019 de 2023
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 019 de 2023.pdf
+  sha256: 91cf8dd7c8bbab52e5cbb3e0e2e9561ab4747d988f4c74b8725d943c16c8b77a
+- documento_id: ACU_CSU_024_2025
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '024'
+  titulo: Acuerdo 024 de 2025
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 024 de 2025.pdf
+  sha256: 929b473228802b7e69be22b29abd256f8b0fb5c9971a4407ede1ccd91414a955
+- documento_id: ACU_CSU_034_2025
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '034'
+  titulo: Acuerdo 034 de 2025
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 034 de 2025.pdf
+  sha256: 37970dc9a6a4ad736aba449206361c67fdbf07528c77890ab9d2a644ccfd5824
+- documento_id: ACU_CSU_052_2025
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '052'
+  titulo: Acuerdo 052 de 2025
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Acuerdo 052 de 2025.pdf
+  sha256: 4a028ef9fb84ec8aba5c2a5938ba8284fbecbbd2b3ab0723c5f98e14baf37490
+- documento_id: ORDEN_422447
+  tipo: ORDEN
+  emisor: UNAL_RECTORIA
+  numero: '422447'
+  titulo: Orden 422447
+  estado: EN_CORPUS
+  soporte: ESCANEO
+  ruta_archivo: extracted/PIC-Información/PIC-Info_/Orden 422447.pdf
+  sha256: dfb5db56bdf000f6fb797c53107f14fb40fdf32c8acce02391890e9e58046cb0
+- documento_id: ANEXO1_PIC
+  tipo: ANEXO
+  emisor: UNAL_PLANEACION
+  numero: '1'
+  titulo: Anexo 1. Documento Planes Integrales de Cobertura
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/Pic_Info-2/Anexo 1. Documento Planes Integrales de Cobertura.docx
+  sha256: fb3bda2abebeebb1c176ec64decd1bcbe388760165156b6aacce93b3ad09d643
+- documento_id: ANEXO2_PIC
+  tipo: ANEXO
+  emisor: UNAL_PLANEACION
+  numero: '2'
+  titulo: Anexo 2 Informe presupuestal correspondiente a la ejecución del PIC-CO durante las vigencias 2023 y 2024
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/Pic_Info-2/Anexo 2 Informe presupuestal correspondiente a la ejecución del PIC-CO durante las vigencias 2023 y 2024.xlsx
+  sha256: 0c09589a0cbfdbc23a8e2746c6e5d1f17e65975950fa8013ed6e8666a5d24026
+- documento_id: OFICIO_PIC_CO_ET
+  tipo: OFICIO
+  emisor: UNAL_RECTORIA
+  numero: null
+  titulo: Oficio_PIC-CO-ET
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/Pic_Info-2/Oficio_PIC-CO-ET.docx
+  sha256: 5fa7726d571919af80a70ec377070d21924e69fad91148fa3f00de7fad8a02d8
+- documento_id: INFORME_MEN_2024_2025
+  tipo: INFORME
+  emisor: MEN
+  numero: null
+  titulo: Informe PIC (2024-2025) MEN
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/Pic_Info-3/Informe PIC (2024-2025) MEN.doc
+  sha256: 87dc1f69b09c41b9c608cf2bdc0fc15615dbbb678de7eaf1bfa5322c24033a5b
+- documento_id: INFORME_CUALITATIVO
+  tipo: INFORME
+  emisor: MEN
+  numero: null
+  titulo: PDF Reader – PDF Scanner_INFORME CUALITATIVO DE EJECUCIÓN MINISTERIO DE EDUCACIÓN  (1)
+  estado: EN_CORPUS
+  soporte: TEXTO
+  ruta_archivo: extracted/PIC-Información/Pic_Info-3/PDF Reader – PDF Scanner_INFORME CUALITATIVO DE EJECUCIÓN MINISTERIO DE EDUCACIÓN  (1).doc
+  sha256: 522c268d50ebaed573c951d687cc30ba948618fcf2f4268883fa299eae3015d5
+- documento_id: ACU_CSU_011_2025
+  tipo: ACUERDO
+  emisor: UNAL_CSU
+  numero: '011'
+  titulo: Acuerdo 011 de 2025 — crea el PTIUN
+  estado: CITADO
+  soporte: null
+  ruta_archivo: null
+  sha256: null
+- documento_id: RES_MEN_008596_2024
+  tipo: RESOLUCION
+  emisor: MEN
+  numero: '8596'
+  titulo: Resolución 8596 del 27 de mayo de 2024 (citada como «08596 de 2023»)
+  estado: CITADO
+  soporte: null
+  ruta_archivo: null
+  sha256: null
+- documento_id: SEN_T437_2020
+  tipo: SENTENCIA
+  emisor: CORTE_CONSTITUCIONAL
+  numero: T-437/2020
+  titulo: Sentencia T-437 de 2020
+  estado: CITADO
+  soporte: null
+  ruta_archivo: null
+  sha256: null
+- documento_id: SEN_T356_2020
+  tipo: SENTENCIA
+  emisor: CORTE_CONSTITUCIONAL
+  numero: T-356/2020
+  titulo: Sentencia T-356 de 2020
+  estado: CITADO
+  soporte: null
+  ruta_archivo: null
+  sha256: null
+documento_cita:
+- citante_id: ACU_CSU_024_2025
+  citado_id: RES_MEN_008596_2024
+  ubicacion: considerandos
+- citante_id: ANEXO1_PIC
+  citado_id: ACU_CSU_011_2025
+  ubicacion: Tabla 13
+- citante_id: ACU_CSU_024_2025
+  citado_id: RES_MEN_018433_2024
+  ubicacion: considerandos
+- citante_id: INFORME_CUALITATIVO
+  citado_id: RES_MEN_019862_2025
+  ubicacion: § ejecución
+- citante_id: INFORME_CUALITATIVO
+  citado_id: RES_MEN_016468_2025
+  ubicacion: § ejecución
+- citante_id: ACU_CSU_052_2025
+  citado_id: RES_MEN_016468_2025
+  ubicacion: considerandos

@@ -1,0 +1,30 @@
+# Every measure declares its unit and how it may be aggregated (P6).
+#
+# `matriculados` is a STOCK: a student enrolled in 2024-1 is still enrolled in
+# 2024-2, so summing across periods doubles the cohort. Enrolment measured
+# against a seat target must therefore be a FLOW — `primera_matricula` — and the
+# two are different measures, not two labels for one.
+
+medida:
+  - {medida_id: matriculados,       nombre: Matriculados,                unidad_medida: PERSONAS, tipo_agregacion: STOCK, aditiva_unidad: true,  aditiva_tiempo: false}
+  - {medida_id: primera_matricula,  nombre: Primera matrícula,           unidad_medida: PERSONAS, tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: aumento_matriculados, nombre: Aumento de matriculados,   unidad_medida: PERSONAS, tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: admitidos,          nombre: Admitidos,                   unidad_medida: PERSONAS, tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: inscritos,          nombre: Inscritos,                   unidad_medida: PERSONAS, tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: cupos_ofertados,    nombre: Cupos ofertados,             unidad_medida: CUPOS,    tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: compromiso,         nombre: Compromiso de cupos,         unidad_medida: CUPOS,    tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: compromiso_rezago, nombre: Cupos comprometidos para cubrir rezago, unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: true}
+  - {medida_id: compromiso_total,  nombre: Compromiso total proyectado,           unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: true}
+  - {medida_id: rezago,             nombre: Rezago (compromiso − matriculados), unidad_medida: CUPOS, tipo_agregacion: FLUJO, aditiva_unidad: true, aditiva_tiempo: true}
+  - {medida_id: monto,              nombre: Monto,                       unidad_medida: COP,      tipo_agregacion: FLUJO, aditiva_unidad: true,  aditiva_tiempo: true}
+  - {medida_id: cargos_creados,     nombre: Cargos creados,              unidad_medida: ETC,      tipo_agregacion: STOCK, aditiva_unidad: true,  aditiva_tiempo: false}
+  - {medida_id: cargos_provistos,   nombre: Cargos provistos,            unidad_medida: ETC,      tipo_agregacion: STOCK, aditiva_unidad: true,  aditiva_tiempo: false}
+  - {medida_id: estudiantes_cuartil, nombre: Estudiantes por cuartil,    unidad_medida: PERSONAS, tipo_agregacion: STOCK, aditiva_unidad: true,  aditiva_tiempo: false}
+
+# An ET row carrying `cupos` fails at load, not at render: PIC-ET funds work
+# inside schools and reports no seats until 2027.
+programa_medida_permitida:
+  PIC_CO: [matriculados, primera_matricula, aumento_matriculados, admitidos, inscritos,
+           cupos_ofertados, compromiso, compromiso_rezago, compromiso_total, rezago,
+           monto, cargos_creados, cargos_provistos, estudiantes_cuartil]
+  PIC_ET: [monto, cargos_creados, cargos_provistos]

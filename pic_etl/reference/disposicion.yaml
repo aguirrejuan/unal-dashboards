@@ -1,0 +1,29 @@
+# Editorial judgements: which declaration each viewpoint prefers, and why.
+#
+# These are the most contestable rows in the database and they are NOT authored
+# inside it — `build` drops and recreates, so anything typed into SQLite dies on
+# the next run. Keeping them here makes them diffable and reviewable beside the
+# extractions they judge.
+#
+# Rows are matched by (documento_id, ubicacion, medida_id): a disposition names
+# the claim it is about, not an autoincrement id that changes on every rebuild.
+#
+# There is no global "correct" value. UNAL's reading and MEN's are held side by
+# side, each complete and internally consistent.
+
+disposicion:
+  # E1 — Anexo 2 column N. $68 505 589 464 reconciles to no resolution and no
+  # tranche; Bogotá's N equals its P exactly and Palmira's "Indexación" cell
+  # holds the verbatim un-indexed 2023 allocation. Primary support sits with
+  # Res. 016468 p.2 (REC 11), so column N is discarded under every viewpoint —
+  # this one is arithmetic, not perspective.
+  - vista_id: AUDITOR
+    documento_id: ANEXO2_PIC
+    ubicacion: "Registro_Proyectos_2025!N15"
+    medida_id: monto
+    es_preferida: false
+    descartada: true
+    motivo: >-
+      Columna N no reconcilia con ninguna resolución; N15 = P15 exactamente.
+      §10 la mantiene como prerrequisito bloqueante.
+    valido_desde: 2026-09-05

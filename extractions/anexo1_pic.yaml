@@ -1,0 +1,2414 @@
+documento_id: ANEXO1_PIC
+fuente_sha256: fb3bda2abebeebb1c176ec64decd1bcbe388760165156b6aacce93b3ad09d643
+fecha_asercion: '2026-04-13'
+filas:
+- ubicacion: Tabla 1, fila 1 'Sede Palmira', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '240'
+  valor_origen: '240'
+  componentes: []
+- ubicacion: Tabla 1, fila 2 'Sede Manizales', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '180'
+  valor_origen: '180'
+  componentes: []
+- ubicacion: Tabla 1, fila 3 'Sede Bogotá', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '148'
+  valor_origen: '148'
+  componentes: []
+- ubicacion: Tabla 1, fila 4 'Sede Amazonia', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Amazonia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 1, fila 5 'Sede Caribe', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 1, fila 6 'Sede Orinoquia', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Orinoquia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 1, fila 7 'Sede Tumaco', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 1, fila 8 'Sede Medellín', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Sede Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 1, fila 9 'TOTAL', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '1818'
+  valor_origen: '1818'
+  componentes:
+  - Tabla 1, fila 1 'Sede Palmira', col 'Compromiso'
+  - Tabla 1, fila 2 'Sede Manizales', col 'Compromiso'
+  - Tabla 1, fila 3 'Sede Bogotá', col 'Compromiso'
+  - Tabla 1, fila 4 'Sede Amazonia', col 'Compromiso'
+  - Tabla 1, fila 5 'Sede Caribe', col 'Compromiso'
+  - Tabla 1, fila 6 'Sede Orinoquia', col 'Compromiso'
+  - Tabla 1, fila 7 'Sede Tumaco', col 'Compromiso'
+  - Tabla 1, fila 8 'Sede Medellín', col 'Compromiso'
+- ubicacion: Tabla 2, fila 1 'Palmira', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '240'
+  valor_origen: '240'
+  componentes: []
+- ubicacion: Tabla 2, fila 2 'Manizales', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '180'
+  valor_origen: '180'
+  componentes: []
+- ubicacion: Tabla 2, fila 3 'Bogotá', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '148'
+  valor_origen: '148'
+  componentes: []
+- ubicacion: Tabla 2, fila 4 'Amazonia', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 2, fila 5 'Caribe', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 2, fila 6 'Orinoquia', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 2, fila 7 'Tumaco', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 2, fila 8 'Medellín', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 2, fila 9 'TOTAL', col 'Compromiso'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '1818'
+  valor_origen: '1818'
+  componentes:
+  - Tabla 2, fila 1 'Palmira', col 'Compromiso'
+  - Tabla 2, fila 2 'Manizales', col 'Compromiso'
+  - Tabla 2, fila 3 'Bogotá', col 'Compromiso'
+  - Tabla 2, fila 4 'Amazonia', col 'Compromiso'
+  - Tabla 2, fila 5 'Caribe', col 'Compromiso'
+  - Tabla 2, fila 6 'Orinoquia', col 'Compromiso'
+  - Tabla 2, fila 7 'Tumaco', col 'Compromiso'
+  - Tabla 2, fila 8 'Medellín', col 'Compromiso'
+- ubicacion: Tabla 2, fila 1 'Palmira', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '165'
+  valor_origen: '165'
+  componentes: []
+- ubicacion: Tabla 2, fila 2 'Manizales', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '220'
+  valor_origen: '220'
+  componentes: []
+- ubicacion: Tabla 2, fila 3 'Bogotá', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '115'
+  valor_origen: '115'
+  componentes: []
+- ubicacion: Tabla 2, fila 4 'Amazonia', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '280'
+  valor_origen: '280'
+  componentes: []
+- ubicacion: Tabla 2, fila 5 'Caribe', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '200'
+  valor_origen: '200'
+  componentes: []
+- ubicacion: Tabla 2, fila 6 'Orinoquia', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquia
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '372'
+  valor_origen: '372'
+  componentes: []
+- ubicacion: Tabla 2, fila 7 'Tumaco', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '246'
+  valor_origen: '246'
+  componentes: []
+- ubicacion: Tabla 2, fila 8 'Medellín', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '250'
+  valor_origen: '250'
+  componentes: []
+- ubicacion: Tabla 2, fila 9 'TOTAL', col 'Cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: cupos_ofertados
+  ciclo_id: PIC_CO_2023
+  unidad: TOTAL
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '1848'
+  valor_origen: '1848'
+  componentes:
+  - Tabla 2, fila 1 'Palmira', col 'Cupos'
+  - Tabla 2, fila 2 'Manizales', col 'Cupos'
+  - Tabla 2, fila 3 'Bogotá', col 'Cupos'
+  - Tabla 2, fila 4 'Amazonia', col 'Cupos'
+  - Tabla 2, fila 5 'Caribe', col 'Cupos'
+  - Tabla 2, fila 6 'Orinoquia', col 'Cupos'
+  - Tabla 2, fila 7 'Tumaco', col 'Cupos'
+  - Tabla 2, fila 8 'Medellín', col 'Cupos'
+- ubicacion: Tabla 2, fila 1 'Palmira', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '157'
+  valor_origen: '157'
+  componentes: []
+- ubicacion: Tabla 2, fila 2 'Manizales', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '120'
+  valor_origen: '120'
+  componentes: []
+- ubicacion: Tabla 2, fila 3 'Bogotá', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '186'
+  valor_origen: '186'
+  componentes: []
+- ubicacion: Tabla 2, fila 4 'Amazonia', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonia
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '155'
+  valor_origen: '155'
+  componentes: []
+- ubicacion: Tabla 2, fila 5 'Caribe', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '45'
+  valor_origen: '45'
+  componentes: []
+- ubicacion: Tabla 2, fila 6 'Orinoquia', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquia
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '214'
+  valor_origen: '214'
+  componentes: []
+- ubicacion: Tabla 2, fila 7 'Tumaco', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '127'
+  valor_origen: '127'
+  componentes: []
+- ubicacion: Tabla 2, fila 8 'Medellín', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '157'
+  valor_origen: '157'
+  componentes: []
+- ubicacion: Tabla 2, fila 9 'TOTAL', col 'Matriculados entre 2024-1s y 2025-1s'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: TOTAL
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '1161'
+  valor_origen: '1161'
+  componentes:
+  - Tabla 2, fila 1 'Palmira', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 2 'Manizales', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 3 'Bogotá', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 4 'Amazonia', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 5 'Caribe', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 6 'Orinoquia', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 7 'Tumaco', col 'Matriculados entre 2024-1s y 2025-1s'
+  - Tabla 2, fila 8 'Medellín', col 'Matriculados entre 2024-1s y 2025-1s'
+- ubicacion: Tabla 2, fila 1 'Palmira', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '83'
+  valor_origen: '83'
+  componentes: []
+- ubicacion: Tabla 2, fila 2 'Manizales', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '60'
+  valor_origen: '60'
+  componentes: []
+- ubicacion: Tabla 2, fila 3 'Bogotá', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '-38'
+  valor_origen: '-38'
+  componentes: []
+- ubicacion: Tabla 2, fila 4 'Amazonia', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Amazonia
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '95'
+  valor_origen: '95'
+  componentes: []
+- ubicacion: Tabla 2, fila 5 'Caribe', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '205'
+  valor_origen: '205'
+  componentes: []
+- ubicacion: Tabla 2, fila 6 'Orinoquia', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Orinoquia
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '36'
+  valor_origen: '36'
+  componentes: []
+- ubicacion: Tabla 2, fila 7 'Tumaco', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '123'
+  valor_origen: '123'
+  componentes: []
+- ubicacion: Tabla 2, fila 8 'Medellín', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '93'
+  valor_origen: '93'
+  componentes: []
+- ubicacion: Tabla 2, fila 9 'TOTAL', col 'Rezago (Compromiso-matriculados)'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: TOTAL
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '657'
+  valor_origen: '657'
+  componentes:
+  - Tabla 2, fila 1 'Palmira', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 2 'Manizales', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 3 'Bogotá', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 4 'Amazonia', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 5 'Caribe', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 6 'Orinoquia', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 7 'Tumaco', col 'Rezago (Compromiso-matriculados)'
+  - Tabla 2, fila 8 'Medellín', col 'Rezago (Compromiso-matriculados)'
+- ubicacion: Tabla 6, fila 1 'Amazonía', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 6, fila 2 'Caribe', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '30'
+  valor_origen: '30'
+  componentes: []
+- ubicacion: Tabla 6, fila 3 'Orinoquía', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '14'
+  valor_origen: '14'
+  componentes: []
+- ubicacion: Tabla 6, fila 4 'Tumaco', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '21'
+  valor_origen: '21'
+  componentes: []
+- ubicacion: Tabla 6, fila 5 'Medellín', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '9'
+  valor_origen: '9'
+  componentes: []
+- ubicacion: Tabla 6, fila 6 'Bogotá', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: Tabla 6, fila 7 'Manizales', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '27'
+  valor_origen: '27'
+  componentes: []
+- ubicacion: Tabla 6, fila 8 'Palmira', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: Tabla 6, fila 9 'La Paz', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: Tabla 6, fila 10 'Total', col 'Cupos proyectados para PIC 2024'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Total
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '179'
+  valor_origen: '179'
+  componentes:
+  - Tabla 6, fila 1 'Amazonía', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 2 'Caribe', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 3 'Orinoquía', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 4 'Tumaco', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 5 'Medellín', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 6 'Bogotá', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 7 'Manizales', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 8 'Palmira', col 'Cupos proyectados para PIC 2024'
+  - Tabla 6, fila 9 'La Paz', col 'Cupos proyectados para PIC 2024'
+- ubicacion: Tabla 6, fila 1 'Amazonía', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '56'
+  valor_origen: '56'
+  componentes: []
+- ubicacion: Tabla 6, fila 2 'Caribe', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '70'
+  valor_origen: '70'
+  componentes: []
+- ubicacion: Tabla 6, fila 3 'Orinoquía', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '33'
+  valor_origen: '33'
+  componentes: []
+- ubicacion: Tabla 6, fila 4 'Tumaco', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '50'
+  valor_origen: '50'
+  componentes: []
+- ubicacion: Tabla 6, fila 5 'Medellín', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '21'
+  valor_origen: '21'
+  componentes: []
+- ubicacion: Tabla 6, fila 6 'Bogotá', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '42'
+  valor_origen: '42'
+  componentes: []
+- ubicacion: Tabla 6, fila 7 'Manizales', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '63'
+  valor_origen: '63'
+  componentes: []
+- ubicacion: Tabla 6, fila 8 'Palmira', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '42'
+  valor_origen: '42'
+  componentes: []
+- ubicacion: Tabla 6, fila 9 'La Paz', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '42'
+  valor_origen: '42'
+  componentes: []
+- ubicacion: Tabla 6, fila 10 'Total', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso_rezago
+  ciclo_id: PIC_CO_2024
+  unidad: Total
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '419'
+  valor_origen: '419'
+  componentes:
+  - Tabla 6, fila 1 'Amazonía', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 2 'Caribe', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 3 'Orinoquía', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 4 'Tumaco', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 5 'Medellín', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 6 'Bogotá', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 7 'Manizales', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 8 'Palmira', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+  - Tabla 6, fila 9 'La Paz', col 'Cupos proyectados para cumplir con el rezago PIC 2023'
+- ubicacion: Tabla 6, fila 1 'Amazonía', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '80'
+  valor_origen: '80'
+  componentes: []
+- ubicacion: Tabla 6, fila 2 'Caribe', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '100'
+  valor_origen: '100'
+  componentes: []
+- ubicacion: Tabla 6, fila 3 'Orinoquía', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '47'
+  valor_origen: '47'
+  componentes: []
+- ubicacion: Tabla 6, fila 4 'Tumaco', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '71'
+  valor_origen: '71'
+  componentes: []
+- ubicacion: Tabla 6, fila 5 'Medellín', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '30'
+  valor_origen: '30'
+  componentes: []
+- ubicacion: Tabla 6, fila 6 'Bogotá', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '60'
+  valor_origen: '60'
+  componentes: []
+- ubicacion: Tabla 6, fila 7 'Manizales', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '90'
+  valor_origen: '90'
+  componentes: []
+- ubicacion: Tabla 6, fila 8 'Palmira', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '60'
+  valor_origen: '60'
+  componentes: []
+- ubicacion: Tabla 6, fila 9 'La Paz', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '60'
+  valor_origen: '60'
+  componentes: []
+- ubicacion: Tabla 6, fila 10 'Total', col 'Total de cupos proyectados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso_total
+  ciclo_id: PIC_CO_2024
+  unidad: Total
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '598'
+  valor_origen: '598'
+  componentes:
+  - Tabla 6, fila 1 'Amazonía', col 'Total de cupos proyectados'
+  - Tabla 6, fila 2 'Caribe', col 'Total de cupos proyectados'
+  - Tabla 6, fila 3 'Orinoquía', col 'Total de cupos proyectados'
+  - Tabla 6, fila 4 'Tumaco', col 'Total de cupos proyectados'
+  - Tabla 6, fila 5 'Medellín', col 'Total de cupos proyectados'
+  - Tabla 6, fila 6 'Bogotá', col 'Total de cupos proyectados'
+  - Tabla 6, fila 7 'Manizales', col 'Total de cupos proyectados'
+  - Tabla 6, fila 8 'Palmira', col 'Total de cupos proyectados'
+  - Tabla 6, fila 9 'La Paz', col 'Total de cupos proyectados'
+- ubicacion: Tabla 7, fila 1 'Amazonía', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 7, fila 2 'Caribe', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '30'
+  valor_origen: '30'
+  componentes: []
+- ubicacion: Tabla 7, fila 3 'Orinoquía', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '14'
+  valor_origen: '14'
+  componentes: []
+- ubicacion: Tabla 7, fila 4 'Tumaco', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '21'
+  valor_origen: '21'
+  componentes: []
+- ubicacion: Tabla 7, fila 5 'Medellín', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '9'
+  valor_origen: '9'
+  componentes: []
+- ubicacion: Tabla 7, fila 6 'Bogotá', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: Tabla 7, fila 7 'Palmira', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: Tabla 7, fila 8 'Manizales', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '27'
+  valor_origen: '27'
+  componentes: []
+- ubicacion: Tabla 7, fila 9 'La Paz', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '18'
+  valor_origen: '18'
+  componentes: []
+- ubicacion: Tabla 7, fila 10 'Total', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2024
+  unidad: Total
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '179'
+  valor_origen: '179'
+  componentes:
+  - Tabla 7, fila 1 'Amazonía', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 2 'Caribe', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 3 'Orinoquía', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 4 'Tumaco', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 5 'Medellín', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 6 'Bogotá', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 7 'Palmira', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 8 'Manizales', col 'Compromiso nuevos cupos'
+  - Tabla 7, fila 9 'La Paz', col 'Compromiso nuevos cupos'
+- ubicacion: Tabla 7, fila 1 'Amazonía', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Amazonía
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: Tabla 7, fila 2 'Caribe', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Caribe
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: Tabla 7, fila 3 'Orinoquía', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Orinoquía
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: Tabla 7, fila 4 'Tumaco', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Tumaco
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: Tabla 7, fila 5 'Medellín', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: Tabla 7, fila 6 'Bogotá', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '32'
+  valor_origen: '32'
+  componentes: []
+- ubicacion: Tabla 7, fila 7 'Palmira', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '52'
+  valor_origen: '52'
+  componentes: []
+- ubicacion: Tabla 7, fila 8 'Manizales', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '10'
+  valor_origen: '10'
+  componentes: []
+- ubicacion: Tabla 7, fila 9 'La Paz', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: La Paz
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '0'
+  valor_origen: '0'
+  componentes: []
+- ubicacion: Tabla 7, fila 10 'Total', col 'Matriculados 2025-2'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Total
+  periodo_id: 2025-2
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '94'
+  valor_origen: '94'
+  componentes:
+  - Tabla 7, fila 1 'Amazonía', col 'Matriculados 2025-2'
+  - Tabla 7, fila 2 'Caribe', col 'Matriculados 2025-2'
+  - Tabla 7, fila 3 'Orinoquía', col 'Matriculados 2025-2'
+  - Tabla 7, fila 4 'Tumaco', col 'Matriculados 2025-2'
+  - Tabla 7, fila 5 'Medellín', col 'Matriculados 2025-2'
+  - Tabla 7, fila 6 'Bogotá', col 'Matriculados 2025-2'
+  - Tabla 7, fila 7 'Palmira', col 'Matriculados 2025-2'
+  - Tabla 7, fila 8 'Manizales', col 'Matriculados 2025-2'
+  - Tabla 7, fila 9 'La Paz', col 'Matriculados 2025-2'
+- ubicacion: Tabla 7, fila 5 'Medellín', col 'Matrícula 2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Medellín
+  periodo_id: 2026-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '477'
+  valor_origen: '477'
+  componentes: []
+- ubicacion: Tabla 7, fila 6 'Bogotá', col 'Matrícula 2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Bogotá
+  periodo_id: 2026-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '317'
+  valor_origen: '317'
+  componentes: []
+- ubicacion: Tabla 7, fila 7 'Palmira', col 'Matrícula 2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Palmira
+  periodo_id: 2026-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '144'
+  valor_origen: '144'
+  componentes: []
+- ubicacion: Tabla 7, fila 8 'Manizales', col 'Matrícula 2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Manizales
+  periodo_id: 2026-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '224'
+  valor_origen: '224'
+  componentes: []
+- ubicacion: Tabla 7, fila 9 'La Paz', col 'Matrícula 2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: La Paz
+  periodo_id: 2026-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '27'
+  valor_origen: '27'
+  componentes: []
+- ubicacion: Tabla 7, fila 10 'Total', col 'Matrícula 2026-1'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2024
+  unidad: Total
+  periodo_id: 2026-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '1189'
+  valor_origen: '1189'
+  componentes:
+  - Tabla 7, fila 5 'Medellín', col 'Matrícula 2026-1'
+  - Tabla 7, fila 6 'Bogotá', col 'Matrícula 2026-1'
+  - Tabla 7, fila 7 'Palmira', col 'Matrícula 2026-1'
+  - Tabla 7, fila 8 'Manizales', col 'Matrícula 2026-1'
+  - Tabla 7, fila 9 'La Paz', col 'Matrícula 2026-1'
+- ubicacion: Tabla 10, fila 1 'Amazonía', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '22'
+  valor_origen: '22'
+  componentes: []
+- ubicacion: Tabla 10, fila 2 'Caribe', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '13'
+  valor_origen: '13'
+  componentes: []
+- ubicacion: Tabla 10, fila 3 'Orinoquía', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '26'
+  valor_origen: '26'
+  componentes: []
+- ubicacion: Tabla 10, fila 4 'Tumaco', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '19'
+  valor_origen: '19'
+  componentes: []
+- ubicacion: Tabla 10, fila 5 'Medellín', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '12'
+  valor_origen: '12'
+  componentes: []
+- ubicacion: Tabla 10, fila 6 'Bogotá', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 10, fila 7 'Palmira', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 10, fila 8 'Manizales', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '36'
+  valor_origen: '36'
+  componentes: []
+- ubicacion: Tabla 10, fila 9 'La Paz', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 10, fila 10 'Total', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2025
+  unidad: Total
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '200'
+  valor_origen: '200'
+  componentes:
+  - Tabla 10, fila 1 'Amazonía', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 2 'Caribe', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 3 'Orinoquía', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 4 'Tumaco', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 5 'Medellín', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 6 'Bogotá', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 7 'Palmira', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 8 'Manizales', col 'Compromiso nuevos cupos'
+  - Tabla 10, fila 9 'La Paz', col 'Compromiso nuevos cupos'
+- ubicacion: Tabla 12, fila 1 'Amazonía', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Amazonía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '22'
+  valor_origen: '22'
+  componentes: []
+- ubicacion: Tabla 12, fila 2 'Caribe', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Caribe
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '13'
+  valor_origen: '13'
+  componentes: []
+- ubicacion: Tabla 12, fila 3 'Orinoquía', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Orinoquía
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '26'
+  valor_origen: '26'
+  componentes: []
+- ubicacion: Tabla 12, fila 4 'Tumaco', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Tumaco
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '19'
+  valor_origen: '19'
+  componentes: []
+- ubicacion: Tabla 12, fila 5 'Medellín', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Medellín
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '12'
+  valor_origen: '12'
+  componentes: []
+- ubicacion: Tabla 12, fila 6 'Bogotá', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Bogotá
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 12, fila 7 'Palmira', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Palmira
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 12, fila 8 'Manizales', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Manizales
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '36'
+  valor_origen: '36'
+  componentes: []
+- ubicacion: Tabla 12, fila 9 'La Paz', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: La Paz
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '24'
+  valor_origen: '24'
+  componentes: []
+- ubicacion: Tabla 12, fila 10 'Total', col 'Compromiso nuevos cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: AGREGADO
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2026
+  unidad: Total
+  periodo_id: NA
+  poblacion_id: NA
+  valor: '200'
+  valor_origen: '200'
+  componentes:
+  - Tabla 12, fila 1 'Amazonía', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 2 'Caribe', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 3 'Orinoquía', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 4 'Tumaco', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 5 'Medellín', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 6 'Bogotá', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 7 'Palmira', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 8 'Manizales', col 'Compromiso nuevos cupos'
+  - Tabla 12, fila 9 'La Paz', col 'Compromiso nuevos cupos'
+- ubicacion: Tabla 4, fila 1 '2023', col 'Compromiso cupos'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: compromiso
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '1818'
+  valor_origen: '1818'
+  componentes: []
+- ubicacion: Tabla 4, fila 1 '2023', col 'Matriculados totales'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2025-1
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '1161'
+  valor_origen: '1161'
+  componentes: []
+- ubicacion: Tabla 4, fila 1 '2023', col 'Rezago'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: rezago
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: NA
+  poblacion_id: PROYECTOS_APROBADOS
+  valor: '657'
+  valor_origen: '657'
+  componentes: []
+- ubicacion: Tabla 5, fila 1 '2024-1S', col 'Aumento Matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: aumento_matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2024-1
+  poblacion_id: MATRICULA_GLOBAL
+  valor: '365'
+  valor_origen: '365'
+  componentes: []
+- ubicacion: Tabla 5, fila 2 '2024-2S', col 'Aumento Matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: aumento_matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2024-2
+  poblacion_id: MATRICULA_GLOBAL
+  valor: '114'
+  valor_origen: '114'
+  componentes: []
+- ubicacion: Tabla 5, fila 3 '2025-1S', col 'Aumento Matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: aumento_matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2025-1
+  poblacion_id: MATRICULA_GLOBAL
+  valor: '-681'
+  valor_origen: '-681'
+  componentes: []
+- ubicacion: Tabla 5, fila 4 '2025-2s', col 'Aumento Matriculados'
+  nota: null
+  tipo: declaracion
+  tipo_declaracion: TRANSCRIPCION
+  medida_id: aumento_matriculados
+  ciclo_id: PIC_CO_2023
+  unidad: UNAL_TOTAL
+  periodo_id: 2025-2
+  poblacion_id: MATRICULA_GLOBAL
+  valor: '-487'
+  valor_origen: '-487'
+  componentes: []
+- ubicacion: Tabla 3, fila 1 'AMAZONÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 258
+- ubicacion: Tabla 3, fila 1 'AMAZONÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 3, fila 2 'AMAZONÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 32
+- ubicacion: Tabla 3, fila 2 'AMAZONÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 3, fila 3 'BOGOTÁ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 38
+- ubicacion: Tabla 3, fila 3 'BOGOTÁ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 58
+- ubicacion: Tabla 3, fila 4 'BOGOTÁ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 35
+- ubicacion: Tabla 3, fila 4 'BOGOTÁ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 21
+- ubicacion: Tabla 3, fila 5 'CARIBE', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: CARIBE
+  periodo_id: NA
+  cuartil_id: C1
+  via_id: PEAMA
+  estudiantes: 135
+- ubicacion: Tabla 3, fila 5 'CARIBE', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: CARIBE
+  periodo_id: NA
+  cuartil_id: C1
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 3, fila 6 'LA PAZ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 3
+- ubicacion: Tabla 3, fila 6 'LA PAZ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 4
+- ubicacion: Tabla 3, fila 7 'LA PAZ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 18
+- ubicacion: Tabla 3, fila 7 'LA PAZ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 2
+- ubicacion: Tabla 3, fila 8 'MANIZALES', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 18
+- ubicacion: Tabla 3, fila 8 'MANIZALES', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 20
+- ubicacion: Tabla 3, fila 9 'MANIZALES', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 7
+- ubicacion: Tabla 3, fila 9 'MANIZALES', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 8
+- ubicacion: Tabla 3, fila 10 'MEDELLÍN', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 61
+- ubicacion: Tabla 3, fila 10 'MEDELLÍN', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 80
+- ubicacion: Tabla 3, fila 11 'MEDELLÍN', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 90
+- ubicacion: Tabla 3, fila 11 'MEDELLÍN', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 56
+- ubicacion: Tabla 3, fila 12 'ORINOQUÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 41
+- ubicacion: Tabla 3, fila 12 'ORINOQUÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 3, fila 13 'ORINOQUÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 13
+- ubicacion: Tabla 3, fila 13 'ORINOQUÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 3, fila 14 'PALMIRA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 19
+- ubicacion: Tabla 3, fila 14 'PALMIRA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 23
+- ubicacion: Tabla 3, fila 15 'PALMIRA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 31
+- ubicacion: Tabla 3, fila 15 'PALMIRA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 8
+- ubicacion: Tabla 3, fila 16 'TUMACO', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 216
+- ubicacion: Tabla 3, fila 16 'TUMACO', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 3, fila 17 'TUMACO', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 51
+- ubicacion: Tabla 3, fila 17 'TUMACO', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2023
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 8, fila 1 'AMAZONÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 76
+- ubicacion: Tabla 8, fila 1 'AMAZONÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 8, fila 2 'AMAZONÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 12
+- ubicacion: Tabla 8, fila 2 'AMAZONÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: AMAZONÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 8, fila 3 'BOGOTÁ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 137
+- ubicacion: Tabla 8, fila 3 'BOGOTÁ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 69
+- ubicacion: Tabla 8, fila 4 'BOGOTÁ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 91
+- ubicacion: Tabla 8, fila 4 'BOGOTÁ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: BOGOTÁ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 17
+- ubicacion: Tabla 8, fila 5 'CARIBE', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: CARIBE
+  periodo_id: NA
+  cuartil_id: C1
+  via_id: PEAMA
+  estudiantes: 78
+- ubicacion: Tabla 8, fila 5 'CARIBE', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: CARIBE
+  periodo_id: NA
+  cuartil_id: C1
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 8, fila 6 'LA PAZ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 20
+- ubicacion: Tabla 8, fila 6 'LA PAZ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 34
+- ubicacion: Tabla 8, fila 7 'LA PAZ', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 32
+- ubicacion: Tabla 8, fila 7 'LA PAZ', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: LA PAZ
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 3
+- ubicacion: Tabla 8, fila 8 'MANIZALES', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 29
+- ubicacion: Tabla 8, fila 8 'MANIZALES', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 16
+- ubicacion: Tabla 8, fila 9 'MANIZALES', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 19
+- ubicacion: Tabla 8, fila 9 'MANIZALES', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MANIZALES
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 4
+- ubicacion: Tabla 8, fila 10 'MEDELLÍN', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 129
+- ubicacion: Tabla 8, fila 10 'MEDELLÍN', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 66
+- ubicacion: Tabla 8, fila 11 'MEDELLÍN', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 125
+- ubicacion: Tabla 8, fila 11 'MEDELLÍN', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: MEDELLÍN
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 46
+- ubicacion: Tabla 8, fila 12 'ORINOQUÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 21
+- ubicacion: Tabla 8, fila 12 'ORINOQUÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 8, fila 13 'ORINOQUÍA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 2
+- ubicacion: Tabla 8, fila 13 'ORINOQUÍA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: ORINOQUÍA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 8, fila 14 'PALMIRA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 44
+- ubicacion: Tabla 8, fila 14 'PALMIRA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 9
+- ubicacion: Tabla 8, fila 15 'PALMIRA', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 33
+- ubicacion: Tabla 8, fila 15 'PALMIRA', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: PALMIRA
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 11
+- ubicacion: Tabla 8, fila 16 'TUMACO', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: PEAMA
+  estudiantes: 107
+- ubicacion: Tabla 8, fila 16 'TUMACO', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C3
+  via_id: REGULAR
+  estudiantes: 1
+- ubicacion: Tabla 8, fila 17 'TUMACO', col 'Estudiantes de programas especiales que provienen de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: PEAMA
+  estudiantes: 31
+- ubicacion: Tabla 8, fila 17 'TUMACO', col 'Estudiantes regulares de estos municipios'
+  nota: null
+  tipo: cobertura_territorial
+  ciclo_id: PIC_CO_2024
+  unidad: TUMACO
+  periodo_id: NA
+  cuartil_id: C4
+  via_id: REGULAR
+  estudiantes: 0
+- ubicacion: Tabla 9, fila 2 'Contratación de Docentes para Ampliación de Cobertura', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2024|T09|02
+  ciclo_id: PIC_CO_2024
+  rubro_id: PRE_DOC_CONTRATACION
+  unidad: UNAL_TOTAL
+  concepto: '27'
+  cantidad: '27'
+  monto: '6058800000'
+  monto_origen: $6.058.800.000
+- ubicacion: Tabla 9, fila 3 'Contratación de Personal Administrativo para Ampliación de Cobertura', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2024|T09|03
+  ciclo_id: PIC_CO_2024
+  rubro_id: PRE_ADM_CONTRATACION
+  unidad: UNAL_TOTAL
+  concepto: '9'
+  cantidad: '9'
+  monto: '939600000'
+  monto_origen: $939.600.000
+- ubicacion: Tabla 9, fila 5 'Apoyos Socioeconómicos', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2024|T09|05
+  ciclo_id: PIC_CO_2024
+  rubro_id: PRE_APOYOS
+  unidad: UNAL_TOTAL
+  concepto: Bolsa
+  cantidad: null
+  monto: '2050189558'
+  monto_origen: $2.050.189.558
+- ubicacion: Tabla 9, fila 6 'Promoción de la salud integral y autocuidado', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2024|T09|06
+  ciclo_id: PIC_CO_2024
+  rubro_id: PRE_SALUD
+  unidad: UNAL_TOTAL
+  concepto: Bolsa
+  cantidad: null
+  monto: '512547390'
+  monto_origen: $512.547.390
+- ubicacion: Tabla 11, fila 2 'Sostenimiento de Docentes para la Ampliación de Cobertura', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2025|T11|02
+  ciclo_id: PIC_CO_2025
+  rubro_id: PRE_DOC_SOSTENIMIENTO
+  unidad: UNAL_TOTAL
+  concepto: '18'
+  cantidad: '18'
+  monto: '4039200000'
+  monto_origen: $4.039.200.000
+- ubicacion: Tabla 11, fila 3 'Financiación de Personal Administrativo para sostener la ampliación de cobertura', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2025|T11|03
+  ciclo_id: PIC_CO_2025
+  rubro_id: PRE_ADM_FINANCIACION
+  unidad: UNAL_TOTAL
+  concepto: '9'
+  cantidad: '9'
+  monto: '939600000'
+  monto_origen: $939.600.000
+- ubicacion: Tabla 11, fila 5 'Apoyos Socioeconómicos', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2025|T11|05
+  ciclo_id: PIC_CO_2025
+  rubro_id: PRE_APOYOS
+  unidad: UNAL_TOTAL
+  concepto: Bolsa
+  cantidad: null
+  monto: '2012869290'
+  monto_origen: 2.012.869.290
+- ubicacion: Tabla 11, fila 6 'Promoción de la salud integral y autocuidado', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_CO_2025|T11|06
+  ciclo_id: PIC_CO_2025
+  rubro_id: PRE_SALUD
+  unidad: UNAL_TOTAL
+  concepto: Bolsa
+  cantidad: null
+  monto: '503217323'
+  monto_origen: 503.217.323
+- ubicacion: Tabla 14, fila 2 'Nivelación Académica y Desarrollo de Competencias para el Tránsito', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_ET_2026|T14|02
+  ciclo_id: PIC_ET_2026
+  rubro_id: V25_NIVELACION
+  unidad: UNAL_TOTAL
+  concepto: '18 Talento humano para ampliación de cobertura: Docentes especializados en matemáticas, lenguaje, ciencias; Asesores pedagógicos.'
+  cantidad: '18'
+  monto: '1918800000'
+  monto_origen: $1.918.800.000
+- ubicacion: Tabla 14, fila 3 'Nivelación Académica y Desarrollo de Competencias para el Tránsito', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_ET_2026|T14|03
+  ciclo_id: PIC_ET_2026
+  rubro_id: V25_NIVELACION
+  unidad: UNAL_TOTAL
+  concepto: 'Bolsa Se atenderán cerca de 300 estudiantes. Recursos pedagógicos: Libros, guías y material didáctico'
+  cantidad: null
+  monto: '610851317'
+  monto_origen: $ 610.851.317
+- ubicacion: Tabla 14, fila 4 'Nivelación Académica y Desarrollo de Competencias para el Tránsito', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_ET_2026|T14|04
+  ciclo_id: PIC_ET_2026
+  rubro_id: V25_NIVELACION
+  unidad: UNAL_TOTAL
+  concepto: 'Máximo 6 jornadas por territorio Costos administrativos y logísticos: Jornadas académicas territoriales'
+  cantidad: null
+  monto: '400000000'
+  monto_origen: $ 400.000.000
+- ubicacion: Tabla 14, fila 5 'Orientación Socio-Ocupacional', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_ET_2026|T14|05
+  ciclo_id: PIC_ET_2026
+  rubro_id: V25_ORIENTACION
+  unidad: UNAL_TOTAL
+  concepto: 3 Talento humano para ampliación de cobertura
+  cantidad: '3'
+  monto: '313200000'
+  monto_origen: $313.200.000
+- ubicacion: Tabla 14, fila 7 'Sostenimiento de Personal Administrativo para sostener la ampliación de cobertura con enfoque territorial', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_ET_2026|T14|07
+  ciclo_id: PIC_ET_2026
+  rubro_id: V25_ADM_TERRITORIAL
+  unidad: UNAL_TOTAL
+  concepto: '36 Talento humano para ampliación de cobertura: Coordinadores Académicos'
+  cantidad: '36'
+  monto: '4286473344'
+  monto_origen: $ 4.286.473.344
+- ubicacion: Tabla 14, fila 8 'Sostenimiento de Personal Administrativo para sostener la ampliación de cobertura con enfoque territorial', col 'Valor'
+  nota: null
+  tipo: presupuesto_rubro
+  presupuesto_id: PIC_ET_2026|T14|08
+  ciclo_id: PIC_ET_2026
+  rubro_id: V25_ADM_TERRITORIAL
+  unidad: UNAL_TOTAL
+  concepto: '7 Talento humano para ampliación de cobertura: Administrativos, seguimiento.'
+  cantidad: '7'
+  monto: '1008000000'
+  monto_origen: $ 1.008.000.000

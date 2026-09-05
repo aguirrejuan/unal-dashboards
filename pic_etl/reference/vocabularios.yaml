@@ -1,0 +1,116 @@
+# Controlled vocabularies. P4: every categorical is a declared dimension with a
+# foreign key, so a typo fails the load (L6) instead of quietly removing a
+# figure from every view.
+
+tipo_unidad:
+  - {tipo_unidad_id: UNIVERSIDAD,     nombre: Universidad}
+  - {tipo_unidad_id: SEDE,            nombre: Sede}
+  - {tipo_unidad_id: FACULTAD,        nombre: Facultad}
+  - {tipo_unidad_id: UNIDAD_DOCENCIA, nombre: Unidad de docencia}
+
+grupo_sede:
+  - {grupo_sede_id: SPN,    nombre: Sede de Presencia Nacional}
+  - {grupo_sede_id: ANDINA, nombre: Sede andina}
+  - {grupo_sede_id: OTRA,   nombre: Otra}
+
+estado_ciclo:
+  - {estado_ciclo_id: FORMULADO,   nombre: Formulado}
+  - {estado_ciclo_id: APROBADO,    nombre: Aprobado}
+  - {estado_ciclo_id: EN_EJECUCION, nombre: En ejecución}
+  - {estado_ciclo_id: CERRADO,     nombre: Cerrado}
+  - {estado_ciclo_id: NO_APLICA,   nombre: No aplica}
+
+definicion_medida:
+  - {definicion_medida_id: PRIMERA_MATRICULA,  nombre: Primera matrícula}
+  - {definicion_medida_id: MATRICULA_GLOBAL,   nombre: Matrícula global}
+  - {definicion_medida_id: MATRICULA_EFECTIVA, nombre: Matrícula efectiva}
+  - {definicion_medida_id: PRIMER_CURSO_SNIES, nombre: Primer curso (SNIES)}
+  - {definicion_medida_id: ADMITIDOS,          nombre: Admitidos}
+  - {definicion_medida_id: NO_APLICA,          nombre: No aplica}
+
+tipo_documento:
+  - {tipo_documento_id: RESOLUCION, nombre: Resolución}
+  - {tipo_documento_id: ACUERDO,    nombre: Acuerdo}
+  - {tipo_documento_id: ANEXO,      nombre: Anexo}
+  - {tipo_documento_id: INFORME,    nombre: Informe}
+  - {tipo_documento_id: OFICIO,     nombre: Oficio}
+  - {tipo_documento_id: ORDEN,      nombre: Orden}
+  - {tipo_documento_id: SENTENCIA,  nombre: Sentencia}
+
+emisor:
+  - {emisor_id: MEN,           nombre: Ministerio de Educación Nacional}
+  - {emisor_id: MINHACIENDA,   nombre: Ministerio de Hacienda y Crédito Público}
+  - {emisor_id: UNAL_CSU,      nombre: Consejo Superior Universitario}
+  - {emisor_id: UNAL_RECTORIA, nombre: Rectoría}
+  - {emisor_id: UNAL_PLANEACION, nombre: Dirección Nacional de Planeación (UNAL)}
+  - {emisor_id: CORTE_CONSTITUCIONAL, nombre: Corte Constitucional}
+
+estado_documento:
+  - {estado_documento_id: EN_CORPUS,       nombre: En el corpus}
+  - {estado_documento_id: CITADO,          nombre: Citado, no disponible}
+  - {estado_documento_id: NUNCA_PRODUCIDO, nombre: Nunca producido}
+
+soporte:
+  - {soporte_id: TEXTO,      nombre: Texto digital}
+  - {soporte_id: ESCANEO,    nombre: Escaneo sin capa de texto}
+  - {soporte_id: TRANSCRITO, nombre: Escaneo transcrito}
+
+direccion_radicado:
+  - {direccion_radicado_id: ENTRADA, nombre: Entrada}
+  - {direccion_radicado_id: SALIDA,  nombre: Salida}
+
+generacion_rubro:
+  - {generacion_rubro_id: PRE_2025, nombre: Líneas anteriores a 2025}
+  - {generacion_rubro_id: V2025,    nombre: Líneas 2025}
+
+confianza_mapeo:
+  - {confianza_mapeo_id: EXACTA,  nombre: Equivalencia exacta}
+  - {confianza_mapeo_id: PARCIAL, nombre: Equivalencia parcial}
+
+tipo_flujo:
+  - {tipo_flujo_id: ADICION_BASE_RECURRENTE, nombre: Adición a la base recurrente}
+  - {tipo_flujo_id: POR_UNA_VEZ,             nombre: Por una vez}
+  - {tipo_flujo_id: VIGENCIA_FUTURA,         nombre: Vigencia futura}
+  - {tipo_flujo_id: SALDO,                   nombre: Saldo de vigencias anteriores}
+  - {tipo_flujo_id: INDEXACION,              nombre: Indexación}
+  - {tipo_flujo_id: OTRA,                    nombre: Otra fuente}
+
+momento_presupuestal:
+  - {momento_presupuestal_id: ASIGNADO,     nombre: Asignado}
+  - {momento_presupuestal_id: INCORPORADO,  nombre: Incorporado}
+  - {momento_presupuestal_id: COMPROMETIDO, nombre: Comprometido}
+  - {momento_presupuestal_id: GIRADO,       nombre: Girado}
+
+estado_etapa:
+  - {estado_etapa_id: PENDIENTE,    nombre: Pendiente}
+  - {estado_etapa_id: EN_CURSO,     nombre: En curso}
+  - {estado_etapa_id: CUMPLIDA,     nombre: Cumplida}
+  - {estado_etapa_id: SIN_EVIDENCIA, nombre: Sin evidencia documental}
+
+tipo_cargo:
+  - {tipo_cargo_id: DOCENTE_ETC,   nombre: Docente (equivalente tiempo completo)}
+  - {tipo_cargo_id: DOCENTE_PLANTA, nombre: Docente de planta}
+  - {tipo_cargo_id: ADMINISTRATIVO, nombre: Administrativo}
+
+tipo_declaracion:
+  - {tipo_declaracion_id: TRANSCRIPCION, nombre: Transcripción}
+  - {tipo_declaracion_id: AGREGADO,      nombre: Agregado}
+
+# There is no global "correct" value. UNAL's reading and MEN's are both held,
+# complete and internally consistent, and rendered side by side.
+vista:
+  - {vista_id: UNAL,    nombre: Lectura de la Universidad Nacional}
+  - {vista_id: MEN,     nombre: Lectura del Ministerio}
+  - {vista_id: AUDITOR, nombre: Lectura de control}
+
+etapa:
+  - {etapa_id: E01_ASIGNACION,   nombre: Asignación,               orden: 1,  actor: MEN + MinHacienda DGPPN}
+  - {etapa_id: E02_EJECUCION_PPTAL, nombre: Ejecución presupuestal, orden: 2,  actor: MinHacienda / UNAL}
+  - {etapa_id: E03_FORMULACION,  nombre: Formulación,              orden: 3,  actor: UNAL → MEN}
+  - {etapa_id: E04_REVISION,     nombre: Revisión · mesa técnica,   orden: 4,  actor: MEN ↔ UNAL}
+  - {etapa_id: E05_AUTORIZACION, nombre: Autorización interna,      orden: 5,  actor: CNF → CNCA → CSU}
+  - {etapa_id: E06_CONVOCATORIA, nombre: Convocatoria,              orden: 6,  actor: DNA + sedes}
+  - {etapa_id: E07_VINCULACION,  nombre: Vinculación docente,       orden: 7,  actor: sedes}
+  - {etapa_id: E08_MATRICULA,    nombre: Matrícula,                 orden: 8,  actor: sedes}
+  - {etapa_id: E09_REPORTE,      nombre: Reporte,                   orden: 9,  actor: UNAL → MEN}
+  - {etapa_id: E10_CONTROL,      nombre: Control,                   orden: 10, actor: Contraloría / supervisión}

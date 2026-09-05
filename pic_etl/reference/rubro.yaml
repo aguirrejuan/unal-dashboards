@@ -1,0 +1,46 @@
+# Spending lines, in two generations that nobody has bridged.
+#
+# V7: the corpus uses two rubro vocabularies with no crosswalk between them, and
+# a third for Área del Conocimiento. `rubro_mapping` is therefore **empty** and
+# stays empty until someone curates it. Under I10 that makes a cross-generation
+# query return nothing, which is the correct answer — an empty result is honest;
+# a joined one would be invented.
+
+rubro:
+  # --- pre-2025, as Anexo 1 T09/T11 write them -----------------------------
+  - {rubro_id: PRE_DOCENTES, generacion: PRE_2025, nivel: LINEA, padre_id: null,
+     nombre: Docentes y talento humano para sostenimiento de la ampliación de cobertura}
+  - {rubro_id: PRE_BIENESTAR, generacion: PRE_2025, nivel: LINEA, padre_id: null,
+     nombre: Estrategias de bienestar y permanencia estudiantil}
+  - {rubro_id: PRE_DOC_CONTRATACION, generacion: PRE_2025, nivel: SUBLINEA, padre_id: PRE_DOCENTES,
+     nombre: Contratación de Docentes para Ampliación de Cobertura}
+  - {rubro_id: PRE_DOC_SOSTENIMIENTO, generacion: PRE_2025, nivel: SUBLINEA, padre_id: PRE_DOCENTES,
+     nombre: Sostenimiento de Docentes para la Ampliación de Cobertura}
+  - {rubro_id: PRE_ADM_CONTRATACION, generacion: PRE_2025, nivel: SUBLINEA, padre_id: PRE_DOCENTES,
+     nombre: Contratación de Personal Administrativo para Ampliación de Cobertura}
+  - {rubro_id: PRE_ADM_FINANCIACION, generacion: PRE_2025, nivel: SUBLINEA, padre_id: PRE_DOCENTES,
+     nombre: Financiación de Personal Administrativo para sostener la ampliación de cobertura}
+  - {rubro_id: PRE_APOYOS, generacion: PRE_2025, nivel: SUBLINEA, padre_id: PRE_BIENESTAR,
+     nombre: Apoyos Socioeconómicos}
+  - {rubro_id: PRE_SALUD, generacion: PRE_2025, nivel: SUBLINEA, padre_id: PRE_BIENESTAR,
+     nombre: Promoción de la salud integral y autocuidado}
+
+  # --- 2025 lines, as Anexo 1 T14 and Anexo 2 col H write them --------------
+  - {rubro_id: V25_LE1, generacion: V2025, nivel: LINEA, padre_id: null,
+     nombre: "Línea Estratégica 1: Resignificación y Articulación con la Educación Media para el Tránsito Inmediato a la Educación Superior"}
+  - {rubro_id: V25_LE5, generacion: V2025, nivel: LINEA, padre_id: null,
+     nombre: "Línea Estratégica 5: Docentes y Talento Humano para el Sostenimiento Territorial de la Ampliación de Cobertura PIC-ET"}
+  - {rubro_id: V25_NIVELACION, generacion: V2025, nivel: SUBLINEA, padre_id: V25_LE1,
+     nombre: Nivelación Académica y Desarrollo de Competencias para el Tránsito}
+  - {rubro_id: V25_ORIENTACION, generacion: V2025, nivel: SUBLINEA, padre_id: V25_LE1,
+     nombre: Orientación Socio-Ocupacional}
+  - {rubro_id: V25_ADM_TERRITORIAL, generacion: V2025, nivel: SUBLINEA, padre_id: V25_LE5,
+     nombre: Sostenimiento de Personal Administrativo para sostener la ampliación de cobertura con enfoque territorial}
+  # E14: Anexo 2 stamps this on all nine projects, while Anexo 1 T9 spends the
+  # same money on Docentes and Bienestar. `mapeable: false` keeps it out of any
+  # crosswalk rather than letting a naive JOIN reconcile the contradiction.
+  - {rubro_id: V25_AMPLIACION_TERRITORIAL, generacion: V2025, nivel: LINEA, padre_id: null,
+     nombre: Ampliación_Territorial, mapeable: false}
+
+# Intentionally empty. See I10.
+rubro_mapping: []

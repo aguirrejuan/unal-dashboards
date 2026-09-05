@@ -1,0 +1,63 @@
+# Programmes and cycles.
+#
+# A cycle is labelled by its formulation year and never by its result year. PIC
+# 2023 executes in 2024-1, 2024-2 and 2025-1; PIC 2025 does not begin until
+# 2026-2. Conflating the two is the single most common misreading of this
+# corpus, which is why `ciclo` and `periodo` are separate dimensions and money
+# carries a third, `vigencia`.
+
+programa:
+  - {programa_id: PIC_CO, nombre: PIC Convencional,
+     instrumento: Ley 2294/2023 art. 124, contraparte: Sedes de la UNAL}
+  - {programa_id: PIC_ET, nombre: PIC con Enfoque Territorial,
+     instrumento: Acuerdo 011/2025 (PTIUN), contraparte: Secretarías de educación e IE}
+
+ciclo:
+  - {ciclo_id: TODOS, programa_id: PIC_CO, anio_formulacion: 0,
+     periodo_ejec_desde: NA, periodo_ejec_hasta: NA, estado: NO_APLICA}
+  - {ciclo_id: PIC_CO_2023, programa_id: PIC_CO, anio_formulacion: 2023,
+     periodo_ejec_desde: 2024-1, periodo_ejec_hasta: 2025-1, estado: EN_EJECUCION}
+  - {ciclo_id: PIC_CO_2024, programa_id: PIC_CO, anio_formulacion: 2024,
+     periodo_ejec_desde: 2025-2, periodo_ejec_hasta: 2026-1, estado: EN_EJECUCION}
+  - {ciclo_id: PIC_CO_2025, programa_id: PIC_CO, anio_formulacion: 2025,
+     periodo_ejec_desde: 2026-2, periodo_ejec_hasta: 2027-1, estado: APROBADO}
+  - {ciclo_id: PIC_CO_2026, programa_id: PIC_CO, anio_formulacion: 2026,
+     periodo_ejec_desde: 2027-2, periodo_ejec_hasta: 2028-1, estado: FORMULADO}
+  - {ciclo_id: PIC_ET_2025, programa_id: PIC_ET, anio_formulacion: 2025,
+     periodo_ejec_desde: 2026-2, periodo_ejec_hasta: 2027-1, estado: APROBADO}
+  - {ciclo_id: PIC_ET_2026, programa_id: PIC_ET, anio_formulacion: 2026,
+     periodo_ejec_desde: 2027-2, periodo_ejec_hasta: 2028-1, estado: FORMULADO}
+
+via_admision:
+  - {via_id: REGULAR, nombre: Admisión regular, programa_id: PIC_CO}
+  - {via_id: PEAMA,   nombre: PEAMA,            programa_id: PIC_CO}
+  - {via_id: PAET,    nombre: PAET,             programa_id: PIC_CO}
+  - {via_id: PTIUN,   nombre: PTIUN,            programa_id: PIC_ET}
+
+cuartil_prioridad:
+  # Notations transcribed verbatim from Anexo 1 T03/T08 — note the first band
+  # opens with a square bracket while the others do not; that is how the source
+  # writes it, and P1 says transcribe rather than tidy.
+  - {cuartil_id: C1, notacion: "[0.287,0.586]", limite_inf: 0.287, limite_sup: 0.586, observado: true}
+  # V4: this band appears in no document. A dimension member with no facts is
+  # not a measured zero, and a LEFT JOIN renders both as 0 — hence `observado`,
+  # so a chart can style "sin observaciones" distinctly.
+  - {cuartil_id: C2, notacion: "(0.586,0.649]", limite_inf: 0.586, limite_sup: 0.649, observado: false}
+  - {cuartil_id: C3, notacion: "(0.649,0.711]", limite_inf: 0.649, limite_sup: 0.711, observado: true}
+  - {cuartil_id: C4, notacion: "(0.711,0.985]", limite_inf: 0.711, limite_sup: 0.985, observado: true}
+
+fuente_financiacion:
+  - {fuente_id: BASE_2025,   nombre: Recursos aumento base presupuestal 2025,
+     tipo_flujo: ADICION_BASE_RECURRENTE, columna_xlsx: N}
+  - {fuente_id: SALDOS,      nombre: Saldos de vigencias anteriores,
+     tipo_flujo: SALDO,      columna_xlsx: O}
+  - {fuente_id: INDEXACION,  nombre: Recursos indexación 2023-2024,
+     tipo_flujo: INDEXACION, columna_xlsx: P}
+  - {fuente_id: MATRICULA,   nombre: Derechos de matrícula (gratuidad),
+     tipo_flujo: OTRA,       columna_xlsx: Q}
+  - {fuente_id: PROPIOS,     nombre: Recursos propios de la IES,
+     tipo_flujo: OTRA,       columna_xlsx: R}
+  - {fuente_id: OTRAS,       nombre: Otras fuentes,
+     tipo_flujo: OTRA,       columna_xlsx: S}
+  - {fuente_id: SUMA_FUENTES, nombre: Suma de las fuentes del proyecto,
+     tipo_flujo: OTRA,       columna_xlsx: T}

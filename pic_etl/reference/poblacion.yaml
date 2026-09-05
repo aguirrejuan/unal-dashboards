@@ -1,0 +1,26 @@
+# Population is a dimension, not a sentence.
+#
+# The question that explains 1 161 vs 1 043 — "which figures include La Paz?" —
+# is a boolean column here. In v1 it needed LIKE '%La Paz%' over drifting prose.
+
+poblacion:
+  - {poblacion_id: NA, etiqueta_corta: (no aplica), definicion: NO_APLICA,
+     incluye_la_paz: false, alcance_proyecto: null, orden: 0}
+  - {poblacion_id: PROYECTOS_APROBADOS, etiqueta_corta: 8 proyectos aprobados,
+     definicion: PRIMERA_MATRICULA, incluye_la_paz: false,
+     alcance_proyecto: 8 proyectos aprobados, orden: 1}
+  - {poblacion_id: CONSOLIDADO_LA_PAZ, etiqueta_corta: consolidado incl. La Paz,
+     definicion: PRIMERA_MATRICULA, incluye_la_paz: true,
+     alcance_proyecto: consolidado, orden: 2}
+  - {poblacion_id: MATRICULA_GLOBAL, etiqueta_corta: matrícula global,
+     definicion: MATRICULA_GLOBAL, incluye_la_paz: true,
+     alcance_proyecto: consolidado, orden: 3}
+  - {poblacion_id: MATRICULA_EFECTIVA, etiqueta_corta: matrícula efectiva,
+     definicion: MATRICULA_EFECTIVA, incluye_la_paz: true,
+     alcance_proyecto: consolidado, orden: 4}
+  - {poblacion_id: SNIES_PRIMER_CURSO, etiqueta_corta: primer curso (SNIES),
+     definicion: PRIMER_CURSO_SNIES, incluye_la_paz: true,
+     alcance_proyecto: consolidado, orden: 5}
+  - {poblacion_id: ADMITIDOS, etiqueta_corta: admitidos,
+     definicion: ADMITIDOS, incluye_la_paz: true,
+     alcance_proyecto: consolidado, orden: 6}
