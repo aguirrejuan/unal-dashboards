@@ -79,15 +79,26 @@
   </footer>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.2/plotly.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.35.3/plotly.min.js"></script>
 <script src="datos.js"></script>
 <script src="comun.js"></script>
 <script>
 const D = CARGA.datos;
+
+// A CDN that 404s leaves Plotly undefined and the page dies at its first chart,
+// showing nothing and explaining nothing. Say what happened.
+if (!window.Plotly) {
+  document.querySelectorAll('.grafico').forEach(el => {
+    el.innerHTML = '<p class="nota aviso" style="margin:0">No se pudo cargar la ' +
+      'librería de gráficos desde el CDN. Las cifras y la procedencia siguen ' +
+      'disponibles en <a href="procedencia.html">Procedencia</a> y ' +
+      '<a href="consulta.html">Consulta</a>.</p>';
+  });
+  window.Plotly = {newPlot(){}};
+}
 $('sello').textContent = 'Actualizado el ' + CARGA.generado + '.';
 
 /* ------------------------------------------------------------------- KPIs */
-const agg = (m, c) => D.v_declaracion ? null : null;
 const decl = (medida, ciclo, unidad='UNAL_TOTAL') =>
   D.v_procedencia.filter(f => f.medida===medida && f.unidad_id===unidad &&
                               (!ciclo || f.ciclo_id===ciclo));
