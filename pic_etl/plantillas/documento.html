@@ -19,15 +19,16 @@
 </style>
 </head>
 <body>
+<!--ICONOS-->
 
 <div class="barra"><div class="caja">
-  <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
+  <a class="marca-sitio" href="index.html"><!--ESCUDO-->Plan Integral de Cobertura <span>· UNAL</span></a>
   <nav class="nav">
-    <a href="index.html">Panorama</a>
-    <a href="proceso.html">Proceso</a>
-    <a href="procedencia.html">Procedencia</a>
-    <a href="esquema.html">Esquema</a>
-    <a href="consulta.html">Consulta</a>
+    <a href="index.html"><svg class="ico" aria-hidden="true"><use href="#ico-panorama"/></svg>Panorama</a>
+    <a href="proceso.html"><svg class="ico" aria-hidden="true"><use href="#ico-proceso"/></svg>Proceso</a>
+    <a href="procedencia.html"><svg class="ico" aria-hidden="true"><use href="#ico-procedencia"/></svg>Procedencia</a>
+    <a href="esquema.html"><svg class="ico" aria-hidden="true"><use href="#ico-esquema"/></svg>Esquema</a>
+    <a href="consulta.html"><svg class="ico" aria-hidden="true"><use href="#ico-consulta"/></svg>Consulta</a>
   </nav>
 </div></div>
 
@@ -81,7 +82,7 @@ if (!doc) {
                   PENDIENTE:'pendiente', PENDIENTE_VISION:'requiere visión',
                   AUSENTE:'citado, no disponible'};
   $('ficha').innerHTML = [
-    ['Tipo', esc(doc.tipo.toLowerCase())],
+    ['Tipo', icoTipo(doc.tipo) + esc(doc.tipo.toLowerCase())],
     ['Emisor', esc(doc.emisor || '—')],
     ['Fecha', doc.fecha ? esc(doc.fecha) : 'no se fecha a sí mismo'],
     ['Soporte', esc((doc.soporte || '—').toLowerCase())],

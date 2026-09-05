@@ -103,6 +103,13 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
     for recurso in ("estilo.css", "comun.js"):
         shutil.copy2(PLANTILLAS / recurso, destino / recurso)
 
+    # The escudo, if a person has been given the right to publish it. Nothing
+    # here fabricates the mark: the slot stays empty and the masthead falls back
+    # to type, which is what the page has always shown.
+    marca = PLANTILLAS / "marca"
+    if marca.is_dir():
+        shutil.copytree(marca, destino / "marca", dirs_exist_ok=True)
+
     shutil.copy2(db, destino / "pic.sqlite")
     corpus_destino = destino / "corpus"
     if corpus_destino.exists():
@@ -118,7 +125,26 @@ def publicar(engine: Engine, destino: Path, *, corpus: Path, fuentes: Path,
 
 
 def _leer_plantilla(nombre: str) -> str:
-    return (PLANTILLAS / nombre).read_text(encoding="utf-8")
+    """The page, with the icon sprite inlined.
+
+    Inlined rather than fetched: an icon in the navigation that arrives after
+    the first paint is a flicker, and one sprite per page costs less than a
+    request that blocks it.
+    """
+    html = (PLANTILLAS / nombre).read_text(encoding="utf-8")
+    sprite = (PLANTILLAS / "iconos.svg").read_text(encoding="utf-8")
+    # Drop the guidance comment from what ships; it belongs in the repository.
+    cuerpo = sprite[sprite.index("<svg "):]
+    html = html.replace("<!--ICONOS-->", cuerpo.strip())
+
+    # The escudo is emitted only when the file is present. An `onerror` handler
+    # would hide it just as well, but it would also put a 404 in every visitor's
+    # console for a mark the site was never given.
+    escudo = PLANTILLAS / "marca" / "escudo.svg"
+    return html.replace(
+        "<!--ESCUDO-->",
+        '<img class="escudo" src="marca/escudo.svg" alt="Universidad Nacional '
+        'de Colombia">' if escudo.exists() else "")
 
 
 # The layers of docs/pic-data-model-v2.md, so the schema page groups tables the

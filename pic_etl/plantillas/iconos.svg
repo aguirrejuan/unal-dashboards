@@ -1,0 +1,91 @@
+<!-- Iconografía institucional, construida según la Guía Web B5 de la Universidad
+     Nacional (https://identidad.unal.edu.co/guia-web/b-directrices-y-especificaciones/b5-iconografia/):
+
+       · retícula de 32 × 32 píxeles
+       · sólo líneas, sin rellenos
+       · trazo de 1 píxel
+       · composición asimétrica: el elemento más representativo carga hacia un lado
+
+     El conjunto oficial vive en plantillasweb.unal.edu.co y no fue alcanzable
+     desde aquí, así que estos se construyeron sobre la retícula en lugar de
+     copiarse. La guía pide que todo ícono nuevo se envíe a la Oficina de Medios
+     Digitales para su aprobación antes de sumarse a la colección.
+
+     La guía especifica líneas blancas, porque en las plantillas de la
+     Universidad los íconos se asientan sobre el verde institucional. Aquí van
+     sobre panel blanco, así que heredan el color del texto; la construcción no
+     cambia. `vector-effect="non-scaling-stroke"` mantiene el trazo en 1 píxel
+     exacto a cualquier tamaño, que es lo que la retícula pide. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+ <symbol id="ico-panorama" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M4 27h24"/><path d="M4 27V5"/>
+   <rect x="7" y="17" width="4" height="10"/>
+   <rect x="13" y="11" width="4" height="16"/>
+   <rect x="19" y="20" width="4" height="7"/>
+   <rect x="25" y="8" width="4" height="19"/></g></symbol>
+
+ <symbol id="ico-proceso" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <rect x="2" y="12" width="8" height="8"/>
+   <rect x="22" y="4" width="8" height="7"/>
+   <rect x="22" y="21" width="8" height="7"/>
+   <path d="M10 16h6V7.5h5"/><path d="M16 16v8.5h5"/>
+   <path d="m19 5.5 2.5 2-2.5 2z" fill="currentColor" stroke="none"/>
+   <path d="m19 22.5 2.5 2-2.5 2z" fill="currentColor" stroke="none"/></g></symbol>
+
+ <symbol id="ico-procedencia" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M5 4h14l5 5v19H5z"/><path d="M19 4v5h5"/>
+   <rect x="8" y="14" width="7" height="5"/>
+   <path d="M8 22h13M8 25h9"/></g></symbol>
+
+ <symbol id="ico-esquema" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <rect x="2" y="4" width="12" height="12"/><path d="M2 8h12M2 12h12"/>
+   <rect x="17" y="18" width="13" height="10"/><path d="M17 22h13"/>
+   <path d="M8 16v7h9"/><circle cx="8" cy="23" r="1.2"/></g></symbol>
+
+ <symbol id="ico-consulta" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <ellipse cx="13" cy="8" rx="9" ry="4"/>
+   <path d="M4 8v8c0 2.2 4 4 9 4s9-1.8 9-4V8"/>
+   <path d="M4 16v8c0 2.2 4 4 9 4"/>
+   <path d="m21 21 4 4"/><circle cx="24" cy="19" r="4"/></g></symbol>
+
+ <!-- tipos de documento -->
+ <symbol id="ico-acuerdo" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M6 3h13l6 6v20H6z"/><path d="M19 3v6h6"/>
+   <path d="M10 20h9"/><circle cx="12" cy="14" r="3"/></g></symbol>
+
+ <symbol id="ico-resolucion" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M6 3h13l6 6v20H6z"/><path d="M19 3v6h6"/>
+   <path d="M10 15h6M10 19h11M10 23h8"/></g></symbol>
+
+ <symbol id="ico-anexo" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <rect x="4" y="6" width="18" height="20"/>
+   <path d="M4 12h18M10 12v14"/><path d="M22 10h6v20h-6"/></g></symbol>
+
+ <symbol id="ico-informe" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M6 3h13l6 6v20H6z"/><path d="M19 3v6h6"/>
+   <path d="M10 24v-6M14 24v-9M18 24v-4"/></g></symbol>
+
+ <symbol id="ico-oficio" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <rect x="3" y="8" width="26" height="17"/>
+   <path d="m3 8 13 10L29 8"/></g></symbol>
+
+ <symbol id="ico-sentencia" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M13 4v24M6 28h14"/><path d="M4 11h18"/>
+   <path d="m4 11-3 7h6zM22 11l-3 7h6z"/></g></symbol>
+
+ <symbol id="ico-orden" viewBox="0 0 32 32"><g fill="none" stroke="currentColor"
+   stroke-width="1" vector-effect="non-scaling-stroke">
+   <path d="M6 3h13l6 6v20H6z"/><path d="M19 3v6h6"/>
+   <path d="m10 18 3 3 6-7"/></g></symbol>
+</svg>

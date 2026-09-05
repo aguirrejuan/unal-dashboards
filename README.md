@@ -90,9 +90,19 @@ Cinco páginas sobre el mismo `pic.sqlite`, más un visor por documento. Sigue l
 [guía de identidad visual de la Universidad
 Nacional](https://identidad.unal.edu.co/guia-identidad-visual/): la paleta es la
 oficial de 2016 —Pantone 376 C, 187 C y los cuatro complementarios— y la
-tipografía prefiere Ancízar cuando el lector la tiene instalada. No lleva escudo
-ni logosímbolo: son marcas registradas y su uso institucional requiere aval de
-Unimedios.
+tipografía prefiere Ancízar cuando el lector la tiene instalada. Los íconos
+siguen la retícula de la Guía Web B5 —32 × 32 píxeles, sólo líneas, trazo de 1
+píxel, composición asimétrica—; el conjunto oficial vive en
+`plantillasweb.unal.edu.co` y no fue alcanzable, así que estos se construyeron
+sobre la retícula en lugar de copiarse, y la guía pide enviarlos a Unimedios
+para su aprobación.
+
+No lleva escudo ni logosímbolo. Son marcas registradas ante la SIC, reservadas a
+las dependencias de la Universidad y con aval previo de Unimedios. La cabecera
+tiene el hueco listo: si esa autorización existe, basta poner el archivo en
+`pic_etl/plantillas/marca/escudo.svg` y `publish` lo lleva al sitio. Mientras no
+esté, la cabecera se resuelve con tipografía y no se pide el archivo, para no
+dejar un 404 en la consola de cada visitante.
 
 | | |
 |---|---|

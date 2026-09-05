@@ -30,15 +30,16 @@
 </style>
 </head>
 <body>
+<!--ICONOS-->
 
 <div class="barra"><div class="caja">
-  <div class="marca-sitio">Plan Integral de Cobertura <span>· UNAL</span></div>
+  <a class="marca-sitio" href="index.html"><!--ESCUDO-->Plan Integral de Cobertura <span>· UNAL</span></a>
   <nav class="nav">
-    <a href="index.html">Panorama</a>
-    <a href="proceso.html">Proceso</a>
-    <a href="procedencia.html" aria-current="page">Procedencia</a>
-    <a href="esquema.html">Esquema</a>
-    <a href="consulta.html">Consulta</a>
+    <a href="index.html"><svg class="ico" aria-hidden="true"><use href="#ico-panorama"/></svg>Panorama</a>
+    <a href="proceso.html"><svg class="ico" aria-hidden="true"><use href="#ico-proceso"/></svg>Proceso</a>
+    <a href="procedencia.html" aria-current="page"><svg class="ico" aria-hidden="true"><use href="#ico-procedencia"/></svg>Procedencia</a>
+    <a href="esquema.html"><svg class="ico" aria-hidden="true"><use href="#ico-esquema"/></svg>Esquema</a>
+    <a href="consulta.html"><svg class="ico" aria-hidden="true"><use href="#ico-consulta"/></svg>Consulta</a>
   </nav>
 </div></div>
 
@@ -196,7 +197,7 @@ const etiqueta = {PROCESADO:['ok','procesado'], SIN_CIFRAS:['pend','leído · si
 tabla($('corpus'), [
   {t:'Documento', r:d=>`<b>${enlaceDocId(d.documento_id, d.titulo)}</b><br>
       <span class="cita">${esc(d.documento_id)}</span>`},
-  {t:'Tipo', k:'tipo'},
+  {t:'Tipo', r:d=>`${icoTipo(d.tipo)}${esc(d.tipo)}`},
   {t:'Emisor', k:'emisor'},
   {t:'Soporte', r:d=>d.soporte
       ? `<span class="pill ${d.soporte==='TRANSCRITO'?'medio':'pend'}">${esc(d.soporte.toLowerCase())}</span>`

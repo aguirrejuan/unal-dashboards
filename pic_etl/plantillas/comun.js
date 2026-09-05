@@ -243,3 +243,15 @@ const conAyuda = (texto, html, etiqueta = '') => texto
   ? `<span class="ayuda" data-ayuda="${esc(texto)}" tabindex="0">${html}${
       etiqueta ? '<i class="signo">?</i>' : ''}</span>`
   : html;
+
+/** An institutional icon, by name. See `iconos.svg` for the construction rules. */
+const ico = (nombre, clase = 'ico') =>
+  `<svg class="${clase}" aria-hidden="true"><use href="#ico-${nombre}"/></svg>`;
+
+/** The icon for a document type. Seven types read faster as marks than as
+    uppercase words repeated down a column. Anything unmapped gets no icon
+    rather than a wrong one. */
+const TIPO_ICONO = {ACUERDO:'acuerdo', RESOLUCION:'resolucion', ANEXO:'anexo',
+                    INFORME:'informe', OFICIO:'oficio', SENTENCIA:'sentencia',
+                    ORDEN:'orden'};
+const icoTipo = tipo => TIPO_ICONO[tipo] ? ico(TIPO_ICONO[tipo], 'ico ico-tipo') : '';

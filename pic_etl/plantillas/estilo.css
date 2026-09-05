@@ -64,14 +64,26 @@ body{
 }
 .marca-sitio{
   font-family:var(--tipo-titulo); font-weight:600; letter-spacing:-.005em;
-  font-size:15.5px; white-space:nowrap;
+  font-size:15.5px; white-space:nowrap; color:inherit; text-decoration:none;
+  display:inline-flex; align-items:center; gap:11px;
 }
+.marca-sitio .escudo{height:30px; width:auto; display:block}
 .marca-sitio span{color:var(--tenue); font-weight:450}
 .nav{display:flex; gap:2px; margin-left:auto}
 .nav a{
   color:var(--tenue); text-decoration:none; font-size:14px; font-weight:520;
   padding:7px 13px; border-radius:7px; white-space:nowrap;
+  display:inline-flex; align-items:center; gap:7px;
 }
+
+/* Guía Web B5: 32 × 32 grid, 1 px stroke, no fills. `non-scaling-stroke` keeps
+   the line at exactly one device pixel at any rendered size, which is what a
+   grid measured in pixels actually asks for. */
+.ico{width:17px; height:17px; flex:none; overflow:visible}
+@media(max-width:900px){.nav a .ico{display:none}}
+.ico-tipo{width:15px; height:15px; margin-right:7px; vertical-align:-3px;
+          color:var(--tenue)}
+.ficha .ico-tipo{color:var(--acento)}
 .nav a:hover{background:var(--panel-alt); color:var(--tinta)}
 .nav a[aria-current]{background:var(--acento-tenue); color:var(--acento); font-weight:600}
 
