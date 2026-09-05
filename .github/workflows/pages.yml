@@ -25,6 +25,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The twelve Acuerdos are PDFs with a text layer, read with pdftotext.
+      # The .doc reports need nothing extra: their tables are recovered from the
+      # raw OLE stream, so no macOS-only converter is involved.
+      - name: Instalar poppler-utils
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
       - name: Instalar uv
         uses: astral-sh/setup-uv@v5
         with:

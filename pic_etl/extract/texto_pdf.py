@@ -34,10 +34,16 @@ def _limpiar(texto: str) -> str:
 
 def paginas(ruta: Path) -> list[str]:
     """Page text, chrome removed, 1-indexed by list position + 1."""
-    salida = subprocess.run(
-        ["pdftotext", "-layout", str(ruta), "-"],
-        capture_output=True, text=True, check=True,
-    ).stdout
+    try:
+        salida = subprocess.run(
+            ["pdftotext", "-layout", str(ruta), "-"],
+            capture_output=True, text=True, check=True,
+        ).stdout
+    except FileNotFoundError as exc:      # noqa: PERF203
+        raise SystemExit(
+            "falta `pdftotext`: instale poppler-utils "
+            "(`brew install poppler` / `apt-get install poppler-utils`)"
+        ) from exc
     return [_limpiar(p) for p in salida.split("\f")]
 
 
