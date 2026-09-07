@@ -194,8 +194,52 @@ def test_sin_clave_el_comando_explica_en_vez_de_reventar(monkeypatch, capsys):
     here suggests something is broken when there is only something to set."""
     from pic_etl import cli
 
+    # Sin clave *en ninguna parte*: ni en el entorno ni en un .env del
+    # repositorio, que ahora también se lee.
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.setattr(grafo, "_cargar_env", lambda raiz=None: None)
     with pytest.raises(SystemExit) as salida:
         cli.main(["transcribe", "--documento", "RES_MEN_016468_2025", "--paginas", "2"])
     assert "ANTHROPIC_API_KEY" in str(salida.value)
     assert "build" in str(salida.value), "debe decir qué sigue funcionando sin red"
+
+
+def test_los_errores_de_la_api_llegan_en_una_linea():
+    """The API's errors travel through LangGraph and surface as thirty lines of
+    framework frames. What a reader needs is the sentence the API sent and the
+    page it died on — the traceback says nothing they can act on."""
+    from langchain_core.language_models.fake_chat_models import FakeListChatModel  # noqa: F401
+
+    class Rota:
+        def invoke(self, _):
+            raise RuntimeError(
+                "Error code: 400 - {'type': 'error', 'error': {'type': "
+                "'invalid_request_error', 'message': 'Your credit balance is "
+                "too low to access the Anthropic API.'}}")
+
+    if not PDF.exists():
+        pytest.skip("corpus ausente")
+    with pytest.raises(RuntimeError) as exc:
+        grafo.transcribir_documento("RES_MEN_016468_2025", PDF, SHA,
+                                    titulo="x", tipo="RESOLUCION",
+                                    paginas_=[2], modelo=Rota())
+    assert "p.2" in str(exc.value), "debe decir en qué página murió"
+    assert "saldo" in str(exc.value), "debe traducir el motivo"
+    assert "Traceback" not in str(exc.value)
+
+
+def test_la_clave_puede_venir_de_un_archivo_env(tmp_path, monkeypatch):
+    """A key in `.env` should work without exporting it, and an exported one
+    should win over the file — otherwise a shell override is a trap."""
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    (tmp_path / ".env").write_text(
+        '# comentario\nANTHROPIC_API_KEY = "sk-ant-del-archivo"\n', encoding="utf-8")
+    grafo._cargar_env(tmp_path)
+    import os
+
+    assert os.environ["ANTHROPIC_API_KEY"] == "sk-ant-del-archivo"
+
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-del-entorno")
+    grafo._cargar_env(tmp_path)
+    assert os.environ["ANTHROPIC_API_KEY"] == "sk-ant-del-entorno", \
+        "el entorno debe ganarle al archivo"

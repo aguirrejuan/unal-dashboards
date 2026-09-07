@@ -68,7 +68,7 @@ modelo, y una red.
 
 ```bash
 uv sync --extra llm
-export ANTHROPIC_API_KEY=...
+cp .env.example .env      # y ponga la clave dentro; .env está en .gitignore
 
 uv run pic-etl transcribe --documento RES_MEN_016202_2023 --paginas 2,3
 uv run pic-etl review     RES_MEN_016202_2023      # diff cifra a cifra

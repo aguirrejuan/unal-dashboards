@@ -8,6 +8,12 @@ build/*
 # Redundant with extracted/
 PIC-Información-*.zip
 
+# Credenciales. El repositorio es público: una clave commiteada queda en el
+# historial aunque se borre después, y hay que rotarla, no sólo quitarla.
+.env
+.env.*
+!.env.example
+
 # Python
 __pycache__/
 *.py[cod]

@@ -83,11 +83,31 @@ class Contexto:
     imagenes: dict[int, paginas.Pagina] = field(default_factory=dict)
 
 
+def _cargar_env(raiz: Path | None = None) -> None:
+    """Read `.env` from the repository root into the environment.
+
+    Without a dependency: the file holds one credential and `python-dotenv`
+    would be a package for four lines. An existing environment variable wins —
+    exporting one should override a file, not the other way round.
+    """
+    archivo = (raiz or Path(__file__).resolve().parents[3]) / ".env"
+    if not archivo.exists():
+        return
+    for linea in archivo.read_text(encoding="utf-8").splitlines():
+        linea = linea.strip()
+        if not linea or linea.startswith("#") or "=" not in linea:
+            continue
+        clave, valor = linea.split("=", 1)
+        os.environ.setdefault(clave.strip(), valor.strip().strip("\"'"))
+
+
 def _modelo(nombre: str = MODELO, temperatura: float = 0.0):
+    _cargar_env()
     if not os.environ.get("ANTHROPIC_API_KEY"):
         raise RuntimeError(
-            "falta ANTHROPIC_API_KEY. La transcripción es el único paso que "
-            "necesita red; `build`, `verify` y `publish` no."
+            "falta ANTHROPIC_API_KEY: no está en el entorno ni en .env. La "
+            "transcripción es el único paso que necesita red; `build`, "
+            "`verify` y `publish` no."
         )
     from langchain_anthropic import ChatAnthropic
 
@@ -122,12 +142,43 @@ def transcribir(estado: Estado, ctx: Contexto) -> dict:
             f"Esta es la página {pagina}. Usa exactamente «p.{pagina}» al "
             f"empezar cada `ubicacion`.{aviso}")},
     ]}
-    lote: Lote = ctx.modelo.invoke([mensaje])
+    try:
+        lote: Lote = ctx.modelo.invoke([mensaje])
+    except Exception as exc:                                  # noqa: BLE001
+        # The API's own errors travel through LangGraph and come out as thirty
+        # lines of framework frames. What the reader needs is the sentence the
+        # API sent and which page it died on.
+        raise RuntimeError(f"p.{pagina}: {_motivo(exc)}") from None
     return {"pagina": pagina,
             "borrador": [f.model_dump(mode="json") for f in lote.filas],
             "omitido": [f"p.{pagina}: {o}" for o in lote.omitido],
             "diario": [f"p.{pagina}: {len(lote.filas)} filas, "
                        f"{len(lote.omitido)} omitidas"]}
+
+
+_MOTIVOS = (
+    ("credit balance is too low",
+     "la cuenta no tiene saldo. Cargue créditos en Plans & Billing."),
+    ("invalid x-api-key",
+     "la clave no es válida. Revise ANTHROPIC_API_KEY en .env."),
+    ("rate_limit",
+     "límite de peticiones alcanzado. Espere y reintente, o transcriba menos "
+     "páginas por vez con --paginas."),
+    ("overloaded",
+     "la API está saturada en este momento. Reintente."),
+)
+
+
+def _motivo(exc: Exception) -> str:
+    """The API's sentence, not the framework's stack."""
+    texto = str(exc)
+    for aguja, explicacion in _MOTIVOS:
+        if aguja in texto:
+            return explicacion
+    import re
+
+    mensaje = re.search(r"'message': '([^']+)'", texto)
+    return mensaje[1] if mensaje else texto.splitlines()[0][:200]
 
 
 def validar(estado: Estado) -> dict:
