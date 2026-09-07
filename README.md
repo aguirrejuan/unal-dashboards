@@ -40,12 +40,22 @@ sabe que hubo un modelo.
 
 ```bash
 uv sync --extra dev
+uv run pic-etl todo        # extract + build + verify + publish, sin red
+
+# o paso a paso
 uv run pic-etl extract     # corpus      → extractions/*.yaml  (revisar antes de confirmar)
 uv run pic-etl build       # extractions → build/pic.sqlite
 uv run pic-etl verify      # invariantes I1-I15 + re-transcripción contra las fuentes
 uv run pic-etl publish     # vistas      → site/
 uv run pytest
 ```
+
+`todo` corre la cadena entera y **se detiene en el primer fallo**: si `verify`
+no pasa, no publica. Al final nombra lo que espera a una persona —una propuesta
+sin promover, un escaneo sin transcribir—, porque el silencio se leería como
+que no falta nada. No incluye `transcribe`: ese paso necesita red, cuesta
+dinero y su salida espera revisión, así que `todo` corre desatendido en una
+máquina sin credenciales.
 
 `verify` vuelve a abrir el `.docx` y el `.xlsx` y comprueba que cada cifra
 sigue coincidiendo con su celda. El despliegue está condicionado a que pase.

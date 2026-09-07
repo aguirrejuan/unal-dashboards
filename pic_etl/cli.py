@@ -353,6 +353,46 @@ def cmd_promote(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_todo(args: argparse.Namespace) -> int:
+    """The whole deterministic chain, in order, stopping at the first failure.
+
+    Deliberately not including `transcribe`: it needs a network, it costs money,
+    and its output waits for a person. Everything here is a pure function of
+    files in git, so this command can run unattended — in CI, on a timer, on a
+    machine with no credentials at all. What it will not do is quietly promote a
+    model's reading into the database, and the summary at the end names anything
+    still waiting for a human.
+    """
+    for nombre, comando in (("extract", cmd_extract), ("build", cmd_build),
+                            ("verify", cmd_verify), ("publish", cmd_publish)):
+        print(f"\n== {nombre}")
+        codigo = comando(args)
+        if codigo:
+            print(f"\n  `{nombre}` falló; la cadena se detiene aquí.")
+            return codigo
+
+    print("\n== pendiente de una persona")
+    propuestas = sorted((EXTRACCIONES / "propuestas").glob("*.yaml")) \
+        if (EXTRACCIONES / "propuestas").is_dir() else []
+    for ruta in propuestas:
+        if not ruta.name.endswith(".acta.yaml"):
+            print(f"  propuesta sin promover: {ruta.stem.upper()}"
+                  f"  ·  `pic-etl review {ruta.stem.upper()}`")
+
+    sin_transcribir = [
+        d["documento_id"] for d in _registro()["documento"]
+        if d.get("soporte") == "TRANSCRITO"
+        and not (EXTRACCIONES / f"{d['documento_id'].lower()}.yaml").exists()
+    ]
+    for documento in sin_transcribir:
+        print(f"  escaneo sin transcripción: {documento}"
+              f"  ·  `pic-etl transcribe --documento {documento}`")
+
+    if not propuestas and not sin_transcribir:
+        print("  nada: el corpus está completo y revisado")
+    return 0
+
+
 def cmd_verify(args: argparse.Namespace) -> int:
     from pic_etl.verify.invariants import ejecutar
 
@@ -375,6 +415,9 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("verify", help="invariantes I1-I15 y re-transcripción")
     sub.add_parser("snapshots", help="tablas fuente -> build/fuentes/ (sin tocar extractions/)")
     sub.add_parser("publish", help="vistas -> site/ estático para GitHub Pages")
+    t0 = sub.add_parser("todo",
+                        help="extract + build + verify + publish, sin red")
+    t0.add_argument("--incremental", action="store_true", help=argparse.SUPPRESS)
 
     t = sub.add_parser("transcribe",
                        help="escaneo -> propuesta revisable (usa un modelo de visión)")
@@ -398,6 +441,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "transcribe" and not (args.documento or args.archivo):
         raise SystemExit("indique --documento o --archivo")
     return {"extract": cmd_extract, "build": cmd_build, "snapshots": cmd_snapshots,
+            "todo": cmd_todo,
             "verify": cmd_verify, "publish": cmd_publish,
             "transcribe": cmd_transcribe, "review": cmd_review,
             "promote": cmd_promote}[args.cmd](args)
