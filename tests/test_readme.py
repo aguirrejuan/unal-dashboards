@@ -96,11 +96,32 @@ def test_lo_que_el_readme_promete_del_sitio_existe(texto):
 
 
 def test_los_comandos_del_readme_existen(texto):
+    """Every `pic-etl <cmd>` the README names must be a real subcommand.
+
+    The list comes from argparse, not from a literal here: a hand-kept copy is
+    the same thing the README is — something that rots quietly — and this test
+    already failed once for that reason rather than for a real error.
+    """
+    import argparse
+
     from pic_etl.cli import main
 
-    ordenes = set(re.findall(r"pic-etl (\w+)", texto))
-    with pytest.raises(SystemExit):
-        main(["--help"])
-    conocidos = {"extract", "build", "verify", "publish", "snapshots",
-                 "transcribe", "review", "promote"}
-    assert ordenes <= conocidos, f"el README inventa órdenes: {ordenes - conocidos}"
+    conocidos: set[str] = set()
+    original = argparse.ArgumentParser.parse_args
+
+    def espiar(self, args=None, namespace=None):
+        for accion in self._subparsers._group_actions if self._subparsers else []:
+            conocidos.update(accion.choices)
+        raise SystemExit(0)
+
+    argparse.ArgumentParser.parse_args = espiar
+    try:
+        with pytest.raises(SystemExit):
+            main([])
+    finally:
+        argparse.ArgumentParser.parse_args = original
+
+    assert conocidos, "no se pudieron leer los subcomandos"
+    nombrados = set(re.findall(r"pic-etl (\w+)", texto))
+    assert nombrados <= conocidos, \
+        f"el README nombra órdenes que no existen: {nombrados - conocidos}"
