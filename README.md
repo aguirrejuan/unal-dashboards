@@ -82,7 +82,16 @@ Promover es un acto aparte. Un archivo que aún no esté en el registro entra co
 `--archivo RUTA --id ID --tipo TIPO --emisor EMISOR --titulo TITULO
 --registrar`.
 
-Sin el extra `llm`, todo lo demás sigue corriendo sin red.
+Sin el extra `llm`, todo lo demás sigue corriendo sin red. Sin la clave,
+`transcribe` lo dice y se detiene; los otros cuatro comandos no la miran.
+
+**Este paso no se ha ejecutado nunca contra la API.** El grafo está cubierto por
+diez pruebas con un modelo de mentira —incluida una que recorre transcribe →
+propuesta → promoción → carga y comprueba que la fila llegue a `asignacion` con
+su literal y su cita—, pero la llamada al modelo sigue sin comprobarse. Las
+cinco transcripciones de escaneos que ya están en `extractions/` se leyeron a
+mano y se comprometieron como YAML; `pic-etl extract` no las regenera, y
+`transcribe` es la automatización de ese mismo trabajo, todavía sin estrenar.
 
 ## El tablero
 

@@ -187,3 +187,15 @@ def test_el_acta_deja_reproducible_la_transcripcion(tmp_path, monkeypatch):
     assert guardada["modelo"] and len(guardada["prompt_sha256"]) == 64
     assert guardada["paginas"] == [2] and guardada["dpi"] == 200
     assert "generado" in guardada
+
+
+def test_sin_clave_el_comando_explica_en_vez_de_reventar(monkeypatch, capsys):
+    """Missing credentials is an expected condition, not a crash. A traceback
+    here suggests something is broken when there is only something to set."""
+    from pic_etl import cli
+
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    with pytest.raises(SystemExit) as salida:
+        cli.main(["transcribe", "--documento", "RES_MEN_016468_2025", "--paginas", "2"])
+    assert "ANTHROPIC_API_KEY" in str(salida.value)
+    assert "build" in str(salida.value), "debe decir qué sigue funcionando sin red"

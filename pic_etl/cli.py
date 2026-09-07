@@ -285,8 +285,14 @@ def cmd_transcribe(args: argparse.Namespace) -> int:
     numeros = ([int(n) for n in args.paginas.split(",")] if args.paginas else None)
     print(f"  {documento_id}  {ruta.name}")
 
-    extraccion, acta = grafo.transcribir_documento(
-        documento_id, ruta, sha, titulo=titulo, tipo=tipo, paginas_=numeros)
+    try:
+        extraccion, acta = grafo.transcribir_documento(
+            documento_id, ruta, sha, titulo=titulo, tipo=tipo, paginas_=numeros)
+    except RuntimeError as exc:
+        # Falta la clave o falta poppler: condiciones esperadas, no fallos del
+        # programa. Un traceback aquí sugiere un error donde sólo hay algo por
+        # instalar.
+        raise SystemExit(f"  {exc}") from None
     destino, acta_ruta = revision.escribir(extraccion, acta)
 
     for linea in acta["diario"]:
