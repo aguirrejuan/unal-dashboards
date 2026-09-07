@@ -6,10 +6,14 @@ invariant still passed. This is the test that would have caught it.
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from sqlalchemy import func, select
 
 from pic_etl.load.loader import cargar_extracciones, cargar_referencia
 from pic_etl.schema import tables as T
+
+RAIZ = Path(__file__).resolve().parent.parent
 
 
 def _conteos(engine):
@@ -41,28 +45,28 @@ def test_extracciones_son_idempotentes(poblado, extracciones):
     assert _conteos(poblado) == primera
 
 
-def test_dos_construcciones_producen_el_mismo_archivo(tmp_path, extracciones):
-    """Byte for byte, not just row for row.
+def test_dos_construcciones_producen_el_mismo_archivo(tmp_path):
+    """Byte for byte, and — this is the part that matters — across processes.
 
-    `Table.indexes` is a set, so `create_all` once emitted two `CREATE INDEX`
-    statements in whatever order it happened to iterate. The data was identical
-    and the file was not — which is enough to make every rebuild a fresh 748 KB
-    blob in git, and enough to weaken a claim of determinism that is otherwise
-    true. The database is committed, so this has to hold.
+    `Table.indexes` is a set whose iteration order follows object identity, so
+    it is stable within one interpreter and varies between them. An in-process
+    version of this test passed while `pic-etl build` was still producing a
+    different file on every invocation: it could not see the bug it was written
+    for. Two subprocesses can.
     """
     import hashlib
+    import subprocess
+    import sys
 
-    from pic_etl.load.loader import cargar_extracciones, cargar_referencia, materializar_grano
-    from pic_etl.schema.dialect import crear_engine, crear_esquema
-
-    def construir(destino):
-        engine = crear_engine(destino, recrear=True)
-        crear_esquema(engine)
-        with engine.begin() as conn:
-            cargar_referencia(conn)
-            cargar_extracciones(conn, extracciones)
-            materializar_grano(conn)
-        engine.dispose()
-        return hashlib.sha256(destino.read_bytes()).hexdigest()
-
-    assert construir(tmp_path / "a.sqlite") == construir(tmp_path / "b.sqlite")
+    guion = (
+        "from pic_etl.cli import main; import sys; "
+        "sys.exit(main(['--out', sys.argv[1], 'build']))"
+    )
+    huellas = []
+    for nombre in ("a.sqlite", "b.sqlite"):
+        destino = tmp_path / nombre
+        salida = subprocess.run([sys.executable, "-c", guion, str(destino)],
+                                capture_output=True, text=True, cwd=RAIZ)
+        assert salida.returncode == 0, salida.stderr[-2000:]
+        huellas.append(hashlib.sha256(destino.read_bytes()).hexdigest())
+    assert huellas[0] == huellas[1], "dos construcciones dan archivos distintos"

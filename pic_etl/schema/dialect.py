@@ -42,15 +42,30 @@ def crear_esquema(engine: Engine) -> None:
     """Create every table, then its indexes in name order, then the views.
 
     `Table.indexes` is a set, so `create_all` emits index DDL in whatever order
-    the set happens to iterate. The data is unaffected, but the file is not: two
-    builds of the same corpus produced databases differing in the order of two
-    `CREATE INDEX` statements. That is enough to make every rebuild a fresh blob
-    in git, and enough to weaken a claim of determinism that is otherwise true.
+    that set happens to iterate — and for objects, that order follows identity,
+    which changes between processes. The data is unaffected; the file is not.
+    SQLite stores each `CREATE INDEX` in `sqlite_master` in creation order, so
+    two builds of the same corpus produced databases differing in the position
+    of two lines. The database is committed to the repository, so every rebuild
+    would be a fresh 748 KB blob in git for no change at all.
+
+    Detaching the indexes before `create_all` is the only way to stop it
+    emitting them: `Table.create` always includes its own. They are put back
+    immediately, because `metadata` is module-level and shared.
     """
-    metadata.create_all(engine, checkfirst=True)
+    guardados = {t: sorted(t.indexes, key=lambda i: i.name or "")
+                 for t in metadata.sorted_tables if t.indexes}
+    for tabla in guardados:
+        tabla.indexes.clear()
+    try:
+        metadata.create_all(engine)
+    finally:
+        for tabla, indices in guardados.items():
+            tabla.indexes.update(indices)
+
     with engine.begin() as conn:
-        for tabla in metadata.sorted_tables:
-            for indice in sorted(tabla.indexes, key=lambda i: i.name or ""):
+        for indices in guardados.values():
+            for indice in indices:
                 indice.create(conn, checkfirst=True)
     _crear_vistas(engine)
 
