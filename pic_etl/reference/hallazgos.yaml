@@ -257,12 +257,15 @@ hallazgo:
   clase: DIVERGENCIA
   titulo: Matrícula de 1 161 frente a 1 043
   detalle: >-
-    1 161 cubre los ocho proyectos aprobados y excluye La Paz; 1 043 es el
-    consolidado que el informe presenta al Ministerio. Ambas son ciertas: la
-    dimensión poblacion las separa con incluye_la_paz en lugar de elegir una.
+    Las dos son ciertas y la diferencia es la ventana, no la sede. 1 161 es la
+    columna «Matriculados entre 2024-1s y 2025-1s» de la Tabla 2; 1 043 es la
+    fila «PIC 2023 (Ejecutado en 2024)» del §3, que cuenta sólo 2024. Los 118
+    de diferencia entraron en 2025-1.
+    Hasta 2026-09-08 este registro atribuía la diferencia a La Paz, y no es así:
+    La Paz declara 0 en 2025-2 y 40 en 2026-1, ambos fuera de la ventana, de modo
+    que incluirla no cambia el 1 161. Ver D9.
   impacto: ALTO
   documento_id: ANEXO1_PIC
-  ubicacion: Tabla 2
   ubicacion: Tabla 2 / §3
   estado: VERIFICADO
   verificacion: >-
@@ -272,11 +275,11 @@ hallazgo:
   clase: DIVERGENCIA
   titulo: Compromiso de 1 818 frente a 1 836
   detalle: >-
-    1 836 = 1 818 + los 18 de La Paz, que el Anexo 1 no incluye en sus tablas 1
-    y 2 y el informe sí. v1 lo clasificaba como error.
+    1 836 = 1 818 + los 18 de La Paz. No es que el Anexo omita una sede: es que
+    los dos documentos asignan esos 18 cupos a ciclos distintos. Ver D9.
+    v1 lo clasificaba como error.
   impacto: MEDIO
   documento_id: ANEXO1_PIC
-  ubicacion: Tabla 1
   ubicacion: Tabla 1 / §6
   estado: VERIFICADO
   verificacion: >-
@@ -369,6 +372,29 @@ hallazgo:
     FROM asignacion GROUP BY unidad_id
 
 # -------------------------------------------------------------- COLISIONES (5)
+
+- hallazgo_id: D9
+  clase: DIVERGENCIA
+  titulo: Los 18 cupos de La Paz cuelgan de ciclos distintos en cada documento
+  detalle: >-
+    El Anexo 1 los atribuye al PIC 2024: Tabla 6 los rotula «Cupos proyectados
+    para PIC 2024» y Tabla 7 «Compromiso nuevos cupos». El Informe al MEN los
+    cuenta dentro del PIC 2023, en la fila 9 del §6, y por eso su total es 1 836
+    y no 1 818. La Tabla 2 del Anexo, que es el ciclo 2023, lista ocho sedes y
+    suma exactamente 1 161 sin La Paz.
+    De ahí que el corpus parezca «incluir o excluir» a La Paz cuando lo que
+    discute es a qué ciclo pertenece su primer compromiso. La consecuencia
+    práctica: el cumplimiento del PIC 2023 se mide sobre 1 818 o sobre 1 836
+    según el documento, y la sede aporta 0 matriculados en la ventana de ese
+    ciclo en cualquiera de los dos casos.
+  impacto: MEDIO
+  documento_id: INFORME_MEN_2024_2025
+  ubicacion: §6, fila 9 'La Paz' / Tabla 6, fila 9
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT ciclo_id, documento_id, ubicacion FROM declaracion
+    WHERE unidad_id = 'LA_PAZ' AND medida_id = 'compromiso'
+      AND CAST(valor AS REAL) = 18
 
 - hallazgo_id: C1
   clase: COLISION

@@ -57,3 +57,38 @@ def test_las_cifras_del_registro_siguen_siendo_ciertas(construido, hallazgo, esp
         sql = c.execute(text("SELECT verificacion FROM hallazgo WHERE hallazgo_id = :h"),
                         {"h": hallazgo}).scalar()
         assert c.execute(text(sql)).scalar() == esperado
+
+
+def test_ningun_yaml_de_referencia_repite_una_clave():
+    """PyYAML keeps the last of a duplicated key and discards the rest, without a
+    word. Two findings carried `ubicacion` twice and lost the first silently —
+    harmless there, and exactly how a curated fact disappears unnoticed."""
+    import yaml as _yaml
+    from pathlib import Path
+
+    class Estricto(_yaml.SafeLoader):
+        pass
+
+    def sin_duplicados(loader, node, deep=False):
+        vistas, salida = set(), {}
+        for k, v in node.value:
+            clave = loader.construct_object(k, deep=deep)
+            if clave in vistas:
+                raise _yaml.constructor.ConstructorError(
+                    None, None, f"clave repetida: {clave!r}", k.start_mark)
+            vistas.add(clave)
+            salida[clave] = loader.construct_object(v, deep=deep)
+        return salida
+
+    Estricto.add_constructor(
+        _yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, sin_duplicados)
+
+    raiz = Path(__file__).resolve().parent.parent
+    archivos = sorted((raiz / "pic_etl" / "reference").glob("*.yaml")) + \
+        sorted((raiz / "extractions").glob("*.yaml"))
+    assert archivos
+    for ruta in archivos:
+        try:
+            _yaml.load(ruta.read_text(encoding="utf-8"), Loader=Estricto)
+        except _yaml.constructor.ConstructorError as exc:
+            raise AssertionError(f"{ruta.name}: {exc}") from None

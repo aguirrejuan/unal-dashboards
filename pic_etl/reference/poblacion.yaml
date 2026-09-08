@@ -1,7 +1,13 @@
 # Population is a dimension, not a sentence.
 #
-# The question that explains 1 161 vs 1 043 — "which figures include La Paz?" —
-# is a boolean column here. In v1 it needed LIKE '%La Paz%' over drifting prose.
+# "Which figures include La Paz?" is a boolean column here; in v1 it needed
+# LIKE '%La Paz%' over drifting prose.
+#
+# It does not explain 1 161 vs 1 043, though the member below is named as if it
+# did. That gap is a period — 1 161 spans 2024-1 to 2025-1, 1 043 counts 2024 —
+# and La Paz contributes nothing to either, because its PIC 2023 enrolment falls
+# in 2025-2 and 2026-1. See D1 and D9. The id stays: renaming it would rewrite
+# 102 committed rows to fix a comment, and the comment is what was wrong.
 
 poblacion:
   - {poblacion_id: NA, etiqueta_corta: (no aplica), definicion: NO_APLICA,
