@@ -70,6 +70,7 @@
     <div class="panel">
       <h2 style="margin-top:0">Cobertura territorial por cuartil <i class="signo" data-ayuda="Los municipios se ordenan por un índice de prioridad y se parten en cuatro. El cuartil más alto reúne los municipios de mayor prioridad." tabindex="0">?</i></h2>
       <div id="cuartil" class="grafico"></div>
+      <p class="nota" style="margin-top:12px" id="cuartil-nota"></p>
     </div>
   </div>
 
@@ -312,16 +313,38 @@ Plotly.newPlot('dinero', [{
             margin:{t:26}}));
 
 /* ------------------------------------------------------- cobertura cuartil */
-const cob = {};
-D.v_procedencia.filter(f=>f.medida==='estudiantes_cuartil').forEach(()=>{});
-const cuartiles = CARGA.cuartiles || [];
-Plotly.newPlot('cuartil', ['PEAMA','REGULAR'].map((via,i)=>({
-  type:'bar', name:via, x:cuartiles.map(c=>c.notacion),
-  y:cuartiles.map(c=>c[via.toLowerCase()]||0), marker:{color:PALETA[i]},
-  hovertemplate:'%{x} · '+via+': %{y:,}<extra></extra>',
-})), layout({barmode:'stack', height:320, legend:{orientation:'h', y:1.14, x:0},
-             xaxis:{title:{text:'cuartil del índice de prioridad'}},
-             yaxis:{title:{text:'estudiantes'}}}));
+// Dos cohortes, no una: la Tabla 3 del Anexo reporta el PIC 2023 y la Tabla 8 el
+// PIC 2024, con las mismas columnas y cifras distintas. Sumarlas en una sola
+// barra presentaba el total como si fuera una medición.
+const CU = CARGA.cuartiles || [];
+const bandas = [...new Set(CU.map(c=>c.notacion))];
+const ciclosCU = [...new Set(CU.map(c=>c.ciclo_id))].sort();
+const dato = (ciclo, banda, via) => {
+  const f = CU.find(c=>c.ciclo_id===ciclo && c.notacion===banda);
+  return f ? f[via] : 0;
+};
+Plotly.newPlot('cuartil', ciclosCU.flatMap((ciclo, i) =>
+  ['PEAMA','REGULAR'].map((via, j) => ({
+    type:'bar', name:ciclo.replace('PIC_CO_','PIC ') + ' · ' + via.toLowerCase(),
+    x:bandas, y:bandas.map(b=>dato(ciclo, b, via.toLowerCase())),
+    offsetgroup:String(i), legendgroup:ciclo,
+    marker:{color:PALETA_SERIE[i*2 + j]},
+    hovertemplate:'%{x}<br>'+ciclo.replace('PIC_CO_','PIC ')+' · '+via.toLowerCase()
+                 +': %{y:,}<extra></extra>',
+  }))),
+  layout({barmode:'stack', height:340,
+          legend:{orientation:'h', y:1.16, x:0, font:{size:10.5}},
+          xaxis:{title:{text:'cuartil del índice de prioridad'}},
+          yaxis:{title:{text:'estudiantes'}}}));
+
+const sinObservar = CU.filter(c=>!c.observado).map(c=>c.notacion);
+if (sinObservar.length) {
+  $('cuartil-nota').innerHTML =
+    `La banda <b>${esc([...new Set(sinObservar)].join(', '))}</b> no aparece en
+     ninguna de las dos tablas: ninguna sede declara estudiantes de municipios de
+     ese cuartil. Es una ausencia, no un cero medido, y por eso no se dibuja
+     como una barra en cero.`;
+}
 
 /* -------------------------------------------------------------- hallazgos */
 const H = D.v_hallazgos;

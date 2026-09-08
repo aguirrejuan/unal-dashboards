@@ -492,7 +492,7 @@ hallazgo:
 
 - hallazgo_id: V4
   clase: VACIO
-  titulo: La banda de cuartil (0.586,0.649] no aparece nunca
+  titulo: La banda de cuartil (0.586,0.649] no aparece nunca — ver V10
   detalle: >-
     Existe en el esquema y no tiene hechos. Un LEFT JOIN la pintaría igual que
     un cero medido, por eso la columna observado.
@@ -503,6 +503,50 @@ hallazgo:
     FROM cuartil_prioridad q
     LEFT JOIN cobertura_territorial c ON c.cuartil_id = q.cuartil_id
     GROUP BY q.cuartil_id
+
+- hallazgo_id: V10
+  clase: VACIO
+  titulo: Ninguna sede declara estudiantes del segundo cuartil
+  detalle: >-
+    Las Tablas 3 y 8 del Anexo 1 tienen diecisiete renglones cada una. Ocho sedes
+    declaran los dos cuartiles más altos —(0.649,0.711] y (0.711,0.985]— y el
+    Caribe declara sólo el más bajo, [0.287,0.586]. La banda (0.586,0.649] no
+    aparece en ninguna de las dos tablas ni en ninguno de los dos ciclos.
+    Un cuartil contiene por construcción la cuarta parte de los municipios, así
+    que la banda existe; lo que no existe es una fila que declare estudiantes
+    procedentes de ella. El documento no dice si es porque ninguno llegó o porque
+    no se listó, y la columna observado guarda esa diferencia para que un
+    LEFT JOIN no la pinte igual que un cero medido. Sustituye a V4, que decía lo
+    mismo sin señalar que ocurre en los dos ciclos.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 3 y Tabla 8, col 'Cuartil del índice compuesto'
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT q.cuartil_id, q.notacion, count(ct.estudiantes) AS filas
+    FROM cuartil_prioridad q
+    LEFT JOIN cobertura_territorial ct ON ct.cuartil_id = q.cuartil_id
+    GROUP BY q.cuartil_id, q.notacion
+
+- hallazgo_id: E19
+  clase: ERROR
+  titulo: La cobertura por cuartil sumaba dos ciclos en una sola barra
+  detalle: >-
+    Defecto del tablero, no del corpus, y se registra porque estuvo publicado.
+    La Tabla 3 del Anexo reporta la cohorte del PIC 2023 y la Tabla 8 la del PIC
+    2024, con las mismas columnas y cifras distintas —el Caribe declara 135 en
+    una y 78 en la otra—. La consulta que alimentaba el gráfico agrupaba por
+    cuartil y vía sin filtrar por ciclo, así que sumaba las dos cohortes y
+    presentaba el total como si fuera una medición. Es la misma falta que tuvo el
+    gráfico de ETC: un filtro ausente sobre una dimensión que sí importa.
+    Corregido el 2026-09-08; ahora el gráfico separa los dos ciclos.
+  impacto: MEDIO
+  documento_id: ANEXO1_PIC
+  ubicacion: Tabla 3 y Tabla 8
+  estado: VERIFICADO
+  verificacion: >-
+    SELECT ciclo_id, count(*), sum(estudiantes) FROM cobertura_territorial
+    GROUP BY ciclo_id
 
 - hallazgo_id: V5
   clase: VACIO

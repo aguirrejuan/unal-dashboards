@@ -22,7 +22,7 @@ extractions/*.yaml               versionado y diferenciable ┘ + revisión
         │
         │  pic-etl build         determinista · sin red
         ▼
-build/pic.sqlite                 55 tablas, 16 vistas, 1 631 filas · versionado
+build/pic.sqlite                 55 tablas, 16 vistas, 1 633 filas · versionado
         │
         │  pic-etl publish
         ▼
@@ -183,7 +183,7 @@ que este tablero existe para no contar.
 
 ## Hallazgos
 
-43 entradas en el registro, 40 con una consulta que las demuestra: sumas que no
+45 entradas en el registro, 42 con una consulta que las demuestra: sumas que no
 cuadran con sus partes, cifras que un documento copia mal de otro, una misma
 palabra que significa cuatro cosas distintas. No se obtienen retecleando; sólo
 aparecen si los documentos se leen y se comparan entre sí.

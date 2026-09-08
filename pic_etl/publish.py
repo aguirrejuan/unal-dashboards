@@ -246,21 +246,29 @@ def esquema(engine: Engine) -> dict:
 
 
 def _cuartiles(engine: Engine) -> list[dict]:
-    """Coverage by priority quartile and admission route.
+    """Coverage by priority quartile, admission route **and cycle**.
 
-    Every band is returned, including the one with no facts: a dimension member
-    that never appears is not a measured zero, and a chart that silently omits
-    it says the wrong thing.
+    The cycle is not decoration. Tabla 3 of the Anexo reports the PIC 2023 cohort
+    and Tabla 8 the PIC 2024 one, with the same columns and different figures —
+    Caribe is 135 in one and 78 in the other. Grouping without the cycle added
+    the two cohorts into a single bar and presented the total as if it were one
+    measurement, which is the same fault the ETC chart had.
+
+    Every band is returned for every cycle, including the one with no facts: a
+    dimension member that never appears is not a measured zero, and a chart that
+    silently omits it says the wrong thing.
     """
     with engine.connect() as c:
         return [dict(r) for r in c.execute(text("""
-            SELECT q.cuartil_id, q.notacion, q.observado,
+            SELECT q.cuartil_id, q.notacion, q.observado, ciclos.ciclo_id,
                    COALESCE(SUM(CASE WHEN ct.via_id='PEAMA'   THEN ct.estudiantes END), 0) AS peama,
                    COALESCE(SUM(CASE WHEN ct.via_id='REGULAR' THEN ct.estudiantes END), 0) AS regular
             FROM   cuartil_prioridad q
-            LEFT   JOIN cobertura_territorial ct ON ct.cuartil_id = q.cuartil_id
-            GROUP  BY q.cuartil_id, q.notacion, q.observado
-            ORDER  BY q.cuartil_id
+            CROSS  JOIN (SELECT DISTINCT ciclo_id FROM cobertura_territorial) ciclos
+            LEFT   JOIN cobertura_territorial ct
+                   ON ct.cuartil_id = q.cuartil_id AND ct.ciclo_id = ciclos.ciclo_id
+            GROUP  BY q.cuartil_id, q.notacion, q.observado, ciclos.ciclo_id
+            ORDER  BY ciclos.ciclo_id, q.cuartil_id
         """)).mappings()]
 
 
